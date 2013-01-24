@@ -70,8 +70,29 @@ return priceLadder;
 
 
 
-//public static Float[] inventory (MUBet[] MUbets) {
-	//penser à regarder Display pour s'aider!
+	public static Double[] inventory (MUBet[] MUbets) {
+		Double[] inventory=new Double[4];
+		for(int i=0; i<MUbets.length;i++){
+			if(MUbets[i].getBetStatus().toString()=="matched"){
+				if(MUbets[i].getBetType().toString()=="L"){
+					inventory[0]=MUbets[i].getPrice()*MUbets[i].getSize();
+					
+				}
+				if(MUbets[i].getBetType().toString()=="B"){
+					inventory[1]=MUbets[i].getPrice()*MUbets[i].getSize();					
+				}				
+			}
+			if(MUbets[i].getBetStatus().toString()=="unmatched"){
+				if(MUbets[i].getBetType().toString()=="L"){
+					inventory[2]=MUbets[i].getPrice()*MUbets[i].getSize();
+					
+				}
+				if(MUbets[i].getBetType().toString()=="B"){
+					inventory[3]=MUbets[i].getPrice()*MUbets[i].getSize();					
+				}				
+			}
+		}
+		return inventory;
+	}
 	
-	//}
 }
