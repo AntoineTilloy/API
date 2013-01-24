@@ -8,6 +8,7 @@ import demo.util.APIContext;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
 import demo.util.InflatedMarketPrices;
+import generated.exchange.BFExchangeServiceStub.ArrayOfPrice;
 import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
@@ -18,6 +19,7 @@ import generated.exchange.BFExchangeServiceStub.MUBet;
 import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
 import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
+import generated.exchange.BFExchangeServiceStub.Price;
 import generated.exchange.BFExchangeServiceStub.Runner;
 import generated.exchange.BFExchangeServiceStub.UpdateBets;
 import generated.exchange.BFExchangeServiceStub.UpdateBetsResult;
@@ -26,6 +28,8 @@ import generated.global.BFGlobalServiceStub.EventType;
 import generated.global.BFGlobalServiceStub.GetEventsResp;
 import generated.global.BFGlobalServiceStub.MarketSummary;
 import org.apache.log4j.*;
+
+import basics.Basics;
 
 
 /** 
@@ -44,6 +48,8 @@ public class APIDemo {
 	private static final String[] BETS_MENU = new String[] 
  	    {"Place Bet", "Update Bet", "Cancel Bet", "Back"};
 
+
+
 	// The session token
 	private static APIContext apiContext = new APIContext();
 	
@@ -54,12 +60,14 @@ public class APIDemo {
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
 	
+		Float[] priceLadder=Basics.generatePriceLadder ();
 		// Initialise logging and turn logging off. Change OFF to DEBUG for detailed output.
 		Logger rootLog = LogManager.getRootLogger();
 		Level lev = Level.toLevel("OFF");
 		rootLog.setLevel(lev);
 		
 		Display.println("Welcome to the Betfair API Demo");
+		System.out.println("price ladder"); System.out.println(priceLadder[5]);
 		String username = args.length < 1 ? Display.getStringAnswer("Betfair username:") : args[0];
 		String password = args.length < 2 ? Display.getStringAnswer("Betfair password:") : args[1];
 		
@@ -128,6 +136,8 @@ public class APIDemo {
 		}
 		Display.println("Logout successful");
 	}
+
+
 
 	// Check if a market is selected
 	private static boolean isMarketSelected() {
@@ -207,7 +217,8 @@ public class APIDemo {
 			Display.showCompleteMarket(selectedExchange, selectedMarket, prices);
 		}
 	}
-
+	
+	
 	// show all my matched and unmatched bets specified market.
 	private static void manageBets() throws Exception {
 		if (isMarketSelected()) {
