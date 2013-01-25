@@ -29,6 +29,8 @@ import generated.global.BFGlobalServiceStub.GetEventsResp;
 import generated.global.BFGlobalServiceStub.MarketSummary;
 import org.apache.log4j.*;
 
+import strats.StratPierre;
+
 import basics.Basics;
 
 
@@ -46,16 +48,16 @@ public class APIDemo {
 	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit"};
 	   
 	private static final String[] BETS_MENU = new String[] 
- 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back"};
+ 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine"};
 
 
 
 	// The session token
-	private static APIContext apiContext = new APIContext();
+	public static APIContext apiContext = new APIContext();
 	
 	// the current chosen market and Exchange for that market
-	private static Market selectedMarket;
-	private static Exchange selectedExchange;
+	public static Market selectedMarket;
+	public static Exchange selectedExchange;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
@@ -242,6 +244,17 @@ public class APIDemo {
 					case 3: // Back
 						finished = true;
 						break;
+					case 4: // Back
+						StratPierre strat = null;
+						strat.launch();
+						break;
+					case 5: // Back
+						finished = true;
+						break;
+					case 6: // Back
+						finished = true;
+						break;
+					
 				}
 			}
 		}

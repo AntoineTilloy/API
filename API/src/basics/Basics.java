@@ -70,29 +70,39 @@ return priceLadder;
 
 
 
-	public static Double[] inventory (MUBet[] MUbets) {
+	public static Double[] getInventory (MUBet[] MUbets) {
 		Double[] inventory=new Double[4];
+		inventory[0]=0.0;
+		inventory[1]=0.0;
+		inventory[2]=0.0;
+		inventory[3]=0.0;
 		for(int i=0; i<MUbets.length;i++){
 			if(MUbets[i].getBetStatus().toString()=="matched"){
 				if(MUbets[i].getBetType().toString()=="L"){
-					inventory[0]=MUbets[i].getPrice()*MUbets[i].getSize();
+					inventory[0]+=MUbets[i].getPrice()*MUbets[i].getSize();
 					
 				}
 				if(MUbets[i].getBetType().toString()=="B"){
-					inventory[1]=MUbets[i].getPrice()*MUbets[i].getSize();					
+					inventory[1]+=MUbets[i].getPrice()*MUbets[i].getSize();					
 				}				
 			}
 			if(MUbets[i].getBetStatus().toString()=="unmatched"){
 				if(MUbets[i].getBetType().toString()=="L"){
-					inventory[2]=MUbets[i].getPrice()*MUbets[i].getSize();
+					inventory[2]+=MUbets[i].getPrice()*MUbets[i].getSize();
 					
 				}
 				if(MUbets[i].getBetType().toString()=="B"){
-					inventory[3]=MUbets[i].getPrice()*MUbets[i].getSize();					
+					inventory[3]+=MUbets[i].getPrice()*MUbets[i].getSize();					
 				}				
 			}
 		}
 		return inventory;
+	}
+	
+	public static void printInventory(Double[] inventory){
+		for(int i=0;i<4;i++){
+			System.out.println(inventory[i]);
+		}
 	}
 	
 }
