@@ -24,11 +24,10 @@ public class StratPierre {
 	
 	public static void launch() {
 		MUBet[] bets;
-		System.out.println("dans launch");
 		
 		try {
 			bets= ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			Double[] inventory=Basics.getInventory(bets);
+			Double[][] inventory=Basics.getInventory(bets);
 			Basics.printInventory(inventory);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

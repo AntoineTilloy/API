@@ -5,8 +5,10 @@ import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
 import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
+import generated.exchange.BFExchangeServiceStub.Runner;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,6 +23,9 @@ import demo.util.InflatedCompleteMarketPrices;
 import generated.exchange.BFExchangeServiceStub.MUBet;
 
 public class Basics {// Ajouté par pierre
+	private static final int numberofRunners = 0;
+
+
 	public static Float[] generatePriceLadder () {
 		Float[] priceLadder=new Float[360];
 		int i;
@@ -70,41 +75,59 @@ return priceLadder;
 
 
 
-	public static Double[] getInventory (MUBet[] MUbets) {
-		Double[] inventory=new Double[4];
-		inventory[0]=0.0;
-		inventory[1]=0.0;
-		inventory[2]=0.0;
-		inventory[3]=0.0;
-		for(int i=0; i<MUbets.length;i++){
-			System.out.print("status " + MUbets[i].getBetStatus().toString());
-			System.out.println("type " + MUbets[i].getBetType().toString());
+	public static Double[][] getInventory (MUBet[] MUbets) {
+		Market m= APIDemo.selectedMarket;
+		
+		int j=0;
+	
+		Double[][] inventory=new Double[4][];
+		
+		
+		for (Runner mr: m.getRunners().getRunner()) {
+			//if (mr.getSelectionId() == b.getSelectionId()) 		
+		
+			inventory[j][0]=0.0;
+			inventory[j][1]=0.0;
+			inventory[j][2]=0.0;
+			inventory[j][3]=0.0;
+			//Attention, colone 4 est le selection id du runner en float!
+			inventory[j][4]=(double) (mr.getSelectionId());
 			
-			if(MUbets[i].getBetStatus().toString()=="M"){
-				if(MUbets[i].getBetType().toString()=="L"){
-					inventory[0]+=MUbets[i].getPrice()*MUbets[i].getSize();
-					
-				}
-				if(MUbets[i].getBetType().toString()=="B"){
-					inventory[1]+=MUbets[i].getPrice()*MUbets[i].getSize();					
-				}				
+			for(int i=0; i<MUbets.length;i++){			
+				if(MUbets[i].getSelectionId()==mr.getSelectionId())	
+					if(MUbets[i].getBetStatus().toString()=="M"){
+							if(MUbets[i].getBetType().toString()=="L"){
+								inventory[j][0]+=MUbets[i].getPrice()*MUbets[i].getSize();
+								
+							}
+							if(MUbets[i].getBetType().toString()=="B"){
+								inventory[j][1]+=MUbets[i].getPrice()*MUbets[i].getSize();					
+							}				
+						}
+					if(MUbets[i].getBetStatus().toString()=="U"){
+						if(MUbets[i].getBetType().toString()=="L"){
+							inventory[j][2]+=MUbets[i].getPrice()*MUbets[i].getSize();
+							
+						}
+						if(MUbets[i].getBetType().toString()=="B"){
+							inventory[j][3]+=MUbets[i].getPrice()*MUbets[i].getSize();					
+						}				
+					}		
 			}
-			if(MUbets[i].getBetStatus().toString()=="U"){
-				if(MUbets[i].getBetType().toString()=="L"){
-					inventory[2]+=MUbets[i].getPrice()*MUbets[i].getSize();
-					
-				}
-				if(MUbets[i].getBetType().toString()=="B"){
-					inventory[3]+=MUbets[i].getPrice()*MUbets[i].getSize();					
-				}				
-			}
+			j++;
 		}
 		return inventory;
 	}
 	
-	public static void printInventory(Double[] inventory){
-		for(int i=0;i<4;i++){
-			System.out.println(inventory[i]);
+	
+	public static void printInventory(Double[][] inventory){
+		
+		for(int k =0; k<inventory.length; k++){
+			for(int i=0;i<4;i++){
+				System.out.print(inventory[k][i]+" ");
+			}
+			System.out.println();
+			
 		}
 	}
 	
