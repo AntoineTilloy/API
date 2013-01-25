@@ -245,8 +245,8 @@ public class APIDemo {
 						finished = true;
 						break;
 					case 4: // Back
-						StratPierre strat = null;
-						strat.launch();
+						//StratPierre strat = null;
+						StratPierre.launch();
 						break;
 					case 5: // Back
 						finished = true;

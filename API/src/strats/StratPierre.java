@@ -22,7 +22,7 @@ import demo.util.InflatedCompleteMarketPrices;
 public class StratPierre {
 
 	
-	public void launch() {
+	public static void launch() {
 		MUBet[] bets;
 		System.out.println("dans launch");
 		
