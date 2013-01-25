@@ -23,7 +23,7 @@ import demo.util.InflatedCompleteMarketPrices;
 import generated.exchange.BFExchangeServiceStub.MUBet;
 
 public class Basics {// Ajouté par pierre
-	private static final int numberofRunners = 8;
+	private static int numberofRunners = 0;
 
 
 	public static Float[] generatePriceLadder () {
@@ -80,7 +80,7 @@ return priceLadder;
 		
 		int j=0;
 	
-		Double[][] inventory= new Double[8][5];
+		Double[][] inventory= new Double[30][5];
 		
 		
 		for (Runner mr: m.getRunners().getRunner()) {
@@ -116,13 +116,14 @@ return priceLadder;
 			}
 			j++;
 		}
+		numberofRunners=j;
 		return inventory;
 	}
 	
 	
 	public static void printInventory(Double[][] inventory){
 		
-		for(int k =0; k<inventory.length; k++){
+		for(int k =0; k<numberofRunners; k++){
 			for(int i=0;i<4;i++){
 				System.out.print(inventory[k][i]+" ");
 			}
