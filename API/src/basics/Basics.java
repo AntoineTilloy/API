@@ -94,7 +94,7 @@ return priceLadder;
 			inventory[j][4]=(double) (mr.getSelectionId());
 			
 			for(int i=0; i<MUbets.length;i++){			
-				if(MUbets[i].getSelectionId()==mr.getSelectionId())	
+				if(MUbets[i].getSelectionId()==mr.getSelectionId()){	
 					if(MUbets[i].getBetStatus().toString()=="M"){
 							if(MUbets[i].getBetType().toString()=="L"){
 								inventory[j][0]+=MUbets[i].getPrice()*MUbets[i].getSize();
@@ -113,6 +113,7 @@ return priceLadder;
 							inventory[j][3]+=MUbets[i].getPrice()*MUbets[i].getSize();					
 						}				
 					}		
+				}	
 			}
 			j++;
 		}
