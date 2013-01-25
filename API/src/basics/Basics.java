@@ -77,6 +77,9 @@ return priceLadder;
 		inventory[2]=0.0;
 		inventory[3]=0.0;
 		for(int i=0; i<MUbets.length;i++){
+			System.out.print("status" + MUbets[i].getBetStatus().toString());
+			System.out.println("type" + MUbets[i].getBetType().toString());
+			
 			if(MUbets[i].getBetStatus().toString()=="matched"){
 				if(MUbets[i].getBetType().toString()=="L"){
 					inventory[0]+=MUbets[i].getPrice()*MUbets[i].getSize();
