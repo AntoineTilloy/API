@@ -70,13 +70,16 @@ public class APIDemo {
 		
 		Display.println("Welcome to the Betfair API Demo");
 		System.out.println("price ladder"); System.out.println(priceLadder[5]);
-		String username = args.length < 1 ? Display.getStringAnswer("Betfair username:") : args[0];
-		String password = args.length < 2 ? Display.getStringAnswer("Betfair password:") : args[1];
+		//On se connecte direct au compte
+		//String username = args.length < 1 ? Display.getStringAnswer("Betfair username:") : args[0];
+		//String password = args.length < 2 ? Display.getStringAnswer("Betfair password:") : args[1];
 		
 		// Perform the login before anything else.
 		try
 		{
-			GlobalAPI.login(apiContext, username, password);
+			GlobalAPI.login(apiContext, "gregstubbe01", "sowhat01+");
+			System.out.println("connexion à gregstubbe 01");
+			//	GlobalAPI.login(apiContext, username, password);
 		}
 		catch (Exception e)
 		{
