@@ -24,6 +24,7 @@ public class StratPierre {
 	
 	public void launch() {
 		MUBet[] bets;
+		System.out.println("dans launch");
 		
 		try {
 			bets= ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
