@@ -124,7 +124,7 @@ return priceLadder;
 	public static void printInventory(Double[][] inventory){
 		
 		for(int k =0; k<numberofRunners; k++){
-			for(int i=0;i<4;i++){
+			for(int i=0;i<5;i++){
 				System.out.print(inventory[k][i]+" ");
 			}
 			System.out.println();
