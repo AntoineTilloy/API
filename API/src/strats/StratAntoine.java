@@ -1,6 +1,8 @@
 package strats;
 
 public class StratAntoine {
-	// J'espère que je vais enfin pouvoir foutre quelque chose dans ma strat sans que vous effaciez tout ^^
-
+	// J'espï¿½re que je vais enfin pouvoir foutre quelque chose dans ma strat sans que vous effaciez tout ^^
+	public static void optimalUnwind(int marketId){
+		
+	}
 }
