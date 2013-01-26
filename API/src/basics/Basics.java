@@ -145,10 +145,7 @@ return priceLadder;
 		int iter1=0;
 		int iter2=0;
 		int test=0;
-		
-		for (int i=0;i<10;i++){
-			System.out.println();
-		}
+	
 		
 		if(type=="B"){	
 			
