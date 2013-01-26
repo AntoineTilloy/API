@@ -163,7 +163,9 @@ return priceLadder;
 							//System.out.println("at"+p.getPrice());
 						//	break;
 						//}
-																
+							
+						
+						
 						lastprice=price;
 					}
 					
