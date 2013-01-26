@@ -200,6 +200,8 @@ return priceLadder;
 		int a=0;
 		int b=APIDemo.priceLadder.length;
 		int t=0;
+		
+		//erreur à la fin
 		while (a!=b)
 		{
 			t=(int) Math.floor((a+b)/2)+1;
