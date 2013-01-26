@@ -48,12 +48,7 @@ public class StratAntoine {
 		}
 		
 
-		//Pierre1
-
-		//Jonathan
-
-
-		//Jona
+//comment
 		
 	}
 }
