@@ -146,6 +146,10 @@ return priceLadder;
 		int iter2=0;
 		int test=0;
 		
+		for (int i=0;i<10;i++){
+			System.out.println();
+		}
+		
 		if(type=="B"){	
 			
 			
@@ -156,7 +160,6 @@ return priceLadder;
 				
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						System.out.println();
 						System.out.println("volume"+p.getBackAmountAvailable());
 						System.out.println("at"+p.getPrice());
 						//if(p.getBackAmountAvailable()<=0.00001){
