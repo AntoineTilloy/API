@@ -155,7 +155,10 @@ return priceLadder;
 				
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						if(p.getBackAmountAvailable()<=0.00001){System.out.println("volume"+p.getBackAmountAvailable()); break;}
+						if(p.getBackAmountAvailable()<=0.00001){
+							System.out.println("volume"+p.getBackAmountAvailable());
+							System.out.println("at"+p.getPrice());
+							break;}
 																
 						lastprice=price;
 					}
