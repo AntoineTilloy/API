@@ -142,8 +142,6 @@ return priceLadder;
 		Double price=0.0;
 		Double lastprice=0.0;
 		Double returnprice=0.0;
-		int iter1=0;
-		int iter2=0;
 		int test=0;
 	
 		
@@ -151,9 +149,8 @@ return priceLadder;
 			
 			
 			for (InflatedCompleteRunner r: OB.getRunners()) {
-			iter1++;
+		
 				if (SelectionId == r.getSelectionId()){
-				iter2++;
 				
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
@@ -173,10 +170,7 @@ return priceLadder;
 				
 			}
 			returnprice=lastprice;
-		}						
-			
-			System.out.println(iter1 +" "+ iter2);
-		
+		}								
 		
 		if(type=="L"){
 		

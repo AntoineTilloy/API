@@ -37,6 +37,10 @@ public class StratPierre {
 			System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;
 			System.out.println("Lay best at 1:");
 			System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
+			for(int j=0; j<4;j++){				
+				System.out.println(OB.getRunners().get(j).toString());
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
