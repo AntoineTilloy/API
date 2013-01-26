@@ -8,12 +8,13 @@ import demo.util.InflatedCompleteMarketPrices;
 
 public class StratAntoine {
 
-	public static Double[] linspace(double min, double max, int number){
+	public static double[] linspace(double min, double max, int number){
 		double[] array=new double[number];
 		double step=(max-min)/number;
 		for (int i=0; i<number;i=i+1){
-			array[i]=0
+			array[i]=step*i+min;
 		}
+		return array;
 	}
 	
 	public static double getHighestPosition(Double[][] inventory){
