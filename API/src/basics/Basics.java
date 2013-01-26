@@ -196,4 +196,23 @@ return priceLadder;
 		
 	}
 	
+	public static int findPriceLadder(Double prix ){
+		int a=0;
+		int b=APIDemo.priceLadder.length;
+		int t=0;
+		while (a!=b)
+		{
+			t=(int) Math.floor((a+b)/2)+1;
+		  if(APIDemo.priceLadder[t]>prix){
+			 b=t; 
+		  }
+		  if(APIDemo.priceLadder[t]<prix){
+			 a=t; 
+		  } 
+		}
+		return a;
+	}
+	
+	
+	
 }

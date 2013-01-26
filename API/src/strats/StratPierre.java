@@ -32,14 +32,19 @@ public class StratPierre {
 			Basics.printInventory(inventory);
 			System.out.println("###############");
 			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			InflatedCompleteRunner r= OB.getRunners().get(1);
-			System.out.println("Back best at 1:");
-			System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;
-			System.out.println("Lay best at 1:");
-			System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
-			for(int j=0; j<4;j++){				
-				System.out.println(OB.getRunners().get(j).getSelectionId());
+
+			for(int j=0; j<3;j++){
+				System.out.println("###############");
+				System.out.print(OB.getRunners().get(j).getSelectionId());
+				InflatedCompleteRunner r= OB.getRunners().get(j);
+				System.out.print("Back best: ");
+				System.out.print(Basics.findBest("B",OB,r.getSelectionId()))	;
+				System.out.print("Lay best at: ");
+				System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
 			}
+			System.out.println("!!!!!!!!!!!!!!!");
+			System.out.println(Basics.findPriceLadder(Basics.findBest("L",OB,OB.getRunners().get(0).getSelectionId())));
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
