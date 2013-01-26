@@ -34,7 +34,9 @@ public class StratPierre {
 			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			InflatedCompleteRunner r= OB.getRunners().get(1);
 			System.out.println("Back best at 1:");
-			System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;	
+			System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;
+			System.out.println("Lay best at 1:");
+			System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
