@@ -47,7 +47,13 @@ public class StratAntoine {
 			e.printStackTrace();
 		}
 		
+
+		//Pierre1
+
 		//Jonathan
+
+
+		//Jona
 		
 	}
 }
