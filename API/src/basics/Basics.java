@@ -209,6 +209,8 @@ return priceLadder;
 		  if(APIDemo.priceLadder[t]<prix){
 			 a=t; 
 		  } 
+		  System.out.print("a= "+ a);
+		  System.out.println(" b= "+ b);
 		}
 		return a;
 	}
