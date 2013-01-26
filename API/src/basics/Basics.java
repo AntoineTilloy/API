@@ -204,12 +204,12 @@ return priceLadder;
 		//erreur à la fin
 		while (a!=b)
 		{
-			t=(int) Math.floor((a+b)/2)+1;
-		  if(APIDemo.priceLadder[t]>=prix){
-			 b=t; 
+			t=(int) Math.floor((a+b)/2);
+		  if(APIDemo.priceLadder[t]>prix){
+			 b=t-1; 
 		  }
-		  if(APIDemo.priceLadder[t]<=prix){
-			 a=t; 
+		  if(APIDemo.priceLadder[t]<prix){
+			 a=t+1; 
 		  } 
 		  System.out.print("a= "+ a);
 		  System.out.println(" b= "+ b);
