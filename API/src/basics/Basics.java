@@ -164,8 +164,6 @@ return priceLadder;
 						//	break;
 						//}
 							
-						
-						
 						lastprice=price;
 					}
 					
