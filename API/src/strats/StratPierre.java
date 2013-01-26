@@ -18,6 +18,7 @@ import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
+import demo.util.InflatedCompleteMarketPrices.InflatedCompleteRunner;
 
 public class StratPierre {
 
@@ -29,6 +30,11 @@ public class StratPierre {
 			bets= ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			Double[][] inventory=Basics.getInventory(bets);
 			Basics.printInventory(inventory);
+			System.out.println("###############");
+			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			InflatedCompleteRunner r= OB.getRunners().get(1);
+			System.out.println("Back best at 1:");
+			System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

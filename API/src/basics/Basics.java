@@ -17,8 +17,11 @@ import java.util.Date;
 
 import demo.APIDemo;
 import demo.handler.ExchangeAPI;
+import demo.handler.ExchangeAPI.Exchange;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
+import demo.util.InflatedCompleteMarketPrices.InflatedCompletePrice;
+import demo.util.InflatedCompleteMarketPrices.InflatedCompleteRunner;
 
 import generated.exchange.BFExchangeServiceStub.MUBet;
 
@@ -90,7 +93,7 @@ return priceLadder;
 			inventory[j][1]=0.0;
 			inventory[j][2]=0.0;
 			inventory[j][3]=0.0;
-			//Attention, colone 4 est le selection id du runner en float!
+			//Attention, colone 4 est le selection id du runner en Double!
 			inventory[j][4]=(double) (mr.getSelectionId());
 			
 			for(int i=0; i<MUbets.length;i++){			
@@ -131,6 +134,62 @@ return priceLadder;
 			System.out.println();
 			
 		}
+	}
+	
+	
+	public static Double findBest(String type, InflatedCompleteMarketPrices OB, int SelectionId ){
+
+		Double price=0.0;
+		Double lastprice=0.0;
+		Double returnprice=0.0;
+		
+		if(type=="B"){	
+			
+			
+			for (InflatedCompleteRunner r: OB.getRunners()) {
+			
+				if (SelectionId == r.getSelectionId()){
+				
+				
+					for ( InflatedCompletePrice p: r.getPrices()) {
+						price = p.getPrice();
+						if(p.getBackAmountAvailable()<=0.0){break;}
+																
+						lastprice=price;
+					}
+				break;
+				}
+			}
+			returnprice=lastprice;
+		}						
+			
+			
+		
+		
+		if(type=="L"){
+		
+			for (InflatedCompleteRunner r: OB.getRunners()) {
+			
+				if (SelectionId == r.getSelectionId()){
+				
+				
+					for ( InflatedCompletePrice p: r.getPrices()) {
+						price = p.getPrice();
+						if(p.getLayAmountAvailable()<=0.0){break;}
+																
+						lastprice=price;
+					}
+				break;
+				}
+				
+			}	
+			returnprice=price;						
+		}
+		
+		
+		return returnprice;
+		 
+		
 	}
 	
 }
