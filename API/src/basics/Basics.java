@@ -144,6 +144,7 @@ return priceLadder;
 		Double returnprice=0.0;
 		int iter1=0;
 		int iter2=0;
+		int test=0;
 		
 		if(type=="B"){	
 			
@@ -158,10 +159,12 @@ return priceLadder;
 						if(p.getBackAmountAvailable()<=0.00001){
 							System.out.println("volume"+p.getBackAmountAvailable());
 							System.out.println("at"+p.getPrice());
-							break;}
+						//	break;
+						}
 																
 						lastprice=price;
 					}
+					
 				break;
 				}
 			}
@@ -180,7 +183,7 @@ return priceLadder;
 				
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						if(p.getLayAmountAvailable()>=0.0){break;}
+						if(p.getLayAmountAvailable()>=0.00001 ){break;}
 																
 						lastprice=price;
 					}
