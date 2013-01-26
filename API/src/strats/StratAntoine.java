@@ -47,5 +47,7 @@ public class StratAntoine {
 		}
 		
 		
+		//Ah ouais t'as bien avancé^^
+		
 	}
 }
