@@ -205,10 +205,10 @@ return priceLadder;
 		while (a!=b)
 		{
 			t=(int) Math.floor((a+b)/2)+1;
-		  if(APIDemo.priceLadder[t]>prix){
+		  if(APIDemo.priceLadder[t]>=prix){
 			 b=t; 
 		  }
-		  if(APIDemo.priceLadder[t]<prix){
+		  if(APIDemo.priceLadder[t]<=prix){
 			 a=t; 
 		  } 
 		  System.out.print("a= "+ a);
