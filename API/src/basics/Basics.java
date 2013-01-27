@@ -286,7 +286,7 @@ return priceLadder;
 			for(int i=0; i<MUbets.length;i++){			
 				if(MUbets[i].getSelectionId()==SelectionId){	
 					if(MUbets[i].getBetStatus().toString()==type){
-						if(MUbets[i].getBetType().toString()=="M"){
+						if(MUbets[i].getBetType().toString()=="U"){
 							volume+=MUbets[i].getPrice()*MUbets[i].getSize();
 						}
 					}	
