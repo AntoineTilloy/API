@@ -44,43 +44,43 @@ public class Basics {// Ajouté par pierre
 		int[] priceLadder=new int[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=(int)(100* (1+0.01*i));
+			priceLadder[i]=100+i;
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=(int)(100* (2+0.02*i));
+			priceLadder[100+i]=200+2*i;
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=(int)(100* (3+0.05*i));
+			priceLadder[150+i]=300+5*i;
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=(int)(100* (4+0.1*i));
+			priceLadder[170+i]=400+10*i;
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=(int)(100* (6+0.2*i));
+			priceLadder[190+i]=600+20*i;
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=(int)(100* (10+0.5*i));
+			priceLadder[210+i]=1000+50*i;
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]= (int)(100* (20+1*i));
+			priceLadder[230+i]= 2000+100*i;
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=(int)(100* (30+2*i));
+			priceLadder[240+i]=3000+200*i;
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=(int)(100* (50+5*i));
+			priceLadder[250+i]=5000+500*i;
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]= (int)(100*(100+10*i));
+			priceLadder[260+i]=10000+1000*i;
 		
 		}
 		
