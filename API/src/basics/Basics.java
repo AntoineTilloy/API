@@ -279,14 +279,14 @@ return priceLadder;
 	}
 	
 	
-	public static Double volumeAt (int SelectionId,String type,Double Price,MUBet[] MUbets) {
-		Double volume=0.00;
+	public static double volumeAt (int SelectionId,String type,Double Price,MUBet[] MUbets) {
+		double volume=0.00;
 
 					
 			for(int i=0; i<MUbets.length;i++){			
 				if(MUbets[i].getSelectionId()==SelectionId){	
 					if(MUbets[i].getBetStatus().toString()=="U"){
-						if(MUbets[i].getBetType().toString()==type & (Double) MUbets[i].getPrice()== Price){
+						if(MUbets[i].getBetType().toString()==type & Math.abs(MUbets[i].getPrice()- (double) Price)<0.001){
 							volume+=MUbets[i].getSize();
 						}
 					}	
