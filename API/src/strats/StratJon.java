@@ -18,15 +18,16 @@ import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
 
 public class StratJon {
-/*
+
 //##################################################A METTRE DANS LA CLASSE PRINCIPALE	
 	public static Date currentTime = new Date();
-	//public static double[] inventaire=new double[4]; ou pas?
 	public static double volume;
     public static Date startTime=currentTime;  // A AFFECTER
     public static Date stopTime; // A AFFECTER
     public static double volumeMaxImb;
     public static double nbLevels; 
+    
+   public static  void strat(){
     
 	if(currentTime<stopTime){
 
@@ -97,6 +98,6 @@ public class StratJon {
 	}
 
 	}
-	*/
+}
 }
 
