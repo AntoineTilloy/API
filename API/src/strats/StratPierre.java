@@ -49,9 +49,9 @@ public class StratPierre {
 			Double size=Display.getDoubleAnswer("Size :", true);
 			int runner=Display.getIntAnswer("runner :");
 			InflatedCompleteMarketPrices OB1 = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			Double best=Basics.findBest(Type, OB1, OB.getRunners().get(runner).getSelectionId());
+			Double best=Basics.findBest(Type, OB1, OB1.getRunners().get(runner).getSelectionId());
 			System.out.println(best);
-			boolean b=Basics.placeBetlevel(Type, best, level, size, OB.getRunners().get(runner).getSelectionId());
+			boolean b=Basics.placeBetlevel(Type, best, level, size, OB1.getRunners().get(runner).getSelectionId());
 			System.out.println(b);
 			
 		} catch (Exception e) {
