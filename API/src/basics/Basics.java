@@ -28,6 +28,17 @@ import generated.exchange.BFExchangeServiceStub.MUBet;
 public class Basics {// Ajouté par pierre
 	private static int numberofRunners = 0;
 
+  public static void waiting (int n){
+        
+        long t0, t1;
+
+        t0 =  System.currentTimeMillis();
+
+        do{
+            t1 = System.currentTimeMillis();
+        }
+        while ((t1 - t0) < (n * 1000));
+    }
 
 	public static Double[] generatePriceLadder () {
 		Double[] priceLadder=new Double[360];
