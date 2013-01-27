@@ -259,8 +259,9 @@ public class APIDemo {
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
+						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
-						stopTime.add(Calendar.MINUTE, -2);
+						stopTime.add(Calendar.MINUTE, -delay);
 						StratJon.launch(nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
