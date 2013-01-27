@@ -16,20 +16,16 @@ import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
+import java.util.Calendar;
+import java.util.*;
 
 public class StratJon {
 
-//##################################################A METTRE DANS LA CLASSE PRINCIPALE	
-	public static Date currentTime = new Date();
-	public static double volume;
-    public static Date startTime=currentTime;  // A AFFECTER
-    public static Date stopTime; // A AFFECTER
-    public static double volumeMaxImb;
-    public static double nbLevels; 
+    stoptime=APIDemo.selectedMarket.getMarketTime().getTime();
     
-   public static  void strat(){
+   public static  void strat(double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
     
-	if(currentTime<stopTime){
+	if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 
 	//Récupérer les Matched et Unmatched
 	MUBet[] MUbets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
