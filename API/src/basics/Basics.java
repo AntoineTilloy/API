@@ -37,7 +37,7 @@ public class Basics {// Ajouté par pierre
         do{
             t1 = System.currentTimeMillis();
         }
-        while ((t1 - t0) < (n * 1000));
+        while ((t1 - t0) < n );
     }
 
 	public static Double[] generatePriceLadder () {
