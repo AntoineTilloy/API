@@ -16,8 +16,9 @@ import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
-import java.util.Calendar;
 import java.util.*;
+
+import basics.Basics;
 
 public class StratJon {
 
@@ -27,6 +28,7 @@ public class StratJon {
 	if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 
 	//Récupérer les Matched et Unmatched
+	Basics.waiting(1000);
 	MUBet[] MUbets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
 	//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
