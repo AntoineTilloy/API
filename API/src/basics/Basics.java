@@ -142,16 +142,15 @@ return priceLadder;
 		Double price=0.0;
 		Double lastprice=0.0;
 		Double returnprice=0.0;
-		int test=0;
 	
 		
 		if(type=="B"){	
-			
+			System.out.println("yoB");
 			
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 		
 				if (SelectionId == r.getSelectionId()){
-				
+					System.out.println("yoId");
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
 						if(p.getBackAmountAvailable()<=0.00001){
