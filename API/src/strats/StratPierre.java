@@ -43,6 +43,7 @@ public class StratPierre {
 				System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
 			}
 			System.out.println("!!!!!!!!!!!!!!!");
+			
 			System.out.println(Basics.findPriceLadder(Basics.findBest("L",OB,OB.getRunners().get(0).getSelectionId())));
 			String Type= Display.getStringAnswer("Type :");
 			int level=Display.getIntAnswer("Level :");
