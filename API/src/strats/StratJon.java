@@ -16,7 +16,7 @@ public class StratJon {
 
 boolean exitStrat=false;
 	   
-while(exitStrat=false){
+while(exitStrat==false){
 	   
 try{	
 			
