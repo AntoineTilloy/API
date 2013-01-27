@@ -164,7 +164,7 @@ return priceLadder;
 
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						if(p.getBackAmountAvailable()<=0.00001){
+						if(p.getBackAmountAvailable()==0.0 & p.getLayAmountAvailable()>0.0){
 							//System.out.println("volume"+p.getBackAmountAvailable());
 							//System.out.println("at"+p.getPrice());
 							break;
