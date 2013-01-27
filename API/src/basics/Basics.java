@@ -44,43 +44,43 @@ public class Basics {// Ajouté par pierre
 		Double[] priceLadder=new Double[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=(double) (1+0.01*i);
+			priceLadder[i]=(Double) (1+0.01*i);
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=(double) (2+0.02*i);
+			priceLadder[100+i]=(Double) (2+0.02*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=(double) (3+0.05*i);
+			priceLadder[150+i]=(Double) (3+0.05*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=(double) (4+0.1*i);
+			priceLadder[170+i]=(Double) (4+0.1*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=(double) (6+0.2*i);
+			priceLadder[190+i]=(Double) (6+0.2*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=(double) (10+0.5*i);
+			priceLadder[210+i]=(Double) (10+0.5*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]=(double) (20+1*i);
+			priceLadder[230+i]=(Double) (double) (20+1*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=(double) (30+2*i);
+			priceLadder[240+i]=(Double)(double) (30+2*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=(double) (50+5*i);
+			priceLadder[250+i]=(Double)(double) (50+5*i);
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]=(double) (100+10*i);
+			priceLadder[260+i]=(Double)(double) (100+10*i);
 		
 		}
 return priceLadder;
