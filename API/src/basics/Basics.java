@@ -40,47 +40,47 @@ public class Basics {// Ajouté par pierre
         while ((t1 - t0) < n );
     }
 
-	public static Double[] generatePriceLadder () {
-		Double[] priceLadder=new Double[360];
+	public static double[] generatePriceLadder () {
+		double[] priceLadder=new double[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=(Double) (1+0.01*i);
+			priceLadder[i]=(double) (1+0.01*i);
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=(Double) (2+0.02*i);
+			priceLadder[100+i]=(double) (2+0.02*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=(Double) (3+0.05*i);
+			priceLadder[150+i]=(double) (3+0.05*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=(Double) (4+0.1*i);
+			priceLadder[170+i]=(double) (4+0.1*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=(Double) (6+0.2*i);
+			priceLadder[190+i]=(double) (6+0.2*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=(Double) (10+0.5*i);
+			priceLadder[210+i]=(double) (10+0.5*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]=(Double) (double) (20+1*i);
+			priceLadder[230+i]= (double) (20+1*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=(Double)(double) (30+2*i);
+			priceLadder[240+i]=(double) (30+2*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=(Double)(double) (50+5*i);
+			priceLadder[250+i]=(double) (50+5*i);
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]=(Double)(double) (100+10*i);
+			priceLadder[260+i]=(double) (100+10*i);
 		
 		}
 return priceLadder;
@@ -89,12 +89,12 @@ return priceLadder;
 
 
 
-	public static Double[][] getInventory (MUBet[] MUbets) {
+	public static double[][] getInventory (MUBet[] MUbets) {
 		Market m= APIDemo.selectedMarket;
 		
 		int j=0;
 	
-		Double[][] inventory= new Double[30][5];
+		double[][] inventory= new double[30][5];
 		
 		
 		for (Runner mr: m.getRunners().getRunner()) {
@@ -104,7 +104,7 @@ return priceLadder;
 			inventory[j][1]=0.0;
 			inventory[j][2]=0.0;
 			inventory[j][3]=0.0;
-			//Attention, colone 4 est le selection id du runner en Double!
+			//Attention, colone 4 est le selection id du runner en double!
 			inventory[j][4]=(double) (mr.getSelectionId());
 			
 			for(int i=0; i<MUbets.length;i++){			
@@ -136,7 +136,7 @@ return priceLadder;
 	}
 	
 	
-	public static void printInventory(Double[][] inventory){
+	public static void printInventory(double[][] inventory){
 		
 		for(int k =0; k<numberofRunners; k++){
 			for(int i=0;i<5;i++){
@@ -149,14 +149,14 @@ return priceLadder;
 	
 	
 	
-	public static Double findBest(String type, InflatedCompleteMarketPrices OB, int SelectionId ){
+	public static double findBest(String type, InflatedCompleteMarketPrices OB, int SelectionId ){
 
 		//Attention, renvoie le best placé sur l'OB de ce type: best(B)>best(L) !!!
 		
 		
-		Double price=0.0;
-		Double lastprice=0.0;
-		Double returnprice=0.0;
+		double price=0.0;
+		double lastprice=0.0;
+		double returnprice=0.0;
 		//System.out.println(SelectionId);
 		
 		if(type=="L"){	
@@ -210,7 +210,7 @@ return priceLadder;
 		
 	}
 	
-	public static int findPriceLadder(Double prix ){
+	public static int findPriceLadder(double prix ){
 		int a=0;
 		int b=APIDemo.priceLadder.length;
 		int t=0;
@@ -232,7 +232,7 @@ return priceLadder;
 	}
 	
 	
-	public static boolean placeBetlevel(String Type,Double best, int level,Double size,int SelectionId){
+	public static boolean placeBetlevel(String Type,double best, int level,double size,int SelectionId){
 		boolean res=false;
 		
 		if(Type=="B"){
@@ -279,7 +279,7 @@ return priceLadder;
 	}
 	
 	
-	public static double volumeAt (int SelectionId,String type,Double Price,MUBet[] MUbets) {
+	public static double volumeAt (int SelectionId,String type,double Price,MUBet[] MUbets) {
 		double volume=0.00;
 
 					
