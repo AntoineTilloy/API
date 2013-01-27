@@ -29,7 +29,7 @@ try{
 	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
 	//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
-	double[][] inventaire=Basics.getInventory(MUBets);
+	Double[][] inventaire=Basics.getInventory(MUBets);
 
 	//récupérer l'OB
 	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());

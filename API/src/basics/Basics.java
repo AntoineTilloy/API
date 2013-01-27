@@ -90,12 +90,12 @@ return priceLadder;
 
 
 
-	public static double[][] getInventory (MUBet[] MUbets) {
+	public static Double[][] getInventory (MUBet[] MUbets) {
 		Market m= APIDemo.selectedMarket;
 		
 		int j=0;
 	
-		double[][] inventory= new double[30][5];
+		Double[][] inventory= new Double[30][5];
 		
 		
 		for (Runner mr: m.getRunners().getRunner()) {
@@ -137,7 +137,7 @@ return priceLadder;
 	}
 	
 	
-	public static void printInventory(double[][] inventory){
+	public static void printInventory(Double[][] inventory){
 		
 		for(int k =0; k<numberofRunners; k++){
 			for(int i=0;i<5;i++){
