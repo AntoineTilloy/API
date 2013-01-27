@@ -256,11 +256,14 @@ public class APIDemo {
 						StratPierre.launch();
 						break;
 					case 5: // Strat Jon
+						
+						StratPierre.launch();
+						int horseNumber=Display.getIntAnswer("Numéro du cheval :");
+						
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
 						int delay=2;
-						int horseNumber=1;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
 						StratJon.launch(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
