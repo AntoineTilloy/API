@@ -29,47 +29,47 @@ public class Basics {// Ajouté par pierre
 	private static int numberofRunners = 0;
 
 
-	public static Float[] generatePriceLadder () {
-		Float[] priceLadder=new Float[360];
+	public static Double[] generatePriceLadder () {
+		Double[] priceLadder=new Double[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=(float) (1+0.01*i);
+			priceLadder[i]=(double) (1+0.01*i);
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=(float) (2+0.02*i);
+			priceLadder[100+i]=(double) (2+0.02*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=(float) (3+0.05*i);
+			priceLadder[150+i]=(double) (3+0.05*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=(float) (4+0.1*i);
+			priceLadder[170+i]=(double) (4+0.1*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=(float) (6+0.2*i);
+			priceLadder[190+i]=(double) (6+0.2*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=(float) (10+0.5*i);
+			priceLadder[210+i]=(double) (10+0.5*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]=(float) (20+1*i);
+			priceLadder[230+i]=(double) (20+1*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=(float) (30+2*i);
+			priceLadder[240+i]=(double) (30+2*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=(float) (50+5*i);
+			priceLadder[250+i]=(double) (50+5*i);
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]=(float) (100+10*i);
+			priceLadder[260+i]=(double) (100+10*i);
 		
 		}
 return priceLadder;
@@ -142,20 +142,17 @@ return priceLadder;
 		Double price=0.0;
 		Double lastprice=0.0;
 		Double returnprice=0.0;
-		int test=0;
-	
+		System.out.println(SelectionId);
 		
 		if(type=="B"){	
-			
-			
+		System.out.println("yotype");	
 			for (InflatedCompleteRunner r: OB.getRunners()) {
+				System.out.println("yoId");
 		
 				if (SelectionId == r.getSelectionId()){
-				
+
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						System.out.println("volume"+p.getBackAmountAvailable());
-						System.out.println("at"+p.getPrice());
 						if(p.getBackAmountAvailable()<=0.00001){
 							//System.out.println("volume"+p.getBackAmountAvailable());
 							//System.out.println("at"+p.getPrice());
@@ -196,6 +193,74 @@ return priceLadder;
 		return returnprice;
 		 
 		
+	}
+	
+	public static int findPriceLadder(Double prix ){
+		int a=0;
+		int b=APIDemo.priceLadder.length;
+		int t=0;
+		
+		//erreur à la fin
+		while (APIDemo.priceLadder[t]>prix | APIDemo.priceLadder[t]<prix)
+		{
+		  if(APIDemo.priceLadder[t]>prix){
+			 b=t; 
+		  }
+		  if(APIDemo.priceLadder[t]<prix){
+			 a=t+1; 
+		  } 
+		//  System.out.println("a= " + a);
+		//  System.out.println("b= " + b);
+		  t=(int) Math.floor((a+b)/2);
+		}
+		return t;
+	}
+	
+	
+	public static boolean placeBetlevel(String Type,Double best, int level,Double size,int SelectionId){
+		boolean res=false;
+		
+		if(Type=="B"){
+			PlaceBets bet = new PlaceBets();
+			bet.setMarketId(APIDemo.selectedMarket.getMarketId());
+			bet.setSelectionId(SelectionId);
+			bet.setBetCategoryType(BetCategoryTypeEnum.E);
+			bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
+			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level]);
+			bet.setSize(size);
+			
+			try {
+				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+				res=betResult.getSuccess();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(Type=="L"){
+			PlaceBets bet = new PlaceBets();
+			bet.setMarketId(APIDemo.selectedMarket.getMarketId());
+			bet.setSelectionId(SelectionId);
+			bet.setBetCategoryType(BetCategoryTypeEnum.E);
+			bet.setBetType(BetTypeEnum.Factory.fromValue("L"));
+			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level]);
+			bet.setSize(size);
+			
+			try {
+				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+				res=betResult.getSuccess();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("placement error");
+			}
+		}
+		return res;		
 	}
 	
 }

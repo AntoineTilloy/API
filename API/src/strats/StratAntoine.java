@@ -47,8 +47,10 @@ public class StratAntoine {
 			e.printStackTrace();
 		}
 		
+
+        //comment
 		
-		//Ah ouais t'as bien avancé^^
+		//test
 		// Je prends mon temps connard !
 		
 	}

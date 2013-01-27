@@ -58,11 +58,12 @@ public class APIDemo {
 	// the current chosen market and Exchange for that market
 	public static Market selectedMarket;
 	public static Exchange selectedExchange;
+	public static Double[] priceLadder;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
 	
-		Float[] priceLadder=Basics.generatePriceLadder ();
+		priceLadder=Basics.generatePriceLadder ();
 		// Initialise logging and turn logging off. Change OFF to DEBUG for detailed output.
 		Logger rootLog = LogManager.getRootLogger();
 		Level lev = Level.toLevel("OFF");
