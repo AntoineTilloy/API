@@ -244,7 +244,7 @@ return priceLadder;
 			bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
-			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level]);
+			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]);
 			bet.setSize(size);
 			
 			try {
@@ -264,7 +264,7 @@ return priceLadder;
 			bet.setBetType(BetTypeEnum.Factory.fromValue("L"));
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
-			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level]);
+			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) - level]);
 			bet.setSize(size);
 			
 			try {

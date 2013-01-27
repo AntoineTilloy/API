@@ -39,7 +39,7 @@ try{
 	//best prices
 	double bestBack=Basics.findBest("B", OB, SelectionID);
 	double bestLay=Basics.findBest("L", OB, SelectionID);
-	
+		
 	//LO au best : MM avec déséquilibre d'inventaire   1=Back, 2=Lay
 	/*if (inventaire[1]<inventaire[2]+volumeMaxImb){
 		Basics.placeBetlevel("B", bestBack, 0, volume, SelectionID);	
@@ -59,7 +59,8 @@ try{
 		   Basics.placeBetlevel("B", bestBack, i, volume, SelectionID);		  
 	  }
 	  if (Basics.volumeAt(SelectionID, "L", 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets)==0){ // A construire
-		  Basics.placeBetlevel("L", bestLay, i, volume, SelectionID);	}
+		  Basics.placeBetlevel("L", bestLay, i, volume, SelectionID);	
+		  }
 	  }
 	System.out.println("Boucle");
 
