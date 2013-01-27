@@ -52,8 +52,9 @@ try{
 	
 	
 	//LO loin du best sur k niveaux
-
+	System.out.println();
 	for (int i=1;i<=nbLevels;i++){
+		System.out.println("volume back at " + APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i] +" is " + Basics.volumeAt(SelectionID, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets));
 	  if (Basics.volumeAt(SelectionID, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets)==0){ // A construire
 		   Basics.placeBetlevel("B", bestBack, i, volume, SelectionID);		  
 	  }
