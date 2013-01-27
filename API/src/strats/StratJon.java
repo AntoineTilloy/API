@@ -65,6 +65,7 @@ try{
 	else{
 	//débouclageOptimal(); // A construire
 		exitStrat=true;
+		System.out.println("Exit Strat : " + exitStrat);
 	}
 
 }catch(Exception e){
