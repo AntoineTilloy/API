@@ -83,6 +83,11 @@ public class Basics {// Ajouté par pierre
 			priceLadder[260+i]=(double) (100+10*i);
 		
 		}
+		
+		for(i=0; i<360;i++){
+			priceLadder[i]=0.01*Math.round (100*priceLadder[i]);
+		
+		}
 return priceLadder;
 
 	}
