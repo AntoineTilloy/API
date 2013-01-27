@@ -23,11 +23,9 @@ import basics.Basics;
 public class StratJon {
 
     
-   public static  void launch(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+   public static  void launch(int SelectionID, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
     
 	if(Calendar.getInstance().getTime().before(stopTime.getTime())){
-
-	int selectionID=APIDemo.selectedMarket.getRunners().get(horseNumber);	
 		
 	//Récupérer les Matched et Unmatched
 	Basics.waiting(3000);
@@ -40,58 +38,33 @@ public class StratJon {
 	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 	//best prices
-	double bestBack=Basics.findBest("B", OB, APIDemo.SelectionId)
+	double bestBack=Basics.findBest("B", OB, SelectionID);
+	double bestLay=Basics.findBest("L", OB, SelectionID);
 	
 	//LO au best : MM avec déséquilibre d'inventaire   1=Back, 2=Lay
-	if (inventaire[1]<inventaire[2]+volumeMaxImb){
-		PlaceBets bet = new PlaceBets();
-		bet.setMarketId(APIDemo.selectedMarket.getMarketId());
-		bet.setSelectionId(1);
-		bet.setBetCategoryType(BetCategoryTypeEnum.E);
-		bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
-		bet.setPrice(best(1));
-		bet.setSize(volume);
-		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+	/*if (inventaire[1]<inventaire[2]+volumeMaxImb){
+		Basics.placeBetlevel("B", bestBack, 0, volume, SelectionID);	
 	}
 	if (inventaire[2]<inventaire[1]+volumeMaxImb){
-		PlaceBets bet = new PlaceBets();
-		bet.setMarketId(APIDemo.selectedMarket.getMarketId());
-		bet.setSelectionId(1);
-		bet.setBetCategoryType(BetCategoryTypeEnum.E);
-		bet.setBetType(BetTypeEnum.Factory.fromValue("L"));
-		bet.setPrice(best(2));
-		bet.setSize(volume);
-		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
-	}
+	     Basics.placeBetlevel("L", bestLay, 0, volume, SelectionID);	
+    }
+*/
 
+	
+	
 	//LO loin du best sur k niveaux
 
 	for (int i=1;i<=nbLevels;i++){
-	  if (volumePlacé(B,i)=0){ // A construire
-		    PlaceBets bet = new PlaceBets();
-			bet.setMarketId(APIDemo.selectedMarket.getMarketId());
-			bet.setSelectionId(1);
-			bet.setBetCategoryType(BetCategoryTypeEnum.E);
-			bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
-			bet.setPrice(prix(numPrix(best(1))+i)); // A construire
-			bet.setSize(volume);
-			PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+	  if (Basics.volumeAt(SelectionID, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets)==0){ // A construire
+		   Basics.placeBetlevel("B", bestBack, i, volume, SelectionID);		  
 	  }
-	  if (volumePlacé(L,i)=0){ // A construire
-	    PlaceBets bet = new PlaceBets();
-		bet.setMarketId(APIDemo.selectedMarket.getMarketId());
-		bet.setSelectionId(1);
-		bet.setBetCategoryType(BetCategoryTypeEnum.E);
-		bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
-		bet.setPrice(prix(numPrix(best(1))+i)); // A construire
-		bet.setSize(volume);
-		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
-	}
-	}
+	  if (Basics.volumeAt(SelectionID, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets)==0){ // A construire
+		  Basics.placeBetlevel("L", bestLay, i, volume, SelectionID);	}
+	  }
 
 	}
 	else{
-	débouclageOptimal() // A construire
+	débouclageOptimal(); // A construire
 	}
 
 	}

@@ -261,9 +261,10 @@ public class APIDemo {
 						double volumeMaxImb=10;
 						int delay=2;
 						int horseNumber=1;
+					//	int selectionID=APIDemo.selectedMarket.getRunners().get(horseNumber);	
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.launch(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.launch(selectionID, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						finished = true;
