@@ -279,8 +279,8 @@ return priceLadder;
 	}
 	
 	
-	public static Double volumeAt (int SelectionId,String type,Double Price,MUBet[] MUbets) {
-		Double volume=0.0;
+	public static double volumeAt (int SelectionId,String type,Double Price,MUBet[] MUbets) {
+		double volume=0;
 
 					
 			for(int i=0; i<MUbets.length;i++){			
