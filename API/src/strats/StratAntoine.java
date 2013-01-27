@@ -10,7 +10,7 @@ public class StratAntoine {
 
 	public static double[] linspace(double min, double max, int number){
 		double[] array=new double[number];
-		double step=(max-min)/number;
+		double step=(max-min)/(number-1);
 		for (int i=0; i<number;i=i+1){
 			array[i]=step*i+min;
 		}
