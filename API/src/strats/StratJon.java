@@ -1,21 +1,10 @@
 package strats;
-import generated.exchange.BFExchangeServiceStub;
-import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
-import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
-import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
-import generated.exchange.BFExchangeServiceStub.MUBet;
-import generated.exchange.BFExchangeServiceStub.PlaceBets;
-import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import demo.APIDemo;
 import demo.handler.ExchangeAPI;
-import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
+import generated.exchange.BFExchangeServiceStub.MUBet;
+
 import java.util.*;
 
 import basics.Basics;
@@ -23,9 +12,13 @@ import basics.Basics;
 public class StratJon {
 
     
-   public static  void launch(int SelectionID, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
-    
+   public static  void launch(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+		
+try{	
+			
+		
 	if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+	
 		
 	//Récupérer les Matched et Unmatched
 	Basics.waiting(3000);
@@ -37,6 +30,8 @@ public class StratJon {
 	//récupérer l'OB
 	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
+	int SelectionID=OB.getRunners().get(horseNumber).getSelectionId();	
+	
 	//best prices
 	double bestBack=Basics.findBest("B", OB, SelectionID);
 	double bestLay=Basics.findBest("L", OB, SelectionID);
@@ -64,10 +59,14 @@ public class StratJon {
 
 	}
 	else{
-	débouclageOptimal(); // A construire
+	//débouclageOptimal(); // A construire
+		
 	}
 
-	}
+}catch(Exception e){
+	e.printStackTrace();
+}
+
 }
 }
 
