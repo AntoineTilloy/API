@@ -35,15 +35,15 @@ public class StratPierre {
 
 			for(int j=0; j<3;j++){
 				System.out.println("###############");
-				System.out.print(OB.getRunners().get(j).getSelectionId());
+				System.out.println(OB.getRunners().get(j).getSelectionId());
 				InflatedCompleteRunner r= OB.getRunners().get(j);
 				System.out.print("Back best: ");
-				System.out.print(Basics.findBest("B",OB,r.getSelectionId()))	;
+				System.out.println(Basics.findBest("B",OB,r.getSelectionId()))	;
 				System.out.print("Lay best at: ");
 				System.out.println(Basics.findBest("L",OB,r.getSelectionId()))	;
 			}
 			System.out.println("!!!!!!!!!!!!!!!");
-			
+			/*
 			System.out.println(Basics.findPriceLadder(Basics.findBest("L",OB,OB.getRunners().get(0).getSelectionId())));
 			String Type= Display.getStringAnswer("Type :");
 			int level=Display.getIntAnswer("Level :");
@@ -54,7 +54,7 @@ public class StratPierre {
 			System.out.println(best);
 			boolean b=Basics.placeBetlevel("B", best, level, size, OB1.getRunners().get(runner).getSelectionId());
 			System.out.println(b);
-			
+			*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
