@@ -30,7 +30,9 @@ import generated.global.BFGlobalServiceStub.GetEventsResp;
 import generated.global.BFGlobalServiceStub.MarketSummary;
 import org.apache.log4j.*;
 
+import strats.StratJon;
 import strats.StratPierre;
+import strats.StratAntoine;
 
 import basics.Basics;
 
@@ -259,7 +261,7 @@ public class APIDemo {
 						double volumeMaxImb=10;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -2);
-						strats.StratJon.launch(nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.launch(nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						finished = true;
