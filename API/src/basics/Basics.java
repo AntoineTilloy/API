@@ -206,13 +206,13 @@ return priceLadder;
 		{
 			t=(int) Math.floor((a+b)/2);
 		  if(APIDemo.priceLadder[t]>prix){
-			 b=t-1; 
+			 b=t; 
 		  }
 		  if(APIDemo.priceLadder[t]<prix){
 			 a=t+1; 
 		  } 
-		  System.out.println("a= " + a);
-		  System.out.println("b= " + b);
+		//  System.out.println("a= " + a);
+		//  System.out.println("b= " + b);
 		}
 		return a;
 	}
