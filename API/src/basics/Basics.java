@@ -85,7 +85,7 @@ public class Basics {// Ajouté par pierre
 		}
 		
 		for(i=0; i<360;i++){
-			priceLadder[i]=0.01*Math.round (100*priceLadder[i]);
+			priceLadder[i]=Math.round (100*priceLadder[i])/100;
 		
 		}
 return priceLadder;
