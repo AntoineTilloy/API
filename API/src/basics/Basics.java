@@ -148,14 +148,18 @@ return priceLadder;
 	}
 	
 	
+	
 	public static Double findBest(String type, InflatedCompleteMarketPrices OB, int SelectionId ){
 
+		//Attention, renvoie le best placé sur l'OB de ce type: best(B)>best(L) !!!
+		
+		
 		Double price=0.0;
 		Double lastprice=0.0;
 		Double returnprice=0.0;
 		//System.out.println(SelectionId);
 		
-		if(type=="B"){	
+		if(type=="L"){	
 		//System.out.println("yotype");	
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 			//	System.out.println("yoId");
@@ -164,7 +168,7 @@ return priceLadder;
 
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						price = p.getPrice();
-						if(p.getBackAmountAvailable()==0.0 & p.getLayAmountAvailable()>0.0){
+						if( p.getLayAmountAvailable()>0.0){
 							//System.out.println("volume"+p.getBackAmountAvailable());
 							//System.out.println("at"+p.getPrice());
 							break;
@@ -180,7 +184,7 @@ return priceLadder;
 			returnprice=lastprice;
 		}								
 		
-		if(type=="L"){
+		if(type=="B"){
 		
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 			
