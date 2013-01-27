@@ -44,7 +44,15 @@ public class StratPierre {
 			}
 			System.out.println("!!!!!!!!!!!!!!!");
 			System.out.println(Basics.findPriceLadder(Basics.findBest("L",OB,OB.getRunners().get(0).getSelectionId())));
-			
+			String Type= Display.getStringAnswer("Type :");
+			int level=Display.getIntAnswer("Level :");
+			Double size=Display.getDoubleAnswer("Size :", true);
+			int runner=Display.getIntAnswer("runner :");
+			InflatedCompleteMarketPrices OB1 = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			Double best=Basics.findBest(Type, OB1, OB.getRunners().get(runner).getSelectionId());
+			System.out.println(best);
+			boolean b=Basics.placeBetlevel(Type, best, level, size, OB.getRunners().get(runner).getSelectionId());
+			System.out.println(b);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

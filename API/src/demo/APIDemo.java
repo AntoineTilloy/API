@@ -58,7 +58,7 @@ public class APIDemo {
 	// the current chosen market and Exchange for that market
 	public static Market selectedMarket;
 	public static Exchange selectedExchange;
-	public static Float[] priceLadder;
+	public static Double[] priceLadder;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
