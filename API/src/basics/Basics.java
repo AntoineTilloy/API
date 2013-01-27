@@ -40,54 +40,50 @@ public class Basics {// Ajouté par pierre
         while ((t1 - t0) < n );
     }
 
-	public static double[] generatePriceLadder () {
-		double[] priceLadder=new double[360];
+	public static int[] generatePriceLadder () {
+		int[] priceLadder=new int[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=(double) (1+0.01*i);
+			priceLadder[i]=(int)(100* (1+0.01*i));
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=(double) (2+0.02*i);
+			priceLadder[100+i]=(int)(100* (2+0.02*i));
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=(double) (3+0.05*i);
+			priceLadder[150+i]=(int)(100* (3+0.05*i));
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=(double) (4+0.1*i);
+			priceLadder[170+i]=(int)(100* (4+0.1*i));
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=(double) (6+0.2*i);
+			priceLadder[190+i]=(int)(100* (6+0.2*i));
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=(double) (10+0.5*i);
+			priceLadder[210+i]=(int)(100* (10+0.5*i));
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]= (double) (20+1*i);
+			priceLadder[230+i]= (int)(100* (20+1*i));
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=(double) (30+2*i);
+			priceLadder[240+i]=(int)(100* (30+2*i));
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=(double) (50+5*i);
+			priceLadder[250+i]=(int)(100* (50+5*i));
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]=(double) (100+10*i);
+			priceLadder[260+i]= (int)(100*(100+10*i));
 		
 		}
 		
-		for(i=0; i<360;i++){
-			priceLadder[i]=0.01*Math.floor(100*priceLadder[i]+0.5);
-		
-		}
 return priceLadder;
 
 	}
@@ -221,12 +217,12 @@ return priceLadder;
 		int t=0;
 		
 		//erreur à la fin
-		while (APIDemo.priceLadder[t]>prix | APIDemo.priceLadder[t]<prix)
+		while (0.01*APIDemo.priceLadder[t]>prix | 0.01*APIDemo.priceLadder[t]<prix)
 		{
-		  if(APIDemo.priceLadder[t]>prix){
+		  if(0.01*APIDemo.priceLadder[t]>prix){
 			 b=t; 
 		  }
-		  if(APIDemo.priceLadder[t]<prix){
+		  if(0.01*APIDemo.priceLadder[t]<prix){
 			 a=t+1; 
 		  } 
 		//  System.out.println("a= " + a);

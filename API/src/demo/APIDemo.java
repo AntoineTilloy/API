@@ -61,7 +61,7 @@ public class APIDemo {
 	// the current chosen market and Exchange for that market
 	public static Market selectedMarket;
 	public static Exchange selectedExchange;
-	public static double[] priceLadder;
+	public static int[] priceLadder;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
@@ -72,8 +72,6 @@ public class APIDemo {
 		Level lev = Level.toLevel("OFF");
 		rootLog.setLevel(lev);
 		
-		Display.println("Welcome to the Betfair API Demo");
-		System.out.println("price ladder"); System.out.println(priceLadder[5]);
 		//On se connecte direct au compte
 		//String username = args.length < 1 ? Display.getStringAnswer("Betfair username:") : args[0];
 		//String password = args.length < 2 ? Display.getStringAnswer("Betfair password:") : args[1];
