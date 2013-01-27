@@ -21,9 +21,8 @@ import java.util.*;
 
 public class StratJon {
 
-    stoptime=APIDemo.selectedMarket.getMarketTime().getTime();
     
-   public static  void strat(double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+   public static  void launch(double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
     
 	if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 

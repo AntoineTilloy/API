@@ -1,5 +1,6 @@
 package demo;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import demo.handler.ExchangeAPI;
 import demo.handler.GlobalAPI;
@@ -252,8 +253,13 @@ public class APIDemo {
 						//StratPierre strat = null;
 						StratPierre.launch();
 						break;
-					case 5: // Back
-						finished = true;
+					case 5: // Strat Jon
+						double nbLevels=3;
+						double volume=2;
+						double volumeMaxImb=10;
+						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
+						stopTime.add(Calendar.MINUTE, -2);
+						strats.StratJon.launch(nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						finished = true;
