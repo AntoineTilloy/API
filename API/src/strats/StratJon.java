@@ -13,7 +13,11 @@ public class StratJon {
 
     
    public static  void launch(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
-		
+
+boolean exitStrat=false;
+	   
+while(exitStrat=false){
+	   
 try{	
 			
 		
@@ -60,7 +64,7 @@ try{
 	}
 	else{
 	//débouclageOptimal(); // A construire
-		
+		exitStrat=true;
 	}
 
 }catch(Exception e){
@@ -69,4 +73,4 @@ try{
 
 }
 }
-
+}
