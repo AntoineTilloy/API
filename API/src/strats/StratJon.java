@@ -61,6 +61,7 @@ try{
 	  if (Basics.volumeAt(SelectionID, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets)==0){ // A construire
 		  Basics.placeBetlevel("L", bestLay, i, volume, SelectionID);	}
 	  }
+	System.out.println("Boucle");
 
 	}
 	else{
