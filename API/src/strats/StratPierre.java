@@ -29,7 +29,7 @@ public class StratPierre {
 		try {
 			
 			bets= ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			double[][] inventory=Basics.getInventory(bets);
+			Double[][] inventory=Basics.getInventory(bets);
 			Basics.printInventory(inventory);
 			System.out.println("###############");
 			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
