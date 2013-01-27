@@ -1,5 +1,6 @@
 package demo;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import demo.handler.ExchangeAPI;
 import demo.handler.GlobalAPI;
@@ -29,7 +30,9 @@ import generated.global.BFGlobalServiceStub.GetEventsResp;
 import generated.global.BFGlobalServiceStub.MarketSummary;
 import org.apache.log4j.*;
 
+import strats.StratJon;
 import strats.StratPierre;
+import strats.StratAntoine;
 
 import basics.Basics;
 
@@ -252,8 +255,13 @@ public class APIDemo {
 						//StratPierre strat = null;
 						StratPierre.launch();
 						break;
-					case 5: // Back
-						finished = true;
+					case 5: // Strat Jon
+						double nbLevels=3;
+						double volume=2;
+						double volumeMaxImb=10;
+						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
+						stopTime.add(Calendar.MINUTE, -2);
+						StratJon.launch(nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						finished = true;
