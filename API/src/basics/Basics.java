@@ -295,5 +295,9 @@ return priceLadder;
 		return volume;
 	}
 	
+	//public static int SelectionIdOfPosInMarket(int pos){
+		
+	//}
+	
 	
 }
