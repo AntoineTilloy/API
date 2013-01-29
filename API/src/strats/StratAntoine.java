@@ -266,9 +266,9 @@ public class StratAntoine {
 		int i=0;
 		int runnerId;
 		Double best;
-		while(inventory[i][4]!=null){
+		for(Runner nr : APIDemo.selectedMarket.getRunners().getRunner()){
 			if (costVector[i]>0.99){
-				runnerId=(int) Math.floor(inventory[i][4]+0.25);
+				runnerId=nr.getSelectionId();
 				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
