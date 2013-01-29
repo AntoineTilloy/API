@@ -115,6 +115,8 @@ public class StratAntoine {
 			String type="L";
 			System.out.println("on regarde du coté du lay");
 			Double quote=Basics.findBest(type, OB, runnerId);
+			System.out.println("quote");
+			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
 			Double availableVolume;
 			while (posToExecute>0.0001){
@@ -143,6 +145,8 @@ public class StratAntoine {
 			String type="B";
 			System.out.println("on regarde du coté du back");
 			Double quote=Basics.findBest(type, OB, runnerId);
+			System.out.println("quote");
+			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
 			Double availableVolume;
 			while (posToExecute<-0.0001){
