@@ -75,6 +75,7 @@ public class StratAntoine {
 	public static Double getVolume(InflatedCompleteMarketPrices OB,int runnerId,Double price,String type){
 		//Gives the volume on the orderbook at the given quote (it can be 0.0)
 		Double volume=0.0;
+		System.out.println("Looking for volume at price "+price);
 		if(type=="L"){	
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 				if (runnerId == r.getSelectionId()){
@@ -233,7 +234,7 @@ public class StratAntoine {
 			costVector=transactionPrice(OB,inventory,potentialFinalPos[i]);
 			potentialFinalProfit[i]=profit;
 			for (int j=0;j<costVector.length;j=j+1){
-				potentialFinalProfit[i]=potentialFinalProfit[i]-costVector[i];
+				potentialFinalProfit[i]=potentialFinalProfit[i]-costVector[j];
 			}
 		}
 		int bestChoice=argmax(potentialFinalProfit);
