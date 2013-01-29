@@ -269,7 +269,7 @@ public class StratAntoine {
 		for(Runner nr : APIDemo.selectedMarket.getRunners().getRunner()){
 			if (costVector[i]>0.99){
 				runnerId=nr.getSelectionId();
-				best=Basics.findBest("L", OB, runnerId);
+				best=Basics.findBest("B", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
@@ -279,7 +279,7 @@ public class StratAntoine {
 			}
 			if (costVector[i]<-0.99){
 				runnerId=nr.getSelectionId();
-				best=Basics.findBest("B", OB, runnerId);
+				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
