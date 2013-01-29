@@ -225,8 +225,10 @@ return priceLadder;
 		  if(0.01*APIDemo.priceLadder[t]<prix){
 			 a=t+1; 
 		  } 
+		  System.out.println("priceladder(t)="+APIDemo.priceLadder[t]);
 		  System.out.println("a= " + a);
 		  System.out.println("b= " + b);
+		  
 		  t=(int) Math.floor((a+b)/2);
 		}
 		return t;
