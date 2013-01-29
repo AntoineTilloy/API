@@ -180,8 +180,8 @@ public class StratAntoine {
 		int i=0;
 		int runnerId;
 		Double currentPos;
-		while (inventory[i][4]!=null){
-			runnerId=(int) Math.floor(inventory[i][4]+0.5);
+		for (InflatedCompleteRunner r: OB.getRunners()){
+			runnerId=r.getSelectionId();
 			currentPos=inventory[i][0]-inventory[i][1];
 			costVector[i]=transactionPrice(OB,runnerId,currentPos,finalPosition);
 			i=i+1;
