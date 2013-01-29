@@ -160,6 +160,7 @@ public class StratAntoine {
 				}
 			}
 		}
+		System.out.println("Fin du calcul du transaction price pour un sous marché");
 		
 		return cost;
 	}
@@ -169,7 +170,10 @@ public class StratAntoine {
 		while (inventory[i][4]!=null){
 			i=i+1;
 		}
+		System.out.print("Number of runners");
+		System.out.println(i);
 		return i;
+		
 	}
 	
 	public static Double[] transactionPrice(InflatedCompleteMarketPrices OB,Double[][] inventory,Double finalPosition){
@@ -226,14 +230,14 @@ public class StratAntoine {
 		System.out.println("Time to find the optimal unwinding strategy");
 		System.out.print(t1-t0);
 		for (int i=0;i<numberOfRunners(inventory);i=i+1){
-			System.out.println("Runner ID :  ");
-			System.out.print(inventory[i][4]);
-			System.out.println("stake to be taken :    ");
-			System.out.print(costVector[i]);
+			System.out.print("Runner ID :  ");
+			System.out.println(inventory[i][4]);
+			System.out.print("stake to be taken :    ");
+			System.out.println(costVector[i]);
 		}
 		finalPosition=potentialFinalPos[bestChoice];
-		System.out.println("Final expected position on all markets after unwinding :   ");
-		System.out.print(finalPosition);
+		System.out.print("Final expected position on all markets after unwinding :   ");
+		System.out.println(finalPosition);
 		//--------------------------------
 		
 		return costVector;
