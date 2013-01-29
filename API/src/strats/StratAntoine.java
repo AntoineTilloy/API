@@ -105,7 +105,8 @@ public class StratAntoine {
 	
 	public static Double transactionPrice(InflatedCompleteMarketPrices OB,int runnerId,Double currentPosition,Double finalPosition){
 		// gives the Cost to reach a position of finalPosition for the horse given by runnerNumber
-		
+		System.out.println("Calculation transaction price for market");
+		System.out.print(runnerId);
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
@@ -172,6 +173,8 @@ public class StratAntoine {
 	
 	public static Double[] transactionPrice(InflatedCompleteMarketPrices OB,Double[][] inventory,Double finalPosition){
 		// Cost to put every horse to position finalPosition
+		
+		System.out.println("Calculating complete transaction price");
 		
 		Double[] costVector=new Double[numberOfRunners(inventory)];
 		int i=0;
