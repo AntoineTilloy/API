@@ -118,6 +118,8 @@ public class StratAntoine {
 			System.out.println("quote");
 			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
+			System.out.println("quoteIndex");
+			System.out.println(quoteIndex);
 			Double availableVolume;
 			while (posToExecute>0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
@@ -148,6 +150,8 @@ public class StratAntoine {
 			System.out.println("quote");
 			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
+			System.out.println("quoteIndex");
+			System.out.println(quoteIndex);
 			Double availableVolume;
 			while (posToExecute<-0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
