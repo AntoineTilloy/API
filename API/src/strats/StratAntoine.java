@@ -123,8 +123,7 @@ public class StratAntoine {
 			Double availableVolume;
 			while (posToExecute>0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
-				System.out.println("available Volume");
-				System.out.println(availableVolume);
+				System.out.println("available Volume "+availableVolume);
 				if (posToExecute<availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
@@ -139,6 +138,8 @@ public class StratAntoine {
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
+					posToExecute=0.0;
+					System.out.println("OrderBook empty");
 				}
 				
 			}
@@ -155,8 +156,7 @@ public class StratAntoine {
 			Double availableVolume;
 			while (posToExecute<-0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
-				System.out.println("available Volume");
-				System.out.println(availableVolume);
+				System.out.println("available Volume "+availableVolume);
 				if (posToExecute>-availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
@@ -171,6 +171,9 @@ public class StratAntoine {
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
+					posToExecute=0.0;
+					System.out.println("OrderBook empty");
+					
 				}
 			}
 		}
