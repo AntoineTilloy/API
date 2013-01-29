@@ -217,7 +217,7 @@ return priceLadder;
 		int t=0;
 		
 		//erreur à la fin
-		while (0.01*APIDemo.priceLadder[t]>prix | 0.01*APIDemo.priceLadder[t]<prix)
+		while (0.01*APIDemo.priceLadder[t]>(prix+0.00001) | 0.01*APIDemo.priceLadder[t]<(prix-0.00001)) //modif d Antoine
 		{
 		  if(0.01*APIDemo.priceLadder[t]>prix){
 			 b=t; 
@@ -227,10 +227,10 @@ return priceLadder;
 		  } 
 		  t=(int) Math.floor((a+b)/2);
 		  
-		  System.out.println("priceladder(t)="+0.01*APIDemo.priceLadder[t]);
-		  System.out.println("prix= "+prix);
-		  System.out.println("a= " + a);
-		  System.out.println("b= " + b);
+		  //System.out.println("priceladder(t)="+0.01*APIDemo.priceLadder[t]);
+		  //System.out.println("prix= "+prix);
+		  //System.out.println("a= " + a);
+		  //System.out.println("b= " + b);
 		}
 		return t;
 	}
