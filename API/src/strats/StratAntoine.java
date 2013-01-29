@@ -107,7 +107,7 @@ public class StratAntoine {
 	public static Double transactionPrice(InflatedCompleteMarketPrices OB,int runnerId,Double currentPosition,Double finalPosition){
 		// gives the Cost to reach a position of finalPosition for the horse given by runnerNumber
 		System.out.println("Calculation transaction price for market");
-		System.out.print(runnerId);
+		System.out.println(runnerId);
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
@@ -119,6 +119,8 @@ public class StratAntoine {
 			Double availableVolume;
 			while (posToExecute>0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
+				System.out.println("available Volume");
+				System.out.println(availableVolume);
 				if (posToExecute<availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
@@ -145,6 +147,8 @@ public class StratAntoine {
 			Double availableVolume;
 			while (posToExecute<-0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
+				System.out.println("available Volume");
+				System.out.println(availableVolume);
 				if (posToExecute>-availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
