@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import basics.Basics;
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.exchange.BFExchangeServiceStub.Runner;
 import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.util.Display;
@@ -180,8 +181,8 @@ public class StratAntoine {
 		int i=0;
 		int runnerId;
 		Double currentPos;
-		for (InflatedCompleteRunner r: OB.getRunners()){
-			runnerId=r.getSelectionId();
+		for (Runner nr : APIDemo.selectedMarket.getRunners().getRunner()){
+			runnerId=nr.getSelectionId();
 			currentPos=inventory[i][0]-inventory[i][1];
 			costVector[i]=transactionPrice(OB,runnerId,currentPos,finalPosition);
 			i=i+1;
