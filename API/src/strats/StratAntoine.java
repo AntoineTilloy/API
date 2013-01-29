@@ -115,7 +115,7 @@ public class StratAntoine {
 		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer, donc regarder ce qu'il y a comme backeurs...
 			String type="B";
 			System.out.println("on regarde du coté du Back");
-			Double quote=Basics.findBest(type, OB, runnerId);
+			Double quote=Basics.findBest("L", OB, runnerId);
 			System.out.println("quote");
 			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -148,7 +148,7 @@ public class StratAntoine {
 		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
 			String type="L";
 			System.out.println("on regarde du coté du LAY");
-			Double quote=Basics.findBest(type, OB, runnerId);
+			Double quote=Basics.findBest("B", OB, runnerId);
 			System.out.println("quote");
 			System.out.println(quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -273,8 +273,9 @@ public class StratAntoine {
 				System.out.println("Volume to be executed :");
 				System.out.print(costVector[i]);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
-				if (choice==2){
+				if (choice==1){
 					Basics.placeBetlevel("L", 1.01, 0, costVector[i], runnerId);// no inventory problem for lay side
+					System.out.println("Order Sent");
 				}	
 			}
 			if (costVector[i]<-0.99){
@@ -283,8 +284,9 @@ public class StratAntoine {
 				System.out.println("Volume to be executed :");
 				System.out.print(costVector[i]);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
-				if (choice==2){
+				if (choice==1){
 					Basics.placeBetlevel("B", best, -20, costVector[i], runnerId);
+					System.out.println("Order Sent");
 				// Je decalle de 20 ce qui n'est pas robuste.. Je pourrai faire une fonction qui enregistre jusqua quel niveau il faut aller piocher 
 				//la liquidite, mais de toute facon si ca bouge entre temps, on peut imaginer que l'on arrive toujours pas a deboucler.
 				}
