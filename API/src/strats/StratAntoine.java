@@ -271,22 +271,22 @@ public class StratAntoine {
 				runnerId=(int) Math.floor(inventory[i][4]+0.25);
 				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :");
-				System.out.print(costVector[i]);
+				System.out.println(costVector[i]);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==1){
-					Basics.placeBetlevel("L", 1.01, 0, costVector[i], runnerId);// no inventory problem for lay side
-					System.out.println("Order Sent");
+					boolean res=Basics.placeBetlevel("L", 1.01, 0, costVector[i], runnerId);// no inventory problem for lay side
+					System.out.println("Order Successfull :"+res);
 				}	
 			}
 			if (costVector[i]<-0.99){
 				runnerId=(int) Math.floor(inventory[i][4]+0.25);
 				best=Basics.findBest("B", OB, runnerId);
 				System.out.println("Volume to be executed :");
-				System.out.print(costVector[i]);
+				System.out.println(costVector[i]);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==1){
-					Basics.placeBetlevel("B", best, -20, costVector[i], runnerId);
-					System.out.println("Order Sent");
+					boolean res=Basics.placeBetlevel("B", best, -20, costVector[i], runnerId);
+					System.out.println("Order Successfull : "+res);
 				// Je decalle de 20 ce qui n'est pas robuste.. Je pourrai faire une fonction qui enregistre jusqua quel niveau il faut aller piocher 
 				//la liquidite, mais de toute facon si ca bouge entre temps, on peut imaginer que l'on arrive toujours pas a deboucler.
 				}
