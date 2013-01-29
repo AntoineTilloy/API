@@ -10,6 +10,9 @@ import demo.util.InflatedCompleteMarketPrices.InflatedCompleteRunner;
 
 public class StratAntoine {
 	
+	//La strategie de debouclage optimale fait pour le moment 2 appels a Betfair pour recuperer les donnees + autant d ordres que de positions a changer
+	//----------------------
+	
 	// Variables for nasty stuff
 	private static Double finalPosition=0.0;
 	
@@ -46,6 +49,7 @@ public class StratAntoine {
 			if (currentPos>pos){
 				pos=currentPos;
 			}
+			i=i+1;
 		}
 		return pos;
 	}
@@ -58,6 +62,7 @@ public class StratAntoine {
 			if (currentPos<pos){
 				pos=currentPos;
 			}
+			i=i+1;
 		}
 		return pos;
 	}
@@ -101,7 +106,7 @@ public class StratAntoine {
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
-		if (posToExecute>0.0001){
+		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer
 			String type="L";
 			Double quote=Basics.findBest(type, OB, runnerId);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -116,9 +121,9 @@ public class StratAntoine {
 					cost=cost+availableVolume;
 					posToExecute=posToExecute-availableVolume*quote;
 				}
-				quoteIndex=quoteIndex-1;
+				quoteIndex=quoteIndex-1; // On va un cran plus loin dans l'order book vers des paris moins avantageux, ie avec des cotes plus basses
 				if ((APIDemo.priceLadder.length>quoteIndex)&&(quoteIndex>0)){
-					quote=APIDemo.priceLadder[quoteIndex];
+					quote=0.01*APIDemo.priceLadder[quoteIndex];
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
@@ -126,7 +131,7 @@ public class StratAntoine {
 				
 			}
 		}
-		if (posToExecute<-0.0001){
+		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
 			String type="B";
 			Double quote=Basics.findBest(type, OB, runnerId);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -143,7 +148,7 @@ public class StratAntoine {
 				}
 				quoteIndex=quoteIndex+1;
 				if ((APIDemo.priceLadder.length>quoteIndex)&&(quoteIndex>0)){
-					quote=APIDemo.priceLadder[quoteIndex];
+					quote=0.01*APIDemo.priceLadder[quoteIndex];
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
@@ -195,7 +200,8 @@ public class StratAntoine {
 	    long t0=System.currentTimeMillis();
 	    
 		for (int i=0;i<numberOfDiscretisation;i=i+1){
-			profit=potentialFinalPos[i];
+			profit=potentialFinalPos[i];// le profit que l'on fait avec un portefeuille donne, en ignorant ce qu'on a depense pour l'obtenir
+			// c'est simplement la position a la fin (le prix est deja inclus)
 			costVector=transactionPrice(OB,inventory,potentialFinalPos[i]);
 			potentialFinalProfit[i]=profit;
 			for (int j=0;j<costVector.length;j=j+1){
@@ -205,7 +211,8 @@ public class StratAntoine {
 		int bestChoice=argmax(potentialFinalProfit);
 		costVector=transactionPrice(OB,inventory,potentialFinalPos[bestChoice]);
 		
-		long t1=System.currentTimeMillis();
+		long t1=System.currentTimeMillis();// Je veux controler le temps que ce calcul met a fonctionner pour voir si on peut simuler plus 
+		// de possibilites.
 		
 		//Print info about the calculation
 		//--------------------------------
@@ -240,7 +247,11 @@ public class StratAntoine {
 				runnerId=(int) Math.floor(inventory[i][4]+0.25);
 				best=Basics.findBest("B", OB, runnerId);
 				Basics.placeBetlevel("B", best, -20, costVector[i], runnerId);
+				// Je decalle de 20 ce qui n'est pas robuste.. Je pourrai faire une fonction qui enregistre jusqua quel niveau il faut aller piocher 
+				//la liquidite, mais de toute facon si ca bouge entre temps, on peut imaginer que l'on arrive toujours pas a deboucler.
 			}
+			i=i+1;
+			Basics.waiting(1000);//en attendant l'API correcte, j'attends une seconde apres chaque ordre
 		}
 	}
 	
