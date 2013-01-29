@@ -248,7 +248,7 @@ return priceLadder;
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]);
+			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]+"for a volume"+size+"type BACK");
 			//
 			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]);
 			bet.setSize(size);
@@ -271,7 +271,7 @@ return priceLadder;
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]);
+			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]+"for a volume"+size+"type LAY");
 			//
 			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) - level]);
 			bet.setSize(size);
