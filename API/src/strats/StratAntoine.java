@@ -270,7 +270,7 @@ public class StratAntoine {
 			if (costVector[i]>0.99){
 				runnerId=(int) Math.floor(inventory[i][4]+0.25);
 				best=Basics.findBest("L", OB, runnerId);
-				System.out.println("Volume to be executed :"+ costVector[i]+"at price"+best);
+				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
 					boolean res=Basics.placeBetlevel("L", 1.01, 0, costVector[i], runnerId);// no inventory problem for lay side
@@ -280,7 +280,7 @@ public class StratAntoine {
 			if (costVector[i]<-0.99){
 				runnerId=(int) Math.floor(inventory[i][4]+0.25);
 				best=Basics.findBest("B", OB, runnerId);
-				System.out.println("Volume to be executed :"+ costVector[i]+"at price"+best);
+				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
 					boolean res=Basics.placeBetlevel("B", best, -20, costVector[i], runnerId);
