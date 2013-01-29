@@ -112,9 +112,9 @@ public class StratAntoine {
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
-		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer
-			String type="L";
-			System.out.println("on regarde du coté du lay");
+		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer, donc regarder ce qu'il y a comme backeurs...
+			String type="B";
+			System.out.println("on regarde du coté du Back");
 			Double quote=Basics.findBest(type, OB, runnerId);
 			System.out.println("quote");
 			System.out.println(quote);
@@ -146,8 +146,8 @@ public class StratAntoine {
 			}
 		}
 		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
-			String type="B";
-			System.out.println("on regarde du coté du back");
+			String type="L";
+			System.out.println("on regarde du coté du LAY");
 			Double quote=Basics.findBest(type, OB, runnerId);
 			System.out.println("quote");
 			System.out.println(quote);
