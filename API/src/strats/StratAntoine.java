@@ -113,6 +113,7 @@ public class StratAntoine {
 		
 		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer
 			String type="L";
+			System.out.println("on regarde du coté du lay");
 			Double quote=Basics.findBest(type, OB, runnerId);
 			int quoteIndex=Basics.findPriceLadder(quote);
 			Double availableVolume;
@@ -138,6 +139,7 @@ public class StratAntoine {
 		}
 		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
 			String type="B";
+			System.out.println("on regarde du coté du back");
 			Double quote=Basics.findBest(type, OB, runnerId);
 			int quoteIndex=Basics.findPriceLadder(quote);
 			Double availableVolume;
