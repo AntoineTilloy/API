@@ -267,7 +267,9 @@ public class APIDemo {
 						StratJon.launch(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
-						finished = true;
+						
+						StratAntoine.optimalUnwind();
+						//finished = true;
 						break;
 					
 				}
