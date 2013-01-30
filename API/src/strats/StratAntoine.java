@@ -73,14 +73,14 @@ public class StratAntoine {
 	
 
 	public static Double getVolume(InflatedCompleteMarketPrices OB,int runnerId,Double price,String type){
-		//Gives the volume on the orderbook at the given quote (it can be 0.0)
+		//donne le volume sur l'OB des gens qui veulent executer un ordre de type "type"
 		Double volume=0.0;
 		if(type=="L"){	
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 				if (runnerId == r.getSelectionId()){
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						if((p.getPrice()>price-0.00001)&&(p.getPrice()<price+0.00001)){
-							volume=p.getLayAmountAvailable();
+							volume=p.getBackAmountAvailable();
 							break;
 						}
 					}
@@ -93,7 +93,7 @@ public class StratAntoine {
 				if (runnerId == r.getSelectionId()){
 					for ( InflatedCompletePrice p: r.getPrices()) {
 						if((p.getPrice()>price-0.00001)&&(p.getPrice()<price+0.00001)){
-							volume=p.getBackAmountAvailable();
+							volume=p.getLayAmountAvailable();
 							break;
 						}
 					}
@@ -111,7 +111,7 @@ public class StratAntoine {
 		Double posToExecute=finalPosition-currentPosition;
 		
 		if (posToExecute>0.0001){
-			String type="B";//je veux executer un back
+			String type="L";//je veux regarder ce qu'il y a au lay pour backer
 			System.out.println("on regarde du coté du BACK");
 			Double quote=Basics.findBest("L", OB, runnerId);//donc je regarde le meilleur prix des layeurs presents
 			System.out.println("quote "+quote);
@@ -141,8 +141,8 @@ public class StratAntoine {
 				
 			}
 		}
-		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
-			String type="L";// je veux executer un lay
+		if (posToExecute<-0.0001){
+			String type="B";// je veux regarder ce qu'il y a au back pour layer
 			System.out.println("on regarde du coté du LAY");
 			Double quote=Basics.findBest("B", OB, runnerId);//donc je regarde le meilleur prix des backeurs
 			System.out.println("quote "+quote);
