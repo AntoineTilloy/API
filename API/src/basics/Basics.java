@@ -236,6 +236,7 @@ return priceLadder;
 	}
 	
 	
+	
 	public static boolean placeBetlevel(String Type,double best, int level,double size,int SelectionId){
 		boolean res=false;
 		

@@ -267,7 +267,7 @@ public class StratAntoine {
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
-					boolean res=Basics.placeBetlevel("B", best, -5, Math.round(costVector[i]*100)/100.0, runnerId);// no inventory problem for lay side
+					boolean res=Basics.placeBetlevel("B", 1.01, 0, Math.round(costVector[i]*100)/100.0, runnerId);// no inventory problem for lay side
 					System.out.println("Order Successfull :"+res);
 				}	
 			}
