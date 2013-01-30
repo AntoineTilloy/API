@@ -46,10 +46,10 @@ public class StratAntoine {
 	
 	public static Double getHighestPosition(Double[][] inventory){
 		int i=0;
-		Double pos=inventory[i][0]-inventory[i][1];
+		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
 		while (inventory[i][4]!=null){
-			currentPos=inventory[i][0]-inventory[i][1];
+			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos>pos){
 				pos=currentPos;
 			}
@@ -59,10 +59,10 @@ public class StratAntoine {
 	}
 	public static Double getLowestPosition(Double[][] inventory){
 		int i=0;
-		Double pos=inventory[i][0]-inventory[i][1];
+		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
 		while (inventory[i][4]!=null){
-			currentPos=inventory[i][0]-inventory[i][1];
+			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos<pos){
 				pos=currentPos;
 			}
@@ -75,7 +75,6 @@ public class StratAntoine {
 	public static Double getVolume(InflatedCompleteMarketPrices OB,int runnerId,Double price,String type){
 		//Gives the volume on the orderbook at the given quote (it can be 0.0)
 		Double volume=0.0;
-		System.out.println("Looking for volume at price "+price);
 		if(type=="L"){	
 			for (InflatedCompleteRunner r: OB.getRunners()) {
 				if (runnerId == r.getSelectionId()){
@@ -107,20 +106,17 @@ public class StratAntoine {
 	
 	public static Double transactionPrice(InflatedCompleteMarketPrices OB,int runnerId,Double currentPosition,Double finalPosition){
 		// gives the Cost to reach a position of finalPosition for the horse given by runnerNumber
-		System.out.println("Calculation transaction price for market");
-		System.out.println(runnerId);
+		System.out.println("Calculating transaction price for market "+runnerId+ " with potential final position "+finalPosition);
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
-		if (posToExecute>0.0001){//Si la position que l'on veut atteindre est positive, on doit layer, donc regarder ce qu'il y a comme backeurs...
-			String type="B";
-			System.out.println("on regarde du coté du Back");
-			Double quote=Basics.findBest("L", OB, runnerId);
-			System.out.println("quote");
-			System.out.println(quote);
+		if (posToExecute>0.0001){
+			String type="B";//je veux executer un back
+			System.out.println("on regarde du coté du BACK");
+			Double quote=Basics.findBest("L", OB, runnerId);//donc je regarde le meilleur prix des layeurs presents
+			System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
-			System.out.println("quoteIndex");
-			System.out.println(quoteIndex);
+			System.out.println("quoteIndex "+quoteIndex);
 			Double availableVolume;
 			while (posToExecute>0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
@@ -146,14 +142,12 @@ public class StratAntoine {
 			}
 		}
 		if (posToExecute<-0.0001){// Si la position que l'on veut atteindre est négative, on doit backer (tel Pierre,.. je suis enorme)
-			String type="L";
+			String type="L";// je veux executer un lay
 			System.out.println("on regarde du coté du LAY");
-			Double quote=Basics.findBest("B", OB, runnerId);
-			System.out.println("quote");
-			System.out.println(quote);
+			Double quote=Basics.findBest("B", OB, runnerId);//donc je regarde le meilleur prix des backeurs
+			System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
-			System.out.println("quoteIndex");
-			System.out.println(quoteIndex);
+			System.out.println("quoteIndex "+quoteIndex);
 			Double availableVolume;
 			while (posToExecute<-0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
@@ -166,7 +160,7 @@ public class StratAntoine {
 					cost=cost-availableVolume;
 					posToExecute=posToExecute+availableVolume*quote;
 				}
-				quoteIndex=quoteIndex+1;
+				quoteIndex=quoteIndex+1; //je dois accorder aux parieurs des cotes de plus en plus grosses
 				if ((APIDemo.priceLadder.length>quoteIndex)&&(quoteIndex>0)){
 					quote=0.01*APIDemo.priceLadder[quoteIndex];
 				}
@@ -205,7 +199,7 @@ public class StratAntoine {
 		Double currentPos;
 		for (Runner nr : APIDemo.selectedMarket.getRunners().getRunner()){
 			runnerId=nr.getSelectionId();
-			currentPos=inventory[i][0]-inventory[i][1];
+			currentPos=-inventory[i][0]+inventory[i][1];
 			costVector[i]=transactionPrice(OB,runnerId,currentPos,finalPosition);
 			i=i+1;
 		}
@@ -273,17 +267,17 @@ public class StratAntoine {
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
-					boolean res=Basics.placeBetlevel("L", best, -5, Math.round(costVector[i]*100)/100.0, runnerId);// no inventory problem for lay side
+					boolean res=Basics.placeBetlevel("B", best, -5, Math.round(costVector[i]*100)/100.0, runnerId);// no inventory problem for lay side
 					System.out.println("Order Successfull :"+res);
 				}	
 			}
 			if (costVector[i]<-1.99){
 				runnerId=nr.getSelectionId();
-				best=Basics.findBest("B", OB, runnerId);
+				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
 				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
 				if (choice==2){
-					boolean res=Basics.placeBetlevel("B", best, -20, Math.round(Math.abs(costVector[i])*100)/100.0, runnerId);
+					boolean res=Basics.placeBetlevel("L", best, -20, Math.round(Math.abs(costVector[i])*100)/100.0, runnerId);
 					System.out.println("Order Successfull : "+res);
 				// Je decalle de 20 ce qui n'est pas robuste.. Je pourrai faire une fonction qui enregistre jusqua quel niveau il faut aller piocher 
 				//la liquidite, mais de toute facon si ca bouge entre temps, on peut imaginer que l'on arrive toujours pas a deboucler.
