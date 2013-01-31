@@ -183,9 +183,10 @@ public class StratAntoine {
 		int i=0;
 		int[] selectionIDs=Basics.getSelectID();
 		while (selectionIDs[i]>0){
+			System.out.println(selectionIDs[i]);
 			i=i+1;
 		}
-		System.out.print("Number of runners");
+		System.out.print("Number of runners : ");
 		System.out.println(i);
 		return i;
 		
