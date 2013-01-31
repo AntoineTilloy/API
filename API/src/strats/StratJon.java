@@ -107,6 +107,10 @@ public static void launch2(int horseNumber, double nbLevels, double volume, doub
 		double bestLay=Basics.findBest("L", OB, SelectionId);
 
 		double price=bestBack;
+		
+		System.out.println(implicitP[0][horseNumber]);
+		System.out.println(implicitP[1][horseNumber]);
+		Basics.waiting(10000);
 		while (price>bestLay-0.005){
 			if(price<=implicitP[0][horseNumber]){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
