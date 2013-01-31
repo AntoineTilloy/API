@@ -116,18 +116,20 @@ public static void launch2(int horseNumber, double nbLevels, double volume, doub
 		System.out.println(implicitP[horseNumber][0]);
 		System.out.println(implicitP[horseNumber][1]);
 		Basics.waiting(10000);
-		while (price>bestLay-0.005){
+		while (price>bestLay){
 			if(price<=implicitP[horseNumber][0]){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 			}
+			System.out.println(price);
 			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 		}
 		price=bestLay;
-		while (price<bestBack+0.005){
+		while (price<bestBack){
 			if(price>=implicitP[horseNumber][1]){
 				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
-				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 			}
+			System.out.println(price);
+			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 		}
 		
 	  }else{
