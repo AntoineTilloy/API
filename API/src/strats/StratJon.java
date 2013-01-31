@@ -120,11 +120,13 @@ public static void launch2(int horseNumber, double nbLevels, double volume, doub
 			if(price<=implicitP[horseNumber][0]){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 			}
+			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 		}
 		price=bestLay;
 		while (price<bestBack+0.005){
 			if(price>=implicitP[horseNumber][1]){
 				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
+				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 			}
 		}
 		
