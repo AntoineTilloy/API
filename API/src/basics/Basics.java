@@ -94,6 +94,7 @@ public static int[]getSelectID(){
 	int j=0;
 	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
 		selectionIDs[j]=mr.getSelectionId();
+		j++;
 	}
 	return selectionIDs;
 }
