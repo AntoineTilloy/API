@@ -88,14 +88,25 @@ return priceLadder;
 
 	}
 
+public static int[]getSelectID(){
+	
+	int[] selectionIDs=new int[30];
+	int j=0;
+	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
+		selectionIDs[j]=mr.getSelectionId();
+	}
+	return selectionIDs;
+}
 
+
+	
 
 	public static Double[][] getInventory (MUBet[] MUbets) {
 		Market m= APIDemo.selectedMarket;
 		
 		int j=0;
 	
-		Double[][] inventory= new Double[30][5];
+		Double[][] inventory= new Double[30][4];
 		
 		
 		for (Runner mr: m.getRunners().getRunner()) {
@@ -106,7 +117,6 @@ return priceLadder;
 			inventory[j][2]=0.0;
 			inventory[j][3]=0.0;
 			//Attention, colone 4 est le selection id du runner en double!
-			inventory[j][4]=(double) (mr.getSelectionId());
 			
 			for(int i=0; i<MUbets.length;i++){			
 				if(MUbets[i].getSelectionId()==mr.getSelectionId()){	
@@ -310,17 +320,18 @@ return priceLadder;
 		
 	//}
     
-public static double[][] implicitPrice(Double[][] inventory, InflatedCompleteMarketPrices OB){
+public static double[][] implicitPrice(InflatedCompleteMarketPrices OB){
 
-	int n=strats.StratAntoine.numberOfRunners(inventory);
+	int n=strats.StratAntoine.numberOfRunners();
 	
+	int[] selectionIDs=getSelectID();
 	double[][] bestPrice = new double[n][2];
 	double[][] implPrice = new double[n][2];
 	
 	//0=lay side, 1=back side
 	for (int i=0;i<n;i++){
-		bestPrice[i][0]=Basics.findBest("L", OB, (int)Math.floor(inventory[i][4]+0.25));		
-		bestPrice[i][1]=Basics.findBest("B", OB, (int)Math.floor(inventory[i][4]+0.25));
+		bestPrice[i][0]=Basics.findBest("L", OB, selectionIDs[i]);		
+		bestPrice[i][1]=Basics.findBest("B", OB, selectionIDs[i]);
 	}
 	
 	for(int i=0;i<n; i++){

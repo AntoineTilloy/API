@@ -100,9 +100,11 @@ public static void launch2(int horseNumber, double nbLevels, double volume, doub
 		//récupérer l'OB
 		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
-		int SelectionId=OB.getRunners().get(horseNumber).getSelectionId();	
+		int[] SelectionIDs=Basics.getSelectID();
 		
-		double[][] implicitP=Basics.implicitPrice(inventory, OB);
+		int SelectionId=SelectionIDs[horseNumber];
+		
+		double[][] implicitP=Basics.implicitPrice(OB);
 		double bestBack=Basics.findBest("B", OB, SelectionId);
 		double bestLay=Basics.findBest("L", OB, SelectionId);
 

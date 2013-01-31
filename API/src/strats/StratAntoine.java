@@ -46,9 +46,10 @@ public class StratAntoine {
 	
 	public static Double getHighestPosition(Double[][] inventory){
 		int i=0;
+		int[] selectionIDs=Basics.getSelectID();
 		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
-		while (inventory[i][4]!=null){
+		while (selectionIDs[i]>0){
 			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos>pos){
 				pos=currentPos;
@@ -59,9 +60,10 @@ public class StratAntoine {
 	}
 	public static Double getLowestPosition(Double[][] inventory){
 		int i=0;
+		int[] selectionIDs=Basics.getSelectID();
 		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
-		while (inventory[i][4]!=null){
+		while (selectionIDs[i]>0){
 			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos<pos){
 				pos=currentPos;
@@ -177,9 +179,10 @@ public class StratAntoine {
 		return cost;
 	}
 	
-	public static int numberOfRunners(Double[][] inventory){
+	public static int numberOfRunners(){
 		int i=0;
-		while (inventory[i][4]!=null){
+		int[] selectionIDs=Basics.getSelectID();
+		while (selectionIDs[i]>0){
 			i=i+1;
 		}
 		System.out.print("Number of runners");
@@ -193,7 +196,7 @@ public class StratAntoine {
 		
 		System.out.println("Calculating complete transaction price");
 		
-		Double[] costVector=new Double[numberOfRunners(inventory)];
+		Double[] costVector=new Double[numberOfRunners()];
 		int i=0;
 		int runnerId;
 		Double currentPos;
@@ -217,9 +220,10 @@ public class StratAntoine {
 		
 		potentialFinalPos=linspace(minPos,maxPos,numberOfDiscretisation);
 		
-		Double[] costVector= new Double[numberOfRunners(inventory)];
+		Double[] costVector= new Double[numberOfRunners()];
 	    Double profit=0.0;
-		
+
+		int[] selectionIDs=Basics.getSelectID();
 	    long t0=System.currentTimeMillis();
 	    
 		for (int i=0;i<numberOfDiscretisation;i=i+1){
@@ -241,9 +245,9 @@ public class StratAntoine {
 		//--------------------------------
 		System.out.println("Time to find the optimal unwinding strategy");
 		System.out.print(t1-t0);
-		for (int i=0;i<numberOfRunners(inventory);i=i+1){
+		for (int i=0;i<numberOfRunners();i=i+1){
 			System.out.print("Runner ID :  ");
-			System.out.println(inventory[i][4]);
+			System.out.println(selectionIDs[i]);
 			System.out.print("stake to be taken :    ");
 			System.out.println(costVector[i]);
 		}

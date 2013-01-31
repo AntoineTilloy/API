@@ -256,6 +256,8 @@ public class APIDemo {
 					case 5: // Strat Jon
 						
 						StratPierre.launch();
+						System.out.print("Nb of Runners ");
+						System.out.println(StratAntoine.numberOfRunners());
 						int horseNumber=Display.getIntAnswer("Numéro du cheval :");
 						
 						double nbLevels=3;
@@ -264,7 +266,7 @@ public class APIDemo {
 						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.launch2(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						//StratJon.launch2(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						StratAntoine.optimalUnwind();
