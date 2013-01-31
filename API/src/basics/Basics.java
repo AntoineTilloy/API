@@ -309,6 +309,35 @@ return priceLadder;
 	//public static int SelectionIdOfPosInMarket(int pos){
 		
 	//}
+    
+public static double[][] implicitPrice(Double[][] inventory, InflatedCompleteMarketPrices OB){
+
+	int n=strats.StratAntoine.numberOfRunners(inventory);
 	
+	double[][] bestPrice = new double[2][n];
+	double[][] implPrice = new double[2][n];
+	
+	//0=lay side, 1=back side
+	for (int i=0;i<n;i++){
+		bestPrice[i][0]=Basics.findBest("L", OB, (int)Math.floor(inventory[i][4]+0.25));		
+		bestPrice[i][1]=Basics.findBest("B", OB, (int)Math.floor(inventory[i][4]+0.25));
+	}
+	
+	for(int i=0;i<n; i++){
+		implPrice[i][0]=1;
+		implPrice[i][1]=1;
+		for(int j=0; j<n; j++){		
+			if(j!=i){
+			implPrice[i][0]-=1/bestPrice[j][1];
+			implPrice[i][1]-=1/bestPrice[j][0];
+			}		
+		}
+		implPrice[i][0]=1/implPrice[i][0];
+		implPrice[i][1]=1/implPrice[i][1];
+	}
+	
+	return implPrice;
+
+}
 	
 }

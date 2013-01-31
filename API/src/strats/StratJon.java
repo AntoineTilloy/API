@@ -78,4 +78,58 @@ try{
 
 }
 }
+   
+public static void launch2(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	
+	boolean exitStrat=false;
+	   
+	while(exitStrat==false){
+		   
+	try{	
+				
+			
+	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+					
+		//Récupérer les Matched et Unmatched
+		Basics.waiting(3000);
+		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
+		Double[][] inventory=Basics.getInventory(MUBets);
+
+		//récupérer l'OB
+		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+		int SelectionId=OB.getRunners().get(horseNumber).getSelectionId();	
+		
+		double[][] implicitP=Basics.implicitPrice(inventory, OB);
+		double bestBack=Basics.findBest("B", OB, SelectionId);
+		double bestLay=Basics.findBest("L", OB, SelectionId);
+
+		double price=bestBack;
+		while (price>bestLay-0.005){
+			if(price<=implicitP[0][horseNumber]){
+				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
+			}
+		}
+		price=bestLay;
+		while (price<bestBack+0.005){
+			if(price>=implicitP[1][horseNumber]){
+				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
+			}
+		}
+		
+	  }else{
+			StratAntoine.optimalUnwind();
+			exitStrat=true;
+			System.out.println("Exit Strat : " + exitStrat);
+	  }
+	  } catch(Exception e){
+			e.printStackTrace();
+	
+	}
+	
+}
+   
+}
 }
