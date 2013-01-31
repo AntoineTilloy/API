@@ -314,8 +314,8 @@ public static double[][] implicitPrice(Double[][] inventory, InflatedCompleteMar
 
 	int n=strats.StratAntoine.numberOfRunners(inventory);
 	
-	double[][] bestPrice = new double[2][n];
-	double[][] implPrice = new double[2][n];
+	double[][] bestPrice = new double[n][2];
+	double[][] implPrice = new double[n][2];
 	
 	//0=lay side, 1=back side
 	for (int i=0;i<n;i++){
