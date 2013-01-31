@@ -104,6 +104,9 @@ public static void launch2(int horseNumber, double nbLevels, double volume, doub
 		
 		int SelectionId=SelectionIDs[horseNumber];
 		
+		System.out.println("ID : "+ SelectionId);
+		System.out.println();
+		
 		double[][] implicitP=Basics.implicitPrice(OB);
 		double bestBack=Basics.findBest("B", OB, SelectionId);
 		double bestLay=Basics.findBest("L", OB, SelectionId);

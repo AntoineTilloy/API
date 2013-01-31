@@ -181,13 +181,16 @@ public class StratAntoine {
 	
 	public static int numberOfRunners(){
 		int i=0;
+		System.out.println("IDs :");
 		int[] selectionIDs=Basics.getSelectID();
 		while (selectionIDs[i]>0){
 			System.out.println(selectionIDs[i]);
 			i=i+1;
 		}
+		System.out.println();
 		System.out.print("Number of runners : ");
 		System.out.println(i);
+		System.out.println();
 		return i;
 		
 	}
