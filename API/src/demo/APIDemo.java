@@ -251,7 +251,7 @@ public class APIDemo {
 						break;
 					case 4: // Back
 						//StratPierre strat = null;
-						StratPierre.launch();
+						StratPierre.printPriceLadder();
 						break;
 					case 5: // Strat Jon
 						
