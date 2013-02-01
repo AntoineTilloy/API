@@ -192,10 +192,10 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 			bet = MUBets[i];
 			
 			if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-				if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+0.001 ){
+				if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3){
 					Basics.cancelBet(bet);
 				}
-				if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-0.001 ){
+				if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 ){
 					Basics.cancelBet(bet);					
 				}				
 			}		
