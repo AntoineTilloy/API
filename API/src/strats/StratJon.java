@@ -209,7 +209,6 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 			if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 			}
-			System.out.println(price);
 			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 		}
 		
@@ -218,7 +217,6 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 			if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 			}
-			System.out.println(price);
 			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 		}
 		
