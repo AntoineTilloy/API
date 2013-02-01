@@ -369,6 +369,29 @@ public static void cancelBet(MUBet bet) throws Exception {
 				Display.println("Failed to cancel bet: Problem was: "+betResult.getResultCode());
 			}
 		}
+
+
+public static boolean cancelAll(){
+	boolean done=true;
+
+	try {
+	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+		for(int i = 0 ; i< MUBets.length; i++){
+		 MUBet bet = MUBets[i];
 		
+		if(bet.getBetStatus().toString()=="U"){
+					Basics.cancelBet(bet);
+		}		
 	
+	}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		done=false;
+	}
+	return done;
+
+	}
 }
+

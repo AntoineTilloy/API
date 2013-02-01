@@ -186,6 +186,7 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		System.out.println(implicitP[horseNumber][1]);
 		
 		
+		
 		MUBet bet=null;
 		for(int i = 0 ; i< MUBets.length; i++){
 			bet = MUBets[i];
@@ -205,7 +206,7 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		
 		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 		for(int k=0;k<=6;k++){
-			if(price<=implicitP[horseNumber][0] & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
+			if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 			}
 			System.out.println(price);
@@ -214,7 +215,7 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		
 		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 		for(int k=0; k<= 6; k++){
-			if(price>=implicitP[horseNumber][1] & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
+			if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 			}
 			System.out.println(price);
@@ -222,7 +223,12 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		}
 		
 	  }else{
-			StratAntoine.optimalUnwind();
+		  	boolean done=false;
+		  	while(done==false){
+		  		done=Basics.cancelAll();
+		  		StratAntoine.optimalUnwind();
+		  	}	
+			
 			exitStrat=true;
 			System.out.println("Exit Strat : " + exitStrat);
 	  }
