@@ -184,7 +184,6 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		
 		System.out.println(implicitP[horseNumber][0]);
 		System.out.println(implicitP[horseNumber][1]);
-		Basics.waiting(10000);
 		
 		
 		MUBet bet=null;

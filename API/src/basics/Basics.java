@@ -370,7 +370,5 @@ public static void cancelBet(MUBet bet) throws Exception {
 			}
 		}
 		
-
-
 	
 }
