@@ -80,146 +80,172 @@ try{
 }
 }
    
-public static void launch2(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
-	
-	boolean exitStrat=false;
-	   
-	while(exitStrat==false){
+   public static void launch2(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+		
+		boolean exitStrat=false;
 		   
-	try{	
-				
-			
-	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+		while(exitStrat==false){
+			   
+		try{	
 					
-		//Récupérer les Matched et Unmatched
-		Basics.waiting(3000);
-		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
-
-		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
-		Double[][] inventory=Basics.getInventory(MUBets);
-
-		//récupérer l'OB
-		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-
-		int[] SelectionIDs=Basics.getSelectID();
-		
-		int SelectionId=SelectionIDs[horseNumber];
-		
-		System.out.println("ID : "+ SelectionId);
-		System.out.println();
-		
-		double[][] implicitP=Basics.implicitPrice(OB);
-		double bestBack=Basics.findBest("B", OB, SelectionId);
-		double bestLay=Basics.findBest("L", OB, SelectionId);
-
-		double price=bestBack;
-		
-		System.out.println(implicitP[horseNumber][0]);
-		System.out.println(implicitP[horseNumber][1]);
-		Basics.waiting(10000);
-		while (price>bestLay){
-			if(price<=implicitP[horseNumber][0]){
-				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
-			}
-			System.out.println(price);
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
-		}
-		price=bestLay;
-		while (price<bestBack){
-			if(price>=implicitP[horseNumber][1]){
-				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
-			}
-			System.out.println(price);
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
-		}
-		
-	  }else{
-			StratAntoine.optimalUnwind();
-			exitStrat=true;
-			System.out.println("Exit Strat : " + exitStrat);
-	  }
-	  } catch(Exception e){
-			e.printStackTrace();
-	
-	}
-	
-}
-   
-}
-
-
-public static void launch3(int horseNumber, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
-	
-	boolean exitStrat=false;
-	   
-	while(exitStrat==false){
-		   
-	try{	
 				
+		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+						
+			//Récupérer les Matched et Unmatched
+			Basics.waiting(3000);
+			MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
+			Double[][] inventory=Basics.getInventory(MUBets);
+
+			//récupérer l'OB
+			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+			int[] SelectionIDs=Basics.getSelectID();
 			
-	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
-					
-		//Récupérer les Matched et Unmatched
-		Basics.waiting(3000);
-		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
-
-		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
-		Double[][] inventory=Basics.getInventory(MUBets);
-
-		//récupérer l'OB
-		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-
-		int[] SelectionIDs=Basics.getSelectID();
-		
-		int SelectionId=SelectionIDs[horseNumber];
-		
-		System.out.println("ID : "+ SelectionId);
-		System.out.println();
-		
-		double[][] implicitP=Basics.implicitPrice(OB);
-		double bestBack=Basics.findBest("B", OB, SelectionId);
-		double bestLay=Basics.findBest("L", OB, SelectionId);
-
-		double price=bestBack;
-		
-		System.out.println(implicitP[horseNumber][0]);
-		System.out.println(implicitP[horseNumber][1]);
-		
-		
-		
-		MUBet bet=null;
-		for(int i = 0 ; i< MUBets.length; i++){
-			bet = MUBets[i];
+			int SelectionId=SelectionIDs[horseNumber];
 			
-			if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-				if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3){
-					Basics.cancelBet(bet);
+			System.out.println("ID : "+ SelectionId);
+			System.out.println();
+			
+			double[][] implicitP=Basics.implicitPrice(OB);
+			double bestBack=Basics.findBest("B", OB, SelectionId);
+			double bestLay=Basics.findBest("L", OB, SelectionId);
+
+			double price=bestBack;
+			
+			System.out.println(implicitP[horseNumber][0]);
+			System.out.println(implicitP[horseNumber][1]);
+			
+			
+			
+			MUBet bet=null;
+			for(int i = 0 ; i< MUBets.length; i++){
+				bet = MUBets[i];
+				
+				if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
+					if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3){
+						Basics.cancelBet(bet);
+					}
+					if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 ){
+						Basics.cancelBet(bet);					
+					}				
+				}		
+			
+			}
+			
+			
+			
+			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
+			for(int k=0;k<=6;k++){
+				if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
+					Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 				}
-				if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 ){
-					Basics.cancelBet(bet);					
-				}				
-			}		
-		
-		}
-		
-		
-		
-		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
-		for(int k=0;k<=6;k++){
-			if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
-				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
+				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 			}
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
-		}
-		
-		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
-		for(int k=0; k<= 6; k++){
-			if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
-				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
+			
+			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
+			for(int k=0; k<= 6; k++){
+				if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
+					Basics.placeBetlevel("B", price, 0, 2, SelectionId);
+				}
+				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 			}
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+			
+		  }else{
+			  	boolean done=false;
+			  	while(done==false){
+			  		done=Basics.cancelAll();
+			  		StratAntoine.optimalUnwind();
+			  	}	
+				
+				exitStrat=true;
+				System.out.println("Exit Strat : " + exitStrat);
+		  }
+		  } catch(Exception e){
+				e.printStackTrace();
+		
 		}
 		
+	}
+	   
+	}
+
+
+public static void launch3(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	
+	boolean exitStrat=false;
+	   
+	while(exitStrat==false){
+		
+		   
+	try{	
+				
+			
+	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+					
+		//Récupérer les Matched et Unmatched
+		Basics.waiting(3000);
+		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
+		Double[][] inventory=Basics.getInventory(MUBets);
+
+		//récupérer l'OB
+		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+		int[] SelectionIDs=Basics.getSelectID();
+		
+		
+		
+		double[][] implicitP=Basics.implicitPrice(OB);
+		
+		for(int horseNumber = 0; horseNumber < StratAntoine.numberOfRunners(); horseNumber ++){
+			int SelectionId=SelectionIDs[horseNumber];
+			double bestBack=Basics.findBest("B", OB, SelectionId);
+			double bestLay=Basics.findBest("L", OB, SelectionId);
+			if(bestBack<=10){
+				double price=bestBack;
+				
+				System.out.println(implicitP[horseNumber][0]);
+				System.out.println(implicitP[horseNumber][1]);
+				
+				
+				
+				MUBet bet=null;
+				for(int i = 0 ; i< MUBets.length; i++){
+					bet = MUBets[i];
+					
+					if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
+						if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3){
+							Basics.cancelBet(bet);
+						}
+						if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 ){
+							Basics.cancelBet(bet);					
+						}				
+					}		
+				
+				}
+				
+				
+				
+				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
+				for(int k=0;k<=6;k++){
+					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
+						Basics.placeBetlevel("L", price, 0, 2, SelectionId);
+					}
+					price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+				}
+				
+				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
+				for(int k=0; k<= 6; k++){
+					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
+						Basics.placeBetlevel("B", price, 0, 2, SelectionId);
+					}
+					price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+				}
+			}	
+		}
 	  }else{
 		  	boolean done=false;
 		  	while(done==false){
