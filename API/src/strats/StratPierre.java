@@ -97,7 +97,7 @@ public class StratPierre {
 	}
 	public static void printPriceLadder() { 
 		for(int i =0 ; i<=200 ; i++ ){
-			System.out.println(APIDemo.priceLadder[i]);
+			System.out.println(0.01*APIDemo.priceLadder[i]);
 		}	
 	}
 }
