@@ -4,6 +4,8 @@ import generated.exchange.BFExchangeServiceStub;
 import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
+import generated.exchange.BFExchangeServiceStub.CancelBets;
+import generated.exchange.BFExchangeServiceStub.CancelBetsResult;
 import generated.exchange.BFExchangeServiceStub.MUBet;
 import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
@@ -351,5 +353,24 @@ public static double[][] implicitPrice(InflatedCompleteMarketPrices OB){
 	return implPrice;
 
 }
+
+public static void cancelBet(MUBet bet) throws Exception {
+	
+
+			CancelBets canc = new CancelBets();
+			canc.setBetId(bet.getBetId());
+			
+			// We can ignore the array here as we only sent in one bet.
+			CancelBetsResult betResult = ExchangeAPI.cancelBets(APIDemo.selectedExchange, APIDemo.apiContext, new CancelBets[] {canc})[0];
+			
+			if (betResult.getSuccess()) {
+				Display.println("Bet "+betResult.getBetId()+" cancelled.");
+			} else {
+				Display.println("Failed to cancel bet: Problem was: "+betResult.getResultCode());
+			}
+		}
+		
+
+
 	
 }

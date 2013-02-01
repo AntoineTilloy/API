@@ -192,11 +192,11 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 			bet = MUBets[i];
 			
 			if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-				if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+0.001){
-					APIDemo.cancelBet(bet);
+				if(bet.getBetType().toString()=="L" & bet.getPrice()>=implicitP[horseNumber][0]+0.001 ){
+					Basics.cancelBet(bet);
 				}
 				if(bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-0.001 ){
-					APIDemo.cancelBet(bet);					
+					Basics.cancelBet(bet);					
 				}				
 			}		
 		
@@ -204,16 +204,18 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		
 		
 		
+		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 		for(int k=0;k<=6;k++){
-			if(price<=implicitP[horseNumber][0]){
+			if(price<=implicitP[horseNumber][0] & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 				Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 			}
 			System.out.println(price);
 			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 		}
-		price=bestLay;
+		
+		price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 		for(int k=0; k<= 6; k++){
-			if(price>=implicitP[horseNumber][1]){
+			if(price>=implicitP[horseNumber][1] & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 				Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 			}
 			System.out.println(price);
