@@ -188,7 +188,7 @@ public static void launch3(int horseNumber, double nbLevels, double volume, doub
 		
 		
 		MUBet bet=null;
-		for(int i = 0 ; i<= MUBets.length; i++){
+		for(int i = 0 ; i< MUBets.length; i++){
 			bet = MUBets[i];
 			
 			if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){

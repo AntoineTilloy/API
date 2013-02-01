@@ -69,5 +69,30 @@ public class StratPierre {
 		
 	}
 
-	
+	public static void printRace() {
+		int[] SelectionIDs=Basics.getSelectID();
+		InflatedCompleteMarketPrices OB;
+		try {
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		
+			for(int horseNumber=0; horseNumber < StratAntoine.numberOfRunners(); horseNumber++){
+				int SelectionId=SelectionIDs[horseNumber];
+				
+				double bestBack=Basics.findBest("B", OB, SelectionId);
+				double bestLay=Basics.findBest("L", OB, SelectionId);
+
+				
+				System.out.print("ID : "+ SelectionId +" best Back: " + bestBack + " / best Lay: "+ bestLay);
+				System.out.println();
+				
+			}
+		
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+	}
 }

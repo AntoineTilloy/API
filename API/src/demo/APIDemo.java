@@ -255,10 +255,9 @@ public class APIDemo {
 						break;
 					case 5: // Strat Jon
 						
-						StratPierre.launch();
 						StratAntoine.numberOfRunners();
-						int horseNumber=Display.getIntAnswer("Numéro du cheval :");
-						
+						StratPierre.printRace();
+						int horseNumber=Display.getIntAnswer("Numéro du cheval :");			
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
