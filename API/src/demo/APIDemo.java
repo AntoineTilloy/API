@@ -265,7 +265,7 @@ public class APIDemo {
 						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.launch2(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.launch3(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						StratAntoine.optimalUnwind();
@@ -343,7 +343,7 @@ public class APIDemo {
 	}
 	
 	// Place a bet on the specified market.
-	private static void cancelBet(MUBet bet) throws Exception {
+	public static void cancelBet(MUBet bet) throws Exception {
 		if (isMarketSelected()) {
 			if (Display.confirm("This action will actually cancel a bet on the Betfair exchange")) {
 				CancelBets canc = new CancelBets();
