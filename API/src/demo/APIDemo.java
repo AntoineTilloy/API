@@ -214,6 +214,21 @@ public class APIDemo {
 			if (markets == null) {
 				markets = new MarketSummary[] {};
 			}
+			
+			//Added by Jonathan
+			int type=0;
+			MarketSummary[] marketMatchOdds = new MarketSummary[1];
+			for(MarketSummary MS : markets){
+				if (MS.getMarketName().contains("Match Odds")){
+					type=1;
+					marketMatchOdds[0]=MS;
+				}
+			}
+			if (type==1){ 
+				markets=marketMatchOdds;
+			}
+			//End of added
+			
 			int choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 
 			// Exchange ID of 1 is the UK, 2 is AUS
