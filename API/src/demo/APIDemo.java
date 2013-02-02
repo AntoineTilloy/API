@@ -303,7 +303,7 @@ public class APIDemo {
 						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.launch3(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.launch2(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						StratAntoine.optimalUnwind();
