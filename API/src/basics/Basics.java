@@ -443,7 +443,7 @@ public static void chooselastMkt(String path){
 			System.out.println(MktId);
 		}//while
 		APIDemo.selectedExchange = ExchangeId == 1 ? Exchange.UK : Exchange.AUS;
-		ExchangeAPI.getMarket(APIDemo.selectedExchange, APIDemo.apiContext, MktId);
+		APIDemo.selectedMarket=ExchangeAPI.getMarket(APIDemo.selectedExchange, APIDemo.apiContext, MktId);
 		
 	}//try
 	catch (NullPointerException a)
