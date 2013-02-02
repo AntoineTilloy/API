@@ -128,8 +128,8 @@ public class StratPierre {
 			System.out.println(selIDRef);
 			
 				
-		Market MI=APIDemo.selectedMarket;
-		Market ML=APIDemo.selectedMarket2;
+		Market MI=APIDemo.selectedMarket2;
+		Market ML=APIDemo.selectedMarket;
 		int SelectionIdI=selID;
 		int SelectionIdL=selIDRef;
 
