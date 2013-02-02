@@ -106,7 +106,7 @@ public class StratPierre {
 	
 	
 	public static void IlliquidMM( java.util.Calendar stopTime) {
-				
+		
 		try {
 			System.out.println("Choisir Marché +1 : ");
 			APIDemo.chooseMarket(1);
@@ -141,7 +141,7 @@ public class StratPierre {
 					
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
-						
+			System.out.println("Start");			
 			//Récupérer les Matched et Unmatched
 			Basics.waiting(1500);
 			MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, MI.getMarketId()); //Rendre publiques ces variables dans APIDemo
@@ -164,6 +164,8 @@ public class StratPierre {
 					System.out.println();
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
+						System.out.println(1+1/(bestBackL-1) + " " + 1+1/(bestLayL-1));
+						
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionIdI ){
 							if(bet.getBetType().toString()=="L" & bet.getPrice()>=1+1/(bestBackL-1)){
