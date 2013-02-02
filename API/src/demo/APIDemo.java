@@ -218,6 +218,7 @@ public class APIDemo {
 			}
 			
 			//Added by Jonathan
+			System.out.println("Example : " + markets[0].getMarketName());
 			String partialEventName=Display.getStringAnswer("Partial name : ");
 			if(partialEventName!=""){
 			
