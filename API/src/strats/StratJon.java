@@ -289,15 +289,44 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 }
 
 public static void triArb(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	
+	boolean exitStrat=false;
+	   
+	while(exitStrat==false){
+	
+		try {
+			APIDemo.chooseMarket(1);
+			
+			 if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+					
+					//Récupérer les Matched et Unmatched
+					Basics.waiting(1500);
+					MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket2.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
-	try {
-		APIDemo.chooseMarket(1);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+					//récupérer l'OB
+					InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+					InflatedCompleteMarketPrices OB2 = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket2.getMarketId());
+
+					int[] SelectionIDs=Basics.getSelectID();
+						
+					///////////////////////////////
+					
+					int[][] runnerIDs = new int[3][2];
+					runnerIDs[0][0]=APIDemo.selectedMarket2.getMarketId();
+					runnerIDs[1][0]=APIDemo.selectedMarket.getMarketId();
+					runnerIDs[2][0]=APIDemo.selectedMarket.getMarketId();
+					String runnerName=APIDemo.selectedMarket2.getRunners().getRunner()[0].getName();
+					System.out.println(runnerName);
+					///////////////////////////////
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	
 	}
-	
-	
 	
 	
 	
