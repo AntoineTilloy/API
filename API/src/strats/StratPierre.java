@@ -176,26 +176,25 @@ public class StratPierre {
 					
 					}
 					
-					
-					System.out.println(1+1/(bestBackL-1) + " " + 1+1/(bestLayL-1));
+					double layLimit=1.0+1.0/(bestBackL-1.0);
+					double backLimit=1.0+1.0/(bestLayL-1.0);
+					System.out.println(layLimit + " " + backLimit);
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
-					for(int k=0;k<=2;k++){
-						if(price<1+1/(bestBackL-1) & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+					System.out.println(price);
+						if(price<layLimit & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
 							System.out.println(price);
 							Basics.placeBetlevel("L", price, 0, 10, SelectionIdI);
 						}
-						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
-					}
+
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
-					for(int k=0; k<= 2; k++){
-						if(price>1+1/(bestLayL-1) & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
+					System.out.println(price);
+						if(price>backLimit & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
 							System.out.println(Basics.volumeAt(SelectionIdI, "B", price, MUBets));
 							System.out.println(price);
 							Basics.placeBetlevel("B", price, 0, 10, SelectionIdI);
 						}
-						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
-					}
+					
 			
 		  }else{
 			  	boolean done=false;
