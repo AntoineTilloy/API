@@ -51,7 +51,8 @@ public class Basics {// Ajouté par pierre
         while ((t1 - t0) < n );
     }
 
-	public static BigDecimal[] generatePriceLadder () {
+	public static double[] generatePriceLadder () {
+		double[] priceLadderdouble=new double[360];
 		BigDecimal[] priceLadder=new BigDecimal[360];
 		int i;
 		for(i=0; i<100;i++){
@@ -97,11 +98,11 @@ public class Basics {// Ajouté par pierre
 		BigDecimal bd=new BigDecimal(0.01);
 		MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
 		for(i=0; i<360;i++){
-			priceLadder[i]=priceLadder[i].multiply(bd,Mc);
+			priceLadderdouble[i]=priceLadder[i].multiply(bd,Mc).doubleValue();
 		
 		}
 		
-return priceLadder;
+return priceLadderdouble;
 
 	}
 
@@ -245,12 +246,12 @@ public static int[]getSelectID(){
 		int t=0;
 		
 		//erreur à la fin
-		while (APIDemo.priceLadder[t].doubleValue()>(prix+0.00001) | APIDemo.priceLadder[t].doubleValue()<(prix-0.00001)) //modif d Antoine
+		while (APIDemo.priceLadder[t]>(prix+0.00001) | APIDemo.priceLadder[t]<(prix-0.00001)) //modif d Antoine
 		{
-		  if(APIDemo.priceLadder[t].doubleValue()>prix){
+		  if(APIDemo.priceLadder[t]>prix){
 			 b=t; 
 		  }
-		  if(APIDemo.priceLadder[t].doubleValue()<prix){
+		  if(APIDemo.priceLadder[t]<prix){
 			 a=t+1; 
 		  } 
 		  t=(int) Math.floor((a+b)/2);
@@ -277,9 +278,9 @@ public static int[]getSelectID(){
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue()+" for a volume "+size+" type BACK");
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type BACK");
 			//
-			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue());
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level]);
 			bet.setSize(size);
 			
 			try {
@@ -300,9 +301,9 @@ public static int[]getSelectID(){
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue()+" for a volume "+size+" type LAY");
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type LAY");
 			//
-			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level].doubleValue());
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level]);
 			bet.setSize(size);
 			
 			try {

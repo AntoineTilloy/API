@@ -55,12 +55,12 @@ try{
 	//LO loin du best sur k niveaux
 	System.out.println();
 	for (int i=1;i<=nbLevels;i++){
-		System.out.println("volume back at " + 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i] +" is " + Basics.volumeAt(SelectionID, "B", 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets));
-		System.out.println("volume lay at " + 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i] +" is " + Basics.volumeAt(SelectionID, "L", 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets));
-		  if (Basics.volumeAt(SelectionID, "B", 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets)==0){ // A construire
+		System.out.println("volume back at " + APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i] +" is " + Basics.volumeAt(SelectionID, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets));
+		System.out.println("volume lay at " + APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i] +" is " + Basics.volumeAt(SelectionID, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets));
+		  if (Basics.volumeAt(SelectionID, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i], MUBets)==0){ // A construire
 		   Basics.placeBetlevel("B", bestBack, i, volume, SelectionID);		  
 	  }
-	  if (Basics.volumeAt(SelectionID, "L", 0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets)==0){ // A construire
+	  if (Basics.volumeAt(SelectionID, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i], MUBets)==0){ // A construire
 		  Basics.placeBetlevel("L", bestLay, i, volume, SelectionID);	
 		  }
 	  }
@@ -136,20 +136,20 @@ try{
 			
 			
 			
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
+			price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 			for(int k=0;k<=6;k++){
 				if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 					Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 				}
-				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+				price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 			}
 			
-			price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
+			price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 			for(int k=0; k<= 6; k++){
 				if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 					Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 				}
-				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+				price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 			}
 			
 		  }else{
@@ -229,20 +229,20 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				
 				
 				
-				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
+				price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 				for(int k=0;k<=2;k++){
 					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 						Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 					}
-					price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 				}
 				
-				price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
+				price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 				for(int k=0; k<= 2; k++){
 					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 						Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 					}
-					price=0.01*APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 				}
 			}	
 		}
