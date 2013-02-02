@@ -164,8 +164,6 @@ public class StratPierre {
 					System.out.println();
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
-						System.out.println(1+1/(bestBackL-1) + " " + 1+1/(bestLayL-1));
-						
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionIdI ){
 							if(bet.getBetType().toString()=="L" & bet.getPrice()>=1+1/(bestBackL-1)){
@@ -179,10 +177,11 @@ public class StratPierre {
 					}
 					
 					
-					
+					System.out.println(1+1/(bestBackL-1) + " " + 1+1/(bestLayL-1));
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
 					for(int k=0;k<=2;k++){
-						if(price<=1+1/(bestBackL-1) & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+						if(price<1+1/(bestBackL-1) & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+							System.out.println(price);
 							Basics.placeBetlevel("L", price, 0, 10, SelectionIdI);
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
@@ -190,8 +189,9 @@ public class StratPierre {
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
 					for(int k=0; k<= 2; k++){
-						if(price>=1+1/(bestLayL-1) & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
+						if(price>1+1/(bestLayL-1) & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
 							System.out.println(Basics.volumeAt(SelectionIdI, "B", price, MUBets));
+							System.out.println(price);
 							Basics.placeBetlevel("B", price, 0, 10, SelectionIdI);
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
@@ -209,6 +209,7 @@ public class StratPierre {
 		  }
 		  }
 		}catch(Exception e){
+				System.out.print("error");
 				e.printStackTrace();		
 		
 	}
