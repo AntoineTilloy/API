@@ -113,9 +113,9 @@ try{
 				double bestBack=Basics.findBest("B", OB, SelectionId);
 				double bestLay=Basics.findBest("L", OB, SelectionId);
 				String stat = "neutral";
-				double addBack=4;
+				double addBack=5;
 				double addLay=3;
-				double canBack=3;
+				double canBack=4;
 				double canLay=2;
 				
 				if(inventory[horseNumber][0]-inventory[horseNumber][1]>2*bestBack*10){
@@ -124,7 +124,7 @@ try{
 				}
 				
 				if(inventory[horseNumber][1]-inventory[horseNumber][0]>2*bestBack*10){
-					addLay=1.5;
+					addLay=1;
 					canLay=1;
 				}
 				
