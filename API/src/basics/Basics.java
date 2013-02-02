@@ -437,8 +437,10 @@ public static void chooselastMkt(String path){
 		lect = new BufferedReader(new FileReader(path)) ;
 		while (lect.ready()==true) 
 		{
-			ExchangeId= Integer.parseInt(lect.readLine());
+			ExchangeId= Integer.parseInt(lect.readLine().substring(1, 1));
 			MktId=Integer.parseInt(lect.readLine());
+			System.out.println(ExchangeId);
+			System.out.println(MktId);
 		}//while
 		APIDemo.selectedExchange = ExchangeId == 1 ? Exchange.UK : Exchange.AUS;
 		ExchangeAPI.getMarket(APIDemo.selectedExchange, APIDemo.apiContext, MktId);
