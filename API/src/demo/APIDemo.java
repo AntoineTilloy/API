@@ -51,7 +51,7 @@ public class APIDemo {
 	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market"};
 	   
 	private static final String[] BETS_MENU = new String[] 
- 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine"};
+ 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel"};
 
 
 
@@ -290,6 +290,9 @@ public class APIDemo {
 						break;
 					case 6: // Back
 						StratAntoine.optimalUnwind();
+					case 7: // Back
+						StratAntoine.optimalUnwind();
+						Basics.cancelAll();
 						//finished = true;
 						break;
 					
