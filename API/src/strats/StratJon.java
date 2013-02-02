@@ -154,7 +154,7 @@ try{
 					
 					
 					
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 					for(int k=0;k<=2;k++){
 						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 							System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
@@ -163,7 +163,7 @@ try{
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 					}
 					
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 					for(int k=0; k<= 2; k++){
 						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 							System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
