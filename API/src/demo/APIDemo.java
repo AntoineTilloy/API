@@ -218,6 +218,7 @@ public class APIDemo {
 			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
 			if (markets == null) {
 				markets = new MarketSummary[] {};
+			}else{
 				System.out.print("Market : "+markets[0].getMarketName());
 			}
 			
