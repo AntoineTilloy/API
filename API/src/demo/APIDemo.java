@@ -173,7 +173,7 @@ public class APIDemo {
 		EventType[] typeHorseSoccer= new EventType[2];
 		int i=0;
 		for(EventType ET : types){
-			if (ET.getName().contains("Soccer") | ET.getName().contains("Horse")){
+			if (i<2 & (ET.getName().contains("Soccer") | ET.getName().contains("Horse"))){
 				typeHorseSoccer[i]=ET;
 				i++;
 			}
