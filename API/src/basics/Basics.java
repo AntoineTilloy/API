@@ -12,6 +12,11 @@ import generated.exchange.BFExchangeServiceStub.PlaceBets;
 import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
 import generated.exchange.BFExchangeServiceStub.Runner;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +31,7 @@ import demo.util.InflatedCompleteMarketPrices.InflatedCompletePrice;
 import demo.util.InflatedCompleteMarketPrices.InflatedCompleteRunner;
 
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.global.BFGlobalServiceStub.MarketSummary;
 
 public class Basics {// Ajouté par pierre
 	private static int numberofRunners = 0;
@@ -393,5 +399,89 @@ public static boolean cancelAll(){
 	return done;
 
 	}
+
+
+public static void ecrire(String path, String text) 
+{
+	PrintWriter ecri ;
+	try
+	{
+		ecri = new PrintWriter(new FileWriter(path));
+		ecri.print(text);
+		ecri.flush();
+		ecri.close();
+	}//try
+	catch (NullPointerException a)
+	{
+		System.out.println("Erreur : pointeur null");
+	}
+	catch (IOException a)
+	{
+		System.out.println("Problème d'IO");
+	}
+}//ecrire
+
+public String lire (String path) 
+{
+	BufferedReader lect ;
+	String tmp = "";
+	try
+	{
+		lect = new BufferedReader(new FileReader(path)) ;
+		while (lect.ready()==true) 
+		{
+			tmp += lect.readLine() ; 
+		}//while
+	}//try
+	catch (NullPointerException a)
+	{
+		System.out.println("Erreur : pointeur null");
+	}
+	catch (IOException a) 
+	{
+		System.out.println("Problème d'IO");
+	}
+	return tmp;
+}//lecture 
+
+public static void memorizeMkt(String path,MarketSummary m){
+	ecrire(path, String.valueOf(  m.getExchangeId() )+ "/n");
+	ecrire(path, String.valueOf(  m.getMarketId() ));
+}
+
+
+public static void chooselastMkt(String path){
+	BufferedReader lect ;
+	int ExchangeId=0;
+	int MktId=0;
+	try
+	{
+		lect = new BufferedReader(new FileReader(path)) ;
+		while (lect.ready()==true) 
+		{
+			ExchangeId= Integer.parseInt(lect.readLine());
+			MktId=Integer.parseInt(lect.readLine());
+		}//while
+		APIDemo.selectedExchange = ExchangeId == 1 ? Exchange.UK : Exchange.AUS;
+		ExchangeAPI.getMarket(APIDemo.selectedExchange, APIDemo.apiContext, MktId);
+		
+	}//try
+	catch (NullPointerException a)
+	{
+		System.out.println("Erreur : pointeur null");
+	}
+	catch (IOException a) 
+	{
+		System.out.println("Problème d'IO");
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+
+
+
+
 }
 
