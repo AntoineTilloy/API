@@ -53,7 +53,7 @@ public class APIDemo {
 	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market"};
 	   
 	private static final String[] BETS_MENU = new String[] 
- 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel"};
+ 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel","Strat Market Making Market++"};
 
 
 
@@ -365,6 +365,13 @@ public class APIDemo {
 					case 7: // Back
 						StratAntoine.optimalUnwind();
 						Basics.cancelAll();
+						//finished = true;
+						break;
+					case 8: // Back
+						int delay1=2;
+						java.util.Calendar stopTime1=APIDemo.selectedMarket.getMarketTime();
+						stopTime1.add(Calendar.MINUTE, -delay1);
+						StratPierre.IlliquidMM( stopTime1);
 						//finished = true;
 						break;
 					
