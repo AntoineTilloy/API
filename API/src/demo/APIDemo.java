@@ -30,6 +30,7 @@ import generated.global.BFGlobalServiceStub.EventType;
 import generated.global.BFGlobalServiceStub.GetEventsResp;
 import generated.global.BFGlobalServiceStub.MarketSummary;
 import org.apache.log4j.*;
+import org.apache.xmlbeans.impl.common.ValidatorListener.Event;
 
 import strats.StratJon;
 import strats.StratPierre;
@@ -216,14 +217,13 @@ public class APIDemo {
 			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
 			if (markets == null) {
 				markets = new MarketSummary[] {};
-			}else{
-				System.out.println("Example : " + markets[0].getMarketName());
 			}
 			
 			//Added by Jonathan
 			String partialEventName=Display.getStringAnswer("Partial name : ");
 			if(partialEventName!=""){
-			
+				
+				//Choisir parmi les Markets
 				int type=0;
 				j=0;
 				for(MarketSummary MS : markets){
@@ -232,16 +232,36 @@ public class APIDemo {
 						type=1;					
 					}
 				}
-				MarketSummary[] marketMatchOdds = new MarketSummary[j];
+				MarketSummary[] marketPartialName = new MarketSummary[j];
 				i=0;
 				for(MarketSummary MS : markets){
 					if (MS.getMarketName().toLowerCase().contains(partialEventName.toLowerCase())){
-						marketMatchOdds[i]=MS;
+						marketPartialName[i]=MS;
 						i++;
 					}
 				}
 				if (type==1){ 
-					markets=marketMatchOdds;
+					markets=marketPartialName;
+				}
+				//Choisir parmi les Events
+				type=0;
+				j=0;
+				for(BFEvent EV : events){
+					if (EV.getEventName().toLowerCase().contains(partialEventName.toLowerCase())){
+						j++;
+						type=1;					
+					}
+				}
+				BFEvent[] eventPartialName = new BFEvent[j];
+				i=0;
+				for(BFEvent EV : events){
+					if (EV.getEventName().toLowerCase().contains(partialEventName.toLowerCase())){
+						eventPartialName[i]=EV;
+						i++;
+					}
+				}
+				if (type==1){ 
+					events=eventPartialName;
 				}
 			}	
 			
