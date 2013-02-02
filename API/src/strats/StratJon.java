@@ -185,7 +185,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 					
 		//Récupérer les Matched et Unmatched
-		Basics.waiting(3000);
+		Basics.waiting(1500);
 		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
 		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
@@ -200,11 +200,11 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 		
 		double[][] implicitP=Basics.implicitPrice(OB);
 		
-		for(int horseNumber = 0; horseNumber < StratAntoine.numberOfRunners(); horseNumber ++){
+		for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
 			int SelectionId=SelectionIDs[horseNumber];
 			double bestBack=Basics.findBest("B", OB, SelectionId);
 			double bestLay=Basics.findBest("L", OB, SelectionId);
-			if(bestBack<=5){
+			if(bestBack<=10){
 				double price=bestBack;
 				
 				System.out.println(implicitP[horseNumber][0]);
@@ -231,7 +231,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				
 				price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 				for(int k=0;k<=2;k++){
-					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
+					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 						System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
 						Basics.placeBetlevel("L", price, 0, 2, SelectionId);
 					}
@@ -240,7 +240,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				
 				price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 				for(int k=0; k<= 2; k++){
-					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/5 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
+					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 						System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
 						Basics.placeBetlevel("B", price, 0, 2, SelectionId);
 					}
