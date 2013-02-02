@@ -198,7 +198,6 @@ public class APIDemo {
 		Market selectedMarketInt = null;
 		int eventId = typeHorseSoccer[typeChoice].getId();  //Modified
 		System.out.println("Example : ");
-		System.out.println();
 		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
