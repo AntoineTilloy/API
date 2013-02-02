@@ -224,7 +224,7 @@ public class APIDemo {
 				int type=0;
 				j=0;
 				for(MarketSummary MS : markets){
-					if (MS.getMarketName().contains(partialEventName)){
+					if (MS.getMarketName().toLowerCase().contains(partialEventName.toLowerCase())){
 						j++;
 						type=1;					
 					}
@@ -232,7 +232,7 @@ public class APIDemo {
 				MarketSummary[] marketMatchOdds = new MarketSummary[j];
 				i=0;
 				for(MarketSummary MS : markets){
-					if (MS.getMarketName().contains(partialEventName)){
+					if (MS.getMarketName().toLowerCase().contains(partialEventName.toLowerCase())){
 						marketMatchOdds[i]=MS;
 						i++;
 					}
