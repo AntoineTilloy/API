@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,47 +49,52 @@ public class Basics {// Ajouté par pierre
         while ((t1 - t0) < n );
     }
 
-	public static int[] generatePriceLadder () {
-		int[] priceLadder=new int[360];
+	public static BigDecimal[] generatePriceLadder () {
+		BigDecimal[] priceLadder=new BigDecimal[360];
 		int i;
 		for(i=0; i<100;i++){
-			priceLadder[i]=100+i;
+			priceLadder[i]=new BigDecimal(100+i);
 		
 		}
 		for(i=0; i<50;i++){
-			priceLadder[100+i]=200+2*i;
+			priceLadder[100+i]=new BigDecimal(200+2*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[150+i]=300+5*i;
+			priceLadder[150+i]=new BigDecimal(300+5*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[170+i]=400+10*i;
+			priceLadder[170+i]=new BigDecimal(400+10*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[190+i]=600+20*i;
+			priceLadder[190+i]=new BigDecimal(600+20*i);
 		
 		}
 		for(i=0; i<20;i++){
-			priceLadder[210+i]=1000+50*i;
+			priceLadder[210+i]=new BigDecimal(1000+50*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[230+i]= 2000+100*i;
+			priceLadder[230+i]= new BigDecimal(2000+100*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[240+i]=3000+200*i;
+			priceLadder[240+i]=new BigDecimal(3000+200*i);
 		
 		}
 		for(i=0; i<10;i++){
-			priceLadder[250+i]=5000+500*i;
+			priceLadder[250+i]=new BigDecimal(5000+500*i);
 		
 		}
 		for(i=0; i<100;i++){
-			priceLadder[260+i]=10000+1000*i;
+			priceLadder[260+i]=new BigDecimal(10000+1000*i);
+		
+		}
+		BigDecimal bd=new BigDecimal(0.01);
+		for(i=0; i<360;i++){
+			priceLadder[i]=priceLadder[i].multiply(bd);
 		
 		}
 		
@@ -236,12 +242,12 @@ public static int[]getSelectID(){
 		int t=0;
 		
 		//erreur à la fin
-		while (0.01*APIDemo.priceLadder[t]>(prix+0.00001) | 0.01*APIDemo.priceLadder[t]<(prix-0.00001)) //modif d Antoine
+		while (APIDemo.priceLadder[t].doubleValue()>(prix+0.00001) | APIDemo.priceLadder[t].doubleValue()<(prix-0.00001)) //modif d Antoine
 		{
-		  if(0.01*APIDemo.priceLadder[t]>prix){
+		  if(APIDemo.priceLadder[t].doubleValue()>prix){
 			 b=t; 
 		  }
-		  if(0.01*APIDemo.priceLadder[t]<prix){
+		  if(APIDemo.priceLadder[t].doubleValue()<prix){
 			 a=t+1; 
 		  } 
 		  t=(int) Math.floor((a+b)/2);
@@ -268,9 +274,9 @@ public static int[]getSelectID(){
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type BACK");
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue()+" for a volume "+size+" type BACK");
 			//
-			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]);
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue());
 			bet.setSize(size);
 			
 			try {
@@ -291,9 +297,9 @@ public static int[]getSelectID(){
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(0.01*APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type LAY");
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level].doubleValue()+" for a volume "+size+" type LAY");
 			//
-			bet.setPrice(0.01*APIDemo.priceLadder[findPriceLadder(best) - level]);
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level].doubleValue());
 			bet.setSize(size);
 			
 			try {

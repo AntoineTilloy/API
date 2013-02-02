@@ -1,4 +1,5 @@
 package demo;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -61,7 +62,7 @@ public class APIDemo {
 	// the current chosen market and Exchange for that market
 	public static Market selectedMarket;
 	public static Exchange selectedExchange;
-	public static int[] priceLadder;
+	public static BigDecimal[] priceLadder;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
