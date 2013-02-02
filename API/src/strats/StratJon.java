@@ -204,7 +204,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 			int SelectionId=SelectionIDs[horseNumber];
 			double bestBack=Basics.findBest("B", OB, SelectionId);
 			double bestLay=Basics.findBest("L", OB, SelectionId);
-			if(bestBack<=10){
+			if(bestBack<=5){
 				double price=bestBack;
 				
 				System.out.println(implicitP[horseNumber][0]);
