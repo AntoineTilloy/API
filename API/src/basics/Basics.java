@@ -364,7 +364,7 @@ public static int[] getSelectID(Market SM){
 			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
 			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 			//
-			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type LAY");
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) -level]+" for a volume "+size+" type LAY");
 			//
 			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level]);
 			bet.setSize(size);
