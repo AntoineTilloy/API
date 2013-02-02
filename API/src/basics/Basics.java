@@ -437,7 +437,7 @@ public static void chooselastMkt(String path){
 		lect = new BufferedReader(new FileReader(path)) ;
 		while (lect.ready()==true) 
 		{
-			ExchangeId= Integer.parseInt(lect.readLine().substring(1, 1));
+			ExchangeId= Integer.parseInt(lect.readLine().substring(0, 1));
 			MktId=Integer.parseInt(lect.readLine());
 			System.out.println(ExchangeId);
 			System.out.println(MktId);
