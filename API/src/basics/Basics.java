@@ -106,7 +106,7 @@ return priceLadderdouble;
 
 	}
 
-public static int[]getSelectID(){
+public static int[] getSelectID(){
 	
 	int[] selectionIDs=new int[30];
 	int j=0;
@@ -118,6 +118,16 @@ public static int[]getSelectID(){
 }
 
 
+public static int[] getSelectID(Market SM){
+	
+	int[] selectionIDs=new int[30];
+	int j=0;
+	for (Runner mr: SM.getRunners().getRunner()) {
+		selectionIDs[j]=mr.getSelectionId();
+		j++;
+	}
+	return selectionIDs;
+}
 	
 
 	public static Double[][] getInventory (MUBet[] MUbets) {
