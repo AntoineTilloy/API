@@ -288,4 +288,19 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
    
 }
 
+public static void triArb(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+
+	try {
+		APIDemo.chooseMarket(1);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+	
+	
+	
+}
+
 }

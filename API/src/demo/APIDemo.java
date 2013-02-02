@@ -61,6 +61,7 @@ public class APIDemo {
 	
 	// the current chosen market and Exchange for that market
 	public static Market selectedMarket;
+	public static Market selectedMarket2;
 	public static Exchange selectedExchange;
 	public static double[] priceLadder;
 	
@@ -102,7 +103,7 @@ public class APIDemo {
 						showAccountFunds(Exchange.AUS);
 						break;
 					case 1: // Choose Market 
-						chooseMarket();
+						chooseMarket(1);
 						break;
 					case 2: // View Market 
 						viewMarket();
@@ -170,7 +171,7 @@ public class APIDemo {
 	// * Select a type of event
 	// * Recursively select an event of this type
 	// * Select a market within this event if one exists.
-	private static void chooseMarket() throws Exception {
+	public static void chooseMarket(int number) throws Exception {
 		// Get available event types.
 		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);
 		
@@ -193,9 +194,9 @@ public class APIDemo {
 		int typeChoice = Display.getChoiceAnswer("Choose an event type:", typeHorseSoccer); //Modified
 
 		// Get available events of this type
-		selectedMarket = null;
+		Market selectedMarketInt = null;
 		int eventId = typeHorseSoccer[typeChoice].getId();  //Modified
-		while (selectedMarket == null) {
+		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
 			if (events == null) {
@@ -239,9 +240,14 @@ public class APIDemo {
 			} else {
 				choice -= events.length;
 				selectedExchange = markets[choice].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
-				selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[choice].getMarketId());
+				selectedMarketInt = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[choice].getMarketId());
 				Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[choice]);
 			}				
+		}
+		if(number==0){
+			selectedMarket=selectedMarketInt;
+		}else{
+			selectedMarket2=selectedMarketInt;
 		}
 	}
 	
