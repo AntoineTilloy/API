@@ -132,7 +132,8 @@ public class StratPierre {
 		Market ML=APIDemo.selectedMarket;
 		int SelectionIdI=selID;
 		int SelectionIdL=selIDRef;
-
+		double lastPlacedBack=1000;
+		double lastPlacedLay=0;
 		
 		
 		boolean exitStrat=false;
@@ -158,6 +159,7 @@ public class StratPierre {
 				double bestLayL=Basics.findBest("L", OBL, SelectionIdL);
 				double bestBackI=Basics.findBest("B", OBI, SelectionIdI);
 				double bestLayI=Basics.findBest("L", OBI, SelectionIdI);
+
 				
 					double price=bestBackI;
 					MUBet bet=null;
@@ -166,33 +168,37 @@ public class StratPierre {
 						bet = MUBets[i];
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionIdI ){
-							if(bet.getBetType().toString()=="L" & bet.getPrice()>=1+1/(bestBackL-1)){
+							if(bet.getBetType().toString()=="L" & bet.getPrice()<bestLayI-0.005){
 								Basics.cancelBet(bet);
 							}
-							if(bet.getBetType().toString()=="B" & bet.getPrice()<=1+1/(bestLayL-1) ){
+							if(bet.getBetType().toString()=="B" & bet.getPrice()>bestBackI+0.005 ){
 								Basics.cancelBet(bet);					
 							}				
 						}		
 					
 					}
 					
+					boolean status = false;
 					double layLimit=1.0+1.0/(bestBackL-1.0);
 					double backLimit=1.0+1.0/(bestLayL-1.0);
 					System.out.println(layLimit + " " + backLimit);
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
 					System.out.println(price);
-						if(price<layLimit & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
-							System.out.println(price);
-							Basics.placeBetlevel("L", price, 0, 10, SelectionIdI);
+						if(price<layLimit & bestLayI>lastPlacedLay + 0.005 & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+
+							status=Basics.placeBetlevel(MI.getMarketId(),"L", price, 0, 10, SelectionIdI);
+							lastPlacedLay=price;
+							System.out.println(status);
 						}
 
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
 					System.out.println(price);
-						if(price>backLimit & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
-							System.out.println(Basics.volumeAt(SelectionIdI, "B", price, MUBets));
-							System.out.println(price);
-							Basics.placeBetlevel("B", price, 0, 10, SelectionIdI);
+						if(price>backLimit & bestBackI<lastPlacedBack - 0.005 & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
+
+							Basics.placeBetlevel(MI.getMarketId(),"B", price, 0, 10, SelectionIdI);
+							lastPlacedBack=price;
+							System.out.println(status);
 						}
 					
 			
