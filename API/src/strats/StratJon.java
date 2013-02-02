@@ -5,6 +5,7 @@ import demo.handler.ExchangeAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.exchange.BFExchangeServiceStub.Runner;
 
 import java.util.*;
 
@@ -293,48 +294,28 @@ public static void triArb(int inutile, double nbLevels, double volume, double vo
 	boolean exitStrat=false;
 
 	try {
-		APIDemo.chooseMarket(1);int[][] runnerIDs = new int[3][2];
-		runnerIDs[0][0]=APIDemo.selectedMarket2.getMarketId();
-		runnerIDs[1][0]=APIDemo.selectedMarket.getMarketId();
-		runnerIDs[2][0]=APIDemo.selectedMarket.getMarketId();
+		APIDemo.chooseMarket(1);
 		String runnerName=APIDemo.selectedMarket2.getRunners().getRunner()[0].getName();
+		int selID=APIDemo.selectedMarket2.getRunners().getRunner()[0].getSelectionId();
+		String runnerNameRef="";
+		int selIDRef=0;
 		System.out.println(runnerName);
+		System.out.println(selID);
+		
+		for(Runner rn : APIDemo.selectedMarket.getRunners().getRunner()){
+			if(runnerName.toLowerCase().contains(rn.getName().toLowerCase())==false & runnerName.toLowerCase().contains("draw")==false){
+				runnerNameRef=rn.getName();
+				selIDRef=rn.getSelectionId();
+			}
+		}
+		
+		System.out.println(runnerNameRef);
+		System.out.println(selIDRef);
+		
 	} catch (Exception e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-	}
-	
-	while(exitStrat==false){
-	
-		try {
-			
-			 if(Calendar.getInstance().getTime().before(stopTime.getTime())){
-					
-					//Récupérer les Matched et Unmatched
-					Basics.waiting(1500);
-					MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket2.getMarketId()); //Rendre publiques ces variables dans APIDemo
-
-					//récupérer l'OB
-					InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-					InflatedCompleteMarketPrices OB2 = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket2.getMarketId());
-
-					int[] SelectionIDs=Basics.getSelectID();
-						
-					///////////////////////////////
-					
-					//for()
-					///////////////////////////////
-			 }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	
-	}
-	
-	
+	}	
 	
 }
 
