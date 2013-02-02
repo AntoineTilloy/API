@@ -267,23 +267,22 @@ public class StratAntoine {
 				runnerId=nr.getSelectionId();
 				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
-				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
-				if (choice==2){
+				
+
 					boolean res=Basics.placeBetlevel("B", 1.01, 0, Math.round(costVector[i]*100)/100.0, runnerId);// no inventory problem for lay side
 					System.out.println("Order Successfull :"+res);
-				}	
+					
 			}
 			if (costVector[i]<-1.99){
 				runnerId=nr.getSelectionId();
 				best=Basics.findBest("L", OB, runnerId);
 				System.out.println("Volume to be executed :"+ costVector[i]+ " at price "+best+ " for runner " + runnerId);
-				int choice=Display.getIntAnswer("Ne pas exécuter 1, exécuter 2 :");
-				if (choice==2){
+				
 					boolean res=Basics.placeBetlevel("L", best, -20, Math.round(Math.abs(costVector[i])*100)/100.0, runnerId);
 					System.out.println("Order Successfull : "+res);
 				// Je decalle de 20 ce qui n'est pas robuste.. Je pourrai faire une fonction qui enregistre jusqua quel niveau il faut aller piocher 
 				//la liquidite, mais de toute facon si ca bouge entre temps, on peut imaginer que l'on arrive toujours pas a deboucler.
-				}
+
 			}
 			i=i+1;
 			Basics.waiting(1000);//en attendant l'API correcte, j'attends une seconde apres chaque ordre
