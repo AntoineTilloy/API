@@ -197,12 +197,14 @@ public class APIDemo {
 		// Get available events of this type
 		Market selectedMarketInt = null;
 		int eventId = typeHorseSoccer[typeChoice].getId();  //Modified
+		System.out.println("Example : ");
 		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
 			if (events == null) {
 				events = new BFEvent[] {};
 			} else {
+				System.out.print("Event : "+events[0].getEventName());
 				// The API returns Coupons as event names, but Coupons don't contain markets so we remove any
 				// events that are Coupons.
 				ArrayList<BFEvent> nonCouponEvents = new ArrayList<BFEvent>(events.length);
@@ -216,15 +218,9 @@ public class APIDemo {
 			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
 			if (markets == null) {
 				markets = new MarketSummary[] {};
-			}
-			System.out.println("Example : ");
-
-			if (events != null) {
-				System.out.print("Event : "+events[0].getEventName());
-			}
-			if (markets != null) {
 				System.out.print("Market : "+markets[0].getMarketName());
 			}
+			
 			//Added by Jonathan
 			String partialEventName=Display.getStringAnswer("Partial name : ");
 			int typeE=0;
