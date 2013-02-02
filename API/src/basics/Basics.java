@@ -319,6 +319,59 @@ public static int[]getSelectID(){
 	}
 	
 	
+	public static boolean placeBetlevel(int SMId, String Type,double best, int level,double size,int SelectionId){
+		boolean res=false;
+		
+		if(Type=="B"){
+			PlaceBets bet = new PlaceBets();
+			bet.setMarketId(SMId);
+			bet.setSelectionId(SelectionId);
+			bet.setBetCategoryType(BetCategoryTypeEnum.E);
+			bet.setBetType(BetTypeEnum.Factory.fromValue("B"));
+			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
+			//
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type BACK");
+			//
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) + level]);
+			bet.setSize(size);
+			
+			try {
+				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+				res=betResult.getSuccess();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(Type=="L"){
+			PlaceBets bet = new PlaceBets();
+			bet.setMarketId(SMId);
+			bet.setSelectionId(SelectionId);
+			bet.setBetCategoryType(BetCategoryTypeEnum.E);
+			bet.setBetType(BetTypeEnum.Factory.fromValue("L"));
+			bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+			bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
+			//
+			System.out.println(APIDemo.priceLadder[findPriceLadder(best) + level]+" for a volume "+size+" type LAY");
+			//
+			bet.setPrice(APIDemo.priceLadder[findPriceLadder(best) - level]);
+			bet.setSize(size);
+			
+			try {
+				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, new PlaceBets[] {bet})[0];
+				res=betResult.getSuccess();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("placement error");
+			}
+		}
+		return res;		
+	}
+	
+	
 	public static double volumeAt (int SelectionId,String type,double Price,MUBet[] MUbets) {
 		double volume=0.00;
 
