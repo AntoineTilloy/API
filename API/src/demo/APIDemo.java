@@ -48,7 +48,7 @@ public class APIDemo {
 
 	// Menus
 	private static final String[] MAIN_MENU = new String[] 
-	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit"};
+	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market"};
 	   
 	private static final String[] BETS_MENU = new String[] 
  	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine"};
@@ -123,6 +123,10 @@ public class APIDemo {
 					case 6: // Exit
 						finished = true;
 						break;
+					case 7: // Exit
+						Basics.chooselastMkt("C:\\Users\\GREG\\workspace\\market.txt");
+						break;
+
 				}
 			} catch (Exception e) {
 				// Print out the exception and carry on.

@@ -424,7 +424,7 @@ public static void ecrire(String path, String text)
 
 
 public static void memorizeMkt(String path,MarketSummary m){
-	ecrire(path, String.valueOf(  m.getExchangeId() )+ "/n");
+	ecrire(path, String.valueOf(  m.getExchangeId() )+ "\n");
 	ecrire(path, String.valueOf(  m.getMarketId() ));
 }
 
