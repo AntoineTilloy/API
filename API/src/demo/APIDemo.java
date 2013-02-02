@@ -215,10 +215,11 @@ public class APIDemo {
 			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
 			if (markets == null) {
 				markets = new MarketSummary[] {};
+			}else{
+				System.out.println("Example : " + markets[0].getMarketName());
 			}
 			
 			//Added by Jonathan
-			System.out.println("Example : " + markets[1].getMarketName());
 			String partialEventName=Display.getStringAnswer("Partial name : ");
 			if(partialEventName!=""){
 			
