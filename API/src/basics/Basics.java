@@ -421,28 +421,7 @@ public static void ecrire(String path, String text)
 	}
 }//ecrire
 
-public String lire (String path) 
-{
-	BufferedReader lect ;
-	String tmp = "";
-	try
-	{
-		lect = new BufferedReader(new FileReader(path)) ;
-		while (lect.ready()==true) 
-		{
-			tmp += lect.readLine() ; 
-		}//while
-	}//try
-	catch (NullPointerException a)
-	{
-		System.out.println("Erreur : pointeur null");
-	}
-	catch (IOException a) 
-	{
-		System.out.println("Problème d'IO");
-	}
-	return tmp;
-}//lecture 
+
 
 public static void memorizeMkt(String path,MarketSummary m){
 	ecrire(path, String.valueOf(  m.getExchangeId() )+ "/n");

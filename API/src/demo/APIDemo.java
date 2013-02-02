@@ -219,6 +219,7 @@ public class APIDemo {
 				choice -= events.length;
 				selectedExchange = markets[choice].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
 				selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[choice].getMarketId());
+				Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[choice]);
 			}				
 		}
 	}
