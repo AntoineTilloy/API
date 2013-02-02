@@ -104,7 +104,6 @@ public class APIDemo {
 						showAccountFunds(Exchange.AUS);
 						break;
 					case 1: // Choose Market 
-						System.out.println("rrrrrrrrrrrrrrrr");
 						chooseMarket(0);
 						break;
 					case 2: // View Market 
