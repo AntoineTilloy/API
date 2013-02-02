@@ -266,10 +266,10 @@ public class APIDemo {
 				}
 			}	
 			if(typeE==1 & typeM==0){
-				markets=null;
+				markets= new MarketSummary[] {};;
 			}
 			if(typeE==0 & typeM==1){
-				events=null;
+				events= new BFEvent[] {};
 			}
 			
 		
