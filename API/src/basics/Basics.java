@@ -18,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,8 +95,9 @@ public class Basics {// Ajouté par pierre
 		
 		}
 		BigDecimal bd=new BigDecimal(0.01);
+		MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
 		for(i=0; i<360;i++){
-			priceLadder[i]=priceLadder[i].multiply(bd);
+			priceLadder[i]=priceLadder[i].multiply(bd,Mc);
 		
 		}
 		
