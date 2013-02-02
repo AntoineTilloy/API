@@ -233,7 +233,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				for(int k=0;k<=2;k++){
 					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 						System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
-						Basics.placeBetlevel("L", price, 0, 3, SelectionId);
+						Basics.placeBetlevel("L", price, 0, 10, SelectionId);
 					}
 					price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 				}
@@ -242,7 +242,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				for(int k=0; k<= 2; k++){
 					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 						System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
-						Basics.placeBetlevel("B", price, 0, 3, SelectionId);
+						Basics.placeBetlevel("B", price, 0, 10, SelectionId);
 					}
 					price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 				}
