@@ -168,11 +168,22 @@ public class APIDemo {
 	private static void chooseMarket() throws Exception {
 		// Get available event types.
 		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);
-		int typeChoice = Display.getChoiceAnswer("Choose an event type:", types);
+		
+		//Added by Jonathan
+		EventType[] typeHorseSoccer= new EventType[2];
+		int i=0;
+		for(EventType ET : types){
+			if (ET.getName()=="Soccer" | ET.getName()=="Horse Racing"){
+				typeHorseSoccer[i]=ET;
+				i++;
+			}
+		}
+		
+		int typeChoice = Display.getChoiceAnswer("Choose an event type:", typeHorseSoccer); //Modified
 
 		// Get available events of this type
 		selectedMarket = null;
-		int eventId = types[typeChoice].getId();
+		int eventId = typeHorseSoccer[typeChoice].getId();  //Modified
 		while (selectedMarket == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
