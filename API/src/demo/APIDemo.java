@@ -170,11 +170,16 @@ public class APIDemo {
 		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);
 		
 		//Added by Jonathan
-		int j=2;
+		int j=0;
+		for(EventType ET : types){
+			if ((ET.getName().contains("Soccer") | ET.getName().contains("Horse"))){
+				j++;
+			}
+		}
 		EventType[] typeHorseSoccer= new EventType[j];
 		int i=0;
 		for(EventType ET : types){
-			if (i<4 & (ET.getName().contains("Soccer") | ET.getName().contains("Horse"))){
+			if ((ET.getName().contains("Soccer") | ET.getName().contains("Horse"))){
 				typeHorseSoccer[i]=ET;
 				i++;
 			}
