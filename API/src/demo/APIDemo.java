@@ -203,7 +203,6 @@ public class APIDemo {
 			if (events == null) {
 				events = new BFEvent[] {};
 			} else {
-				System.out.println("Example : " + events[0].getEventName());
 				// The API returns Coupons as event names, but Coupons don't contain markets so we remove any
 				// events that are Coupons.
 				ArrayList<BFEvent> nonCouponEvents = new ArrayList<BFEvent>(events.length);
@@ -218,7 +217,14 @@ public class APIDemo {
 			if (markets == null) {
 				markets = new MarketSummary[] {};
 			}
-			
+			System.out.println("Example : ");
+
+			if (events != null) {
+				System.out.print("Event : "+events[0].getEventName());
+			}
+			if (markets != null) {
+				System.out.print("Market : "+markets[0].getMarketName());
+			}
 			//Added by Jonathan
 			String partialEventName=Display.getStringAnswer("Partial name : ");
 			int typeE=0;
