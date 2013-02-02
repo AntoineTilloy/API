@@ -218,18 +218,31 @@ public class APIDemo {
 			}
 			
 			//Added by Jonathan
-			int type=0;
-			MarketSummary[] marketMatchOdds = new MarketSummary[1];
-			for(MarketSummary MS : markets){
-				if (MS.getMarketName().contains("Match Odds") && MS.getMarketName().contains("Half")==false){
-					type=1;
-					marketMatchOdds[0]=MS;
+			String partialEventName=Display.getStringAnswer("Partial name : ");
+			if(partialEventName!=""){
+			
+				int type=0;
+				j=0;
+				for(MarketSummary MS : markets){
+					if (MS.getMarketName().contains(partialEventName)){
+						j++;
+						type=1;					
+					}
 				}
-			}
-			System.out.println(type);
-			if (type==1){ 
-				markets=marketMatchOdds;
-			}
+				MarketSummary[] marketMatchOdds = new MarketSummary[j];
+				i=0;
+				for(MarketSummary MS : markets){
+					if (MS.getMarketName().contains(partialEventName)){
+						marketMatchOdds[i]=MS;
+						i++;
+					}
+				}
+				if (type==1){ 
+					markets=marketMatchOdds;
+				}
+			}	
+			
+		
 			//End of added
 			
 			int choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
