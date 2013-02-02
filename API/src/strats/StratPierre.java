@@ -164,14 +164,16 @@ public class StratPierre {
 					double price=bestBackI;
 					MUBet bet=null;
 					System.out.println();
+					double layLimit=1.0+1.0/(bestBackL-1.0);
+					double backLimit=1.0+1.0/(bestLayL-1.0);
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionIdI ){
-							if(bet.getBetType().toString()=="L" & bet.getPrice()<bestLayI-0.005){
+							if(bet.getBetType().toString()=="L" && (bet.getPrice()<bestLayI-0.005 | bet.getPrice() > layLimit + 0.005)){
 								Basics.cancelBet(bet);
 							}
-							if(bet.getBetType().toString()=="B" & bet.getPrice()>bestBackI+0.005 ){
+							if(bet.getBetType().toString()=="B" && (bet.getPrice()>bestBackI+0.005 | bet.getPrice() < backLimit - 0.005)){
 								Basics.cancelBet(bet);					
 							}				
 						}		
@@ -179,8 +181,6 @@ public class StratPierre {
 					}
 					
 					boolean status = false;
-					double layLimit=1.0+1.0/(bestBackL-1.0);
-					double backLimit=1.0+1.0/(bestLayL-1.0);
 					System.out.println(layLimit + " " + backLimit);
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
 					System.out.println(price);
