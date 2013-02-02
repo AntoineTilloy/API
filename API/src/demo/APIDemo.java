@@ -220,7 +220,7 @@ public class APIDemo {
 			int type=0;
 			MarketSummary[] marketMatchOdds = new MarketSummary[1];
 			for(MarketSummary MS : markets){
-				if (MS.getMarketName()=="Match Odds"){
+				if (MS.getMarketName().contains("Match Odds") && MS.getMarketName().contains("Half")==false){
 					type=1;
 					marketMatchOdds[0]=MS;
 				}
