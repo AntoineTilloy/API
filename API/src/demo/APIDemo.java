@@ -224,6 +224,7 @@ public class APIDemo {
 					marketMatchOdds[0]=MS;
 				}
 			}
+			System.out.println(type);
 			if (type==1){ 
 				markets=marketMatchOdds;
 			}
