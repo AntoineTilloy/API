@@ -133,7 +133,7 @@ public class StratAntoine {
 				}
 				quoteIndex=quoteIndex-1; // On va un cran plus loin dans l'order book vers des paris moins avantageux, ie avec des cotes plus basses
 				if ((APIDemo.priceLadder.length>quoteIndex)&&(quoteIndex>0)){
-					quote=0.01*APIDemo.priceLadder[quoteIndex];
+					quote=APIDemo.priceLadder[quoteIndex];
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
@@ -164,7 +164,7 @@ public class StratAntoine {
 				}
 				quoteIndex=quoteIndex+1; //je dois accorder aux parieurs des cotes de plus en plus grosses
 				if ((APIDemo.priceLadder.length>quoteIndex)&&(quoteIndex>0)){
-					quote=0.01*APIDemo.priceLadder[quoteIndex];
+					quote=APIDemo.priceLadder[quoteIndex];
 				}
 				else{
 					cost=100000000.0;//if order book empty, this way of unwinding is just impossible
