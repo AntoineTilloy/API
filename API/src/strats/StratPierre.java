@@ -4,12 +4,15 @@ import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
 import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
+import generated.exchange.BFExchangeServiceStub.Runner;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import basics.Basics;
@@ -100,4 +103,115 @@ public class StratPierre {
 			System.out.println(APIDemo.priceLadder[i]);
 		}	
 	}
+	
+	
+	public static void IlliquidMM( java.util.Calendar stopTime) {
+				
+		try {
+			System.out.println("Choisir Marché +1 : ");
+			APIDemo.chooseMarket(1);
+			String runnerName=APIDemo.selectedMarket2.getRunners().getRunner()[0].getName();
+			int selID=APIDemo.selectedMarket2.getRunners().getRunner()[0].getSelectionId();
+			System.out.println(runnerName);
+			System.out.println(selID);
+			
+			String runnerNameRef="";
+			int selIDRef=0;		
+			for(Runner rn : APIDemo.selectedMarket.getRunners().getRunner()){
+				if(runnerName.toLowerCase().contains(rn.getName().toLowerCase())==false & rn.getName().toLowerCase().contains("draw")==false){
+					runnerNameRef=rn.getName();
+					selIDRef=rn.getSelectionId();
+				}
+			}
+			
+			System.out.println(runnerNameRef);
+			System.out.println(selIDRef);
+			
+				
+		Market MI=APIDemo.selectedMarket;
+		Market ML=APIDemo.selectedMarket2;
+		int SelectionIdI=selID;
+		int SelectionIdL=selIDRef;
+
+		
+		
+		boolean exitStrat=false;
+		   
+		while(exitStrat==false){	
+					
+				
+		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+						
+			//Récupérer les Matched et Unmatched
+			Basics.waiting(1500);
+			MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, MI.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
+			Double[][] inventory=Basics.getInventory(MUBets);
+
+			//récupérer l'OB
+			InflatedCompleteMarketPrices OBI = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, MI.getMarketId());
+			InflatedCompleteMarketPrices OBL = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, ML.getMarketId());
+			
+			
+				double bestBackL=Basics.findBest("B", OBL, SelectionIdL);
+				double bestLayL=Basics.findBest("L", OBL, SelectionIdL);
+				double bestBackI=Basics.findBest("B", OBI, SelectionIdI);
+				double bestLayI=Basics.findBest("L", OBI, SelectionIdI);
+				
+					double price=bestBackI;
+					MUBet bet=null;
+					System.out.println();
+					for(int i = 0 ; i< MUBets.length; i++){
+						bet = MUBets[i];
+						
+						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionIdI ){
+							if(bet.getBetType().toString()=="L" & bet.getPrice()>=1+1/(bestBackL-1)){
+								Basics.cancelBet(bet);
+							}
+							if(bet.getBetType().toString()=="B" & bet.getPrice()<=1+1/(bestLayL-1) ){
+								Basics.cancelBet(bet);					
+							}				
+						}		
+					
+					}
+					
+					
+					
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
+					for(int k=0;k<=2;k++){
+						if(price<=1+1/(bestBackL-1) & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+							Basics.placeBetlevel("L", price, 0, 10, SelectionIdI);
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+					}
+					
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
+					for(int k=0; k<= 2; k++){
+						if(price>=1+1/(bestLayL-1) & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
+							System.out.println(Basics.volumeAt(SelectionIdI, "B", price, MUBets));
+							Basics.placeBetlevel("B", price, 0, 10, SelectionIdI);
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+					}
+			
+		  }else{
+			  	boolean done=false;
+			  	while(done==false){
+			  		done=Basics.cancelAll();
+			  		StratAntoine.optimalUnwind();
+			  	}	
+				
+				exitStrat=true;
+				System.out.println("Exit Strat : " + exitStrat);
+		  }
+		  }
+		}catch(Exception e){
+				e.printStackTrace();		
+		
+	}
+	
+	
+	
+}
 }

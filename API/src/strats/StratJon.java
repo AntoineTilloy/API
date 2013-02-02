@@ -293,31 +293,7 @@ public static void triArb(int inutile, double nbLevels, double volume, double vo
 	
 	boolean exitStrat=false;
 
-	try {
-		System.out.println("Choisir Marché +1 : ");
-		APIDemo.chooseMarket(1);
-		String runnerName=APIDemo.selectedMarket2.getRunners().getRunner()[0].getName();
-		int selID=APIDemo.selectedMarket2.getRunners().getRunner()[0].getSelectionId();
-		System.out.println(runnerName);
-		System.out.println(selID);
 		
-		String runnerNameRef="";
-		int selIDRef=0;		
-		for(Runner rn : APIDemo.selectedMarket.getRunners().getRunner()){
-			if(runnerName.toLowerCase().contains(rn.getName().toLowerCase())==false & rn.getName().toLowerCase().contains("draw")==false){
-				runnerNameRef=rn.getName();
-				selIDRef=rn.getSelectionId();
-			}
-		}
-		
-		System.out.println(runnerNameRef);
-		System.out.println(selIDRef);
-		
-	} catch (Exception e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}	
-	
 }
 
 }
