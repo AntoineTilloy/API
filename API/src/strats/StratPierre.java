@@ -158,6 +158,8 @@ public class StratPierre {
 				double bestLayL=Basics.findBest("L", OBL, SelectionIdL);
 				double bestBackI=Basics.findBest("B", OBI, SelectionIdI);
 				double bestLayI=Basics.findBest("L", OBI, SelectionIdI);
+				double lastPlacedBack=1000;
+				double lastPlacedLay=0;
 				
 					double price=bestBackI;
 					MUBet bet=null;
@@ -182,19 +184,21 @@ public class StratPierre {
 					System.out.println(layLimit + " " + backLimit);
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
 					System.out.println(price);
-						if(price<layLimit & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
+						if(price<layLimit & bestLayI>lastPlacedLay + 0.005 & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
 							System.out.println(price);
 							status=Basics.placeBetlevel(MI.getMarketId(),"L", price, 0, 10, SelectionIdI);
+							lastPlacedLay=price;
 							System.out.println(status);
 						}
 
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
 					System.out.println(price);
-						if(price>backLimit & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
+						if(price>backLimit & bestBackI<lastPlacedBack - 0.005 & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
 							System.out.println(Basics.volumeAt(SelectionIdI, "B", price, MUBets));
 							System.out.println(price);
 							Basics.placeBetlevel(MI.getMarketId(),"B", price, 0, 10, SelectionIdI);
+							lastPlacedBack=price;
 							System.out.println(status);
 						}
 					
