@@ -202,6 +202,7 @@ public class APIDemo {
 			if (events == null) {
 				events = new BFEvent[] {};
 			} else {
+				System.out.println("Example : " + events[0].getEventName());
 				// The API returns Coupons as event names, but Coupons don't contain markets so we remove any
 				// events that are Coupons.
 				ArrayList<BFEvent> nonCouponEvents = new ArrayList<BFEvent>(events.length);
