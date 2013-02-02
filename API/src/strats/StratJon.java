@@ -317,6 +317,7 @@ public static void triArb(int inutile, double nbLevels, double volume, double vo
 					runnerIDs[2][0]=APIDemo.selectedMarket.getMarketId();
 					String runnerName=APIDemo.selectedMarket2.getRunners().getRunner()[0].getName();
 					System.out.println(runnerName);
+					//for()
 					///////////////////////////////
 			 }
 		} catch (Exception e) {
