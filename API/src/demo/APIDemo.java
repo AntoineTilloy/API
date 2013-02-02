@@ -241,6 +241,7 @@ public class APIDemo {
 					}
 				}
 				if (type==1){ 
+					System.out.println("type");
 					markets=marketPartialName;
 				}
 				//Choisir parmi les Events
@@ -261,6 +262,7 @@ public class APIDemo {
 					}
 				}
 				if (type==1){ 
+					System.out.println("type");
 					events=eventPartialName;
 				}
 			}	
