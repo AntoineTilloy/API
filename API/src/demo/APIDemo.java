@@ -104,7 +104,7 @@ public class APIDemo {
 						showAccountFunds(Exchange.AUS);
 						break;
 					case 1: // Choose Market 
-						chooseMarket(1);
+						chooseMarket(0);
 						break;
 					case 2: // View Market 
 						viewMarket();
