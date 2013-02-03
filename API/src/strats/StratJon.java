@@ -354,9 +354,9 @@ public static boolean howToFuckBetfair(){
      }
 	System.out.println(priceBetfair);
 	System.out.println(volBetfair.doubleValue());
-	String go=Display.getStringAnswer("yes ? ");
+	//String go=Display.getStringAnswer("yes ? ");
 	
-	if(go=="yes" && Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
+	if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
 		
 	
 	/////////////////////////////////////////////////////////////////////////////
