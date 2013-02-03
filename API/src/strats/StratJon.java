@@ -140,21 +140,21 @@ try{
 				double canLay=5;
 				int marginBestBack=1;
 				int marginBestLay=1;
-				boolean forceCanBestBack=false;
-				boolean forceCanBestLay=false;
+				boolean forceCanBestBack=true;
+				boolean forceCanBestLay=true;
 				
 				if(inventory[horseNumber][0]-inventory[horseNumber][1]>2*bestBack*10){
 					addBack=1;
 					canBack=1;
 					marginBestBack=0;
-					forceCanBestLay=true;
+					forceCanBestBack=false;					
 				}
 				
 				if(inventory[horseNumber][1]-inventory[horseNumber][0]>2*bestBack*10){
 					addLay=1;
 					canLay=1;
 					marginBestLay=0;
-					forceCanBestBack=true;
+					forceCanBestLay=false;
 				}
 				
 				
