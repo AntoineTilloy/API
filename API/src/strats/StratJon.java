@@ -382,6 +382,9 @@ public static boolean howToFuckBetfair(){
 	PlaceBets[] betVector = new PlaceBets[2];
 	betVector[0]=bet1;
 	betVector[1]=bet2;
+	
+	Basics.waiting(5000);
+	
 	try {
 		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
 		res=betResult.getSuccess();
