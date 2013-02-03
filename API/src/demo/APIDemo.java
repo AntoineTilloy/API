@@ -568,7 +568,7 @@ public class APIDemo {
 						typeE=1;
 					}
 				}
-				BFEvent[] eventPartialName = new BFEvent[j];
+				BFEvent[] eventPartialName = new BFEvent[k];
 				i=0;
 				for(BFEvent EV : events){
 					if ((EV.getEventName().toLowerCase().contains(country.toLowerCase()) && EV.getEventName().length()<4)){
