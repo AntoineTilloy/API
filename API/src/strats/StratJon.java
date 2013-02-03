@@ -391,7 +391,7 @@ public static boolean howToFuckBetfair(){
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-	Basics.waiting(1000);
+	Basics.waiting(5000);
 	
 	
 	
