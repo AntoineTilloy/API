@@ -91,8 +91,11 @@ try{
    
    public static void launch2(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
 	   MUBet[] MUBets;
+	   InflatedCompleteMarketPrices OB;
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
 	} catch (Exception e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
@@ -118,7 +121,7 @@ try{
 			Double[][] inventory=Basics.getInventory(MUBets);
 			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
 			//récupérer l'OB
-			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 			int[] SelectionIDs=Basics.getSelectID();
 			
