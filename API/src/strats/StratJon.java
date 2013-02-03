@@ -297,7 +297,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
    
 }
 
-public static void howToFuckBetfair(){
+public static boolean howToFuckBetfair(){
 	
 	boolean exitStrat=false;
 	boolean res=false;
@@ -323,14 +323,23 @@ public static void howToFuckBetfair(){
 	BigDecimal vol1=volParCote;
 	MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
 	vol1.divide(new BigDecimal(bests[0][1]), Mc);
+	if(vol1.doubleValue()>volParCote.doubleValue()){
+		return res;
+     }
 	Basics.placeBetlevel("B", bests[0][1], -1, vol1.doubleValue(), SelectionIDs[0]);
 
 	BigDecimal vol2=volParCote;
 	vol2.divide(new BigDecimal(bests[2][1]), Mc);
+	if(vol2.doubleValue()>volParCote.doubleValue()){
+		return res;
+     }
 	Basics.placeBetlevel("B", bests[2][1], -1, vol2.doubleValue(), SelectionIDs[2]);
 
 	BigDecimal vol3=volParCote;
 	vol3.divide(new BigDecimal(bests[0][0]), Mc);
+	if(vol3.doubleValue()>volParCote.doubleValue()){
+		return res;
+     }
 	Basics.placeBetlevel("B", bests[0][0], 2, vol3.doubleValue(), SelectionIDs[0]);
 	
 	Basics.waiting(1000);
@@ -340,6 +349,9 @@ public static void howToFuckBetfair(){
 	//TestOrdre Betfair
 	BigDecimal volBetfair=volParCote;
 	volBetfair.divide(new BigDecimal(priceBetfair), Mc);
+	if(volBetfair.doubleValue()>volParCote.doubleValue()){
+		return res;
+     }
 	if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
 		
 	
@@ -366,7 +378,6 @@ public static void howToFuckBetfair(){
 	PlaceBets[] betVector = new PlaceBets[2];
 	betVector[0]=bet1;
 	betVector[1]=bet2;
-	
 	try {
 		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
 		res=betResult.getSuccess();
@@ -374,14 +385,14 @@ public static void howToFuckBetfair(){
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-	
+
 	}
 	//Basics.findBest(type, OB, SelectionId);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} //Rendre publiques ces variables dans APIDemo
-
+return res;
 		
 }
 
