@@ -352,7 +352,11 @@ public static boolean howToFuckBetfair(){
 	if(volBetfair.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
-	if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
+	System.out.println(priceBetfair);
+	System.out.println(volBetfair.doubleValue());
+	String go=Display.getStringAnswer("yes ? ");
+	
+	if(go=="yes" && Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
 		
 	
 	/////////////////////////////////////////////////////////////////////////////
