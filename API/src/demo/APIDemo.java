@@ -589,7 +589,7 @@ public class APIDemo {
 			//End of added
 			int choice=0;
 			if(j==1 && k==0){
-				System.out.println(eventPartialName[0]);
+				System.out.println(eventPartialName[0].getEventName());
 			}
 			if(j+k!=1){
 				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
