@@ -356,7 +356,7 @@ public static boolean howToFuckBetfair(){
 	System.out.println(volBetfair.doubleValue());
 	//String go=Display.getStringAnswer("yes ? ");
 	
-	if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
+	//if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
 		
 	
 	/////////////////////////////////////////////////////////////////////////////
@@ -391,7 +391,7 @@ public static boolean howToFuckBetfair(){
 		e1.printStackTrace();
 	}
 
-	}
+	
 	//Basics.findBest(type, OB, SelectionId);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
