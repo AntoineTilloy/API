@@ -107,7 +107,7 @@ try{
 
 			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
 			Double[][] inventory=Basics.getInventory(MUBets);
-
+			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
 			//récupérer l'OB
 			InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
@@ -220,7 +220,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 
 		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
 		Double[][] inventory=Basics.getInventory(MUBets);
-
+		
 		//récupérer l'OB
 		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
