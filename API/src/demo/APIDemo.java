@@ -506,6 +506,8 @@ public class APIDemo {
 		int typeChoice=0;
 		if(j!=1){
 			typeChoice  = Display.getChoiceAnswer("Choose an event type:", typeHorse); //Modified
+		}else{
+			System.out.println(typeHorse[0].getName());
 		}
 		
 		// Get available events of this type
@@ -586,6 +588,9 @@ public class APIDemo {
 		
 			//End of added
 			int choice=0;
+			if(j==1 && k==0){
+				System.out.println(eventPartialName[0]);
+			}
 			if(j+k!=1){
 				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 			}
