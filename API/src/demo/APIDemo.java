@@ -588,7 +588,7 @@ public class APIDemo {
 		
 			//End of added
 			int choice=0;
-			if(j==1 && k==0){
+			if(k==1){
 				System.out.println(eventPartialName[0].getEventName());
 			}
 			if(j+k!=1){
