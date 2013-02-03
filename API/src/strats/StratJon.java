@@ -90,7 +90,16 @@ try{
 }
    
    public static void launch2(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	   MUBet[] MUBets;
+	try {
+		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} //Rendre publiques ces variables dans APIDemo
+
 		
+	   
 		boolean exitStrat=false;
 		   
 		while(exitStrat==false){
@@ -103,7 +112,7 @@ try{
 						
 			//Récupérer les Matched et Unmatched
 			Basics.waiting(1500);
-			MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
 			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
 			Double[][] inventory=Basics.getInventory(MUBets);
