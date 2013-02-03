@@ -168,8 +168,6 @@ try{
 					forceCanBestLay=false;
 				}
 				
-				
-				if(bestBack<=10){
 					double price=bestBack;
 					
 					System.out.println(implicitP[horseNumber][0]);
@@ -211,7 +209,7 @@ try{
 							Basics.placeBetlevel("B", price, 0, 10, SelectionId);
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
-					}
+					
 				}	
 			}
 		  }else{
