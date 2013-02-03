@@ -614,7 +614,8 @@ public class APIDemo {
 		}
 		
 			selectedMarket=selectedMarketInt;
-			System.out.println("Market selected : "+selectedMarket.getName() + "beginning at : " + selectedMarket.getMarketTime().getTime());
+			System.out.println("Market selected : "+selectedMarket.getName());
+			System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
 	}
 	
 	
