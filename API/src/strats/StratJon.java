@@ -322,22 +322,21 @@ public static boolean howToFuckBetfair(){
 	
 	BigDecimal vol1=volParCote;
 	MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
-	vol1.divide(new BigDecimal(bests[0][1]), Mc);
-	System.out.println(vol1.doubleValue());
+	vol1=vol1.divide(new BigDecimal(bests[0][1]), Mc);
 	if(vol1.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
 	Basics.placeBetlevel("B", bests[0][1], -1, vol1.doubleValue(), SelectionIDs[0]);
 
 	BigDecimal vol2=volParCote;
-	vol2.divide(new BigDecimal(bests[2][1]), Mc);
+	vol2=vol2.divide(new BigDecimal(bests[2][1]), Mc);
 	if(vol2.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
 	Basics.placeBetlevel("B", bests[2][1], -1, vol2.doubleValue(), SelectionIDs[2]);
 
 	BigDecimal vol3=volParCote;
-	vol3.divide(new BigDecimal(bests[0][0]), Mc);
+	vol3=vol3.divide(new BigDecimal(bests[0][0]), Mc);
 	if(vol3.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
@@ -349,7 +348,7 @@ public static boolean howToFuckBetfair(){
 	double priceBetfair=Basics.findBest("L", OB, SelectionIDs[1]);
 	//TestOrdre Betfair
 	BigDecimal volBetfair=volParCote;
-	volBetfair.divide(new BigDecimal(priceBetfair), Mc);
+	volBetfair=volBetfair.divide(new BigDecimal(priceBetfair), Mc);
 	if(volBetfair.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
