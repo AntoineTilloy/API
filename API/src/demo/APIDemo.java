@@ -581,17 +581,10 @@ public class APIDemo {
 					events=eventPartialName;
 				}
 				
-				
-			if(typeM==0){
-				markets= new MarketSummary[] {};;
-			}
-			if(typeE==0){
-				events= new BFEvent[] {};
-			}
 			
 		
 			//End of added
-			int choice=1;
+			int choice=0;
 			if(j!=1){
 				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 			}
