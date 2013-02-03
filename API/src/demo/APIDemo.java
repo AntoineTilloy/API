@@ -503,6 +503,7 @@ public class APIDemo {
 		}
 		
 		int typeChoice=1;
+		System.out.println(j + "    yyyyyyyyyyyyyyyyyyyyyyy");
 		if(j!=1){
 			typeChoice  = Display.getChoiceAnswer("Choose an event type:", typeHorse); //Modified
 		}
