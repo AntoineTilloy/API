@@ -383,8 +383,6 @@ public static boolean howToFuckBetfair(){
 	betVector[0]=bet1;
 	betVector[1]=bet2;
 	
-	Basics.waiting(5000);
-	
 	try {
 		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
 		res=betResult.getSuccess();
@@ -393,7 +391,9 @@ public static boolean howToFuckBetfair(){
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-
+	Basics.waiting(1000);
+	
+	
 	
 	//Basics.findBest(type, OB, SelectionId);
 	} catch (Exception e) {
