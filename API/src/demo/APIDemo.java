@@ -358,7 +358,7 @@ public class APIDemo {
 						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.howToFuckBetfair(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.launch2(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						break;
 					case 6: // Back
 						StratAntoine.optimalUnwind();
@@ -372,6 +372,11 @@ public class APIDemo {
 						java.util.Calendar stopTime1=APIDemo.selectedMarket.getMarketTime();
 						stopTime1.add(Calendar.MINUTE, -delay1);
 						StratPierre.IlliquidMM( stopTime1);
+						//finished = true;
+						break;
+					case 9: // Back
+						StratJon.howToFuckBetfair();
+						Basics.cancelAll();
 						//finished = true;
 						break;
 					

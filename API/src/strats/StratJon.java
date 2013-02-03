@@ -297,7 +297,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
    
 }
 
-public static void howToFuckBetfair(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+public static void howToFuckBetfair(){
 	
 	boolean exitStrat=false;
 	boolean res=false;
