@@ -485,6 +485,7 @@ public class APIDemo {
 		String race=Display.getStringAnswer("Race : ");
 		
 		int j=0;
+		int k=0;
 		int typeE=0;
 		int typeM=0;
 		
@@ -554,14 +555,14 @@ public class APIDemo {
 				}
 
 				//Choisir parmi les Events
-				j=0;
+				k=0;
 				for(BFEvent EV : events){
 					if ((EV.getEventName().toLowerCase().contains(country.toLowerCase()) && EV.getEventName().length()<4)){
-						j++;
+						k++;
 						typeE=1;
 					}
 					if ((EV.getEventName().toLowerCase().contains(place.toLowerCase()))){
-						j++;
+						k++;
 						typeE=1;
 					}
 				}
@@ -585,7 +586,7 @@ public class APIDemo {
 		
 			//End of added
 			int choice=0;
-			if(j!=1){
+			if(j+k!=1){
 				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 			}
 			
@@ -603,6 +604,8 @@ public class APIDemo {
 					Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[choice]);
 			}				
 		}
+		
+		System.out.println("Market selected : "+selectedMarket.getName() + "beginning at : " + selectedMarket.getMarketTime().getTime());
 			selectedMarket=selectedMarketInt;
 	}
 	
