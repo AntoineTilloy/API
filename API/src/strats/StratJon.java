@@ -89,7 +89,7 @@ try{
 }
 }
    
-   public static void launch2(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+   public static void stackSmashing(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
 	   MUBet[] MUBets;
 	   InflatedCompleteMarketPrices OB;
 	try {
@@ -105,10 +105,10 @@ try{
 	double bestBack;
 	double bestLay;
 	String stat = "neutral";
-	double addBack=2;
-	double addLay=6;
-	double canBack=1;
-	double canLay=5;
+	double addBack=3;
+	double addLay=8;
+	double canBack=2;
+	double canLay=6;
 	int marginBestBack=1;
 	int marginBestLay=1;
 	boolean forceCanBestBack=true;
@@ -125,7 +125,7 @@ try{
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
 			//Récupérer les Matched et Unmatched
-			Basics.waiting(1500);
+			Basics.waiting(2500);
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
 			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
