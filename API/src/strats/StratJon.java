@@ -342,7 +342,7 @@ public static boolean howToFuckBetfair(){
      }
 	Basics.placeBetlevel("B", bests[0][0], 2, vol3.doubleValue(), SelectionIDs[0]);
 	
-	Basics.waiting(1000);
+	Basics.waiting(100);
 	OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 	double priceBetfair=Basics.findBest("L", OB, SelectionIDs[1]);
@@ -385,6 +385,7 @@ public static boolean howToFuckBetfair(){
 	try {
 		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
 		res=betResult.getSuccess();
+		System.out.println(res);
 	} catch (Exception e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
