@@ -591,6 +591,9 @@ public class APIDemo {
 			if(k==1){
 				System.out.println(eventPartialName[0].getEventName());
 			}
+			if(j==1){
+				System.out.println(marketPartialName[0].getMarketName());
+			}
 			if(j+k!=1){
 				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 			}
@@ -610,8 +613,8 @@ public class APIDemo {
 			}				
 		}
 		
-		System.out.println("Market selected : "+selectedMarket.getName() + "beginning at : " + selectedMarket.getMarketTime().getTime());
 			selectedMarket=selectedMarketInt;
+			System.out.println("Market selected : "+selectedMarket.getName() + "beginning at : " + selectedMarket.getMarketTime().getTime());
 	}
 	
 	
