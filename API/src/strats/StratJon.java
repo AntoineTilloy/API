@@ -178,6 +178,7 @@ try{
 					
 					
 					MUBet bet=null;
+					Basics.waiting(200);
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
 						
