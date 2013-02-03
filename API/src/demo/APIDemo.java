@@ -224,7 +224,10 @@ public class APIDemo {
 				System.out.println();
 			}
 			//Added by Jonathan
-			String partialEventName=Display.getStringAnswer("Partial name : ");
+			String partialEventName="";
+			if(markets.length+events.length>10){
+				partialEventName=Display.getStringAnswer("Partial name : ");
+			}
 			int typeE=0;
 			int typeM=0;
 			if(partialEventName!=""){
@@ -246,7 +249,6 @@ public class APIDemo {
 					}
 				}
 				if (typeM==1){ 
-					System.out.println("type");
 					markets=marketPartialName;
 				}
 				//Choisir parmi les Events
