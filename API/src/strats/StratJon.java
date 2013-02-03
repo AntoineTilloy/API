@@ -101,7 +101,18 @@ try{
 		e1.printStackTrace();
 	} //Rendre publiques ces variables dans APIDemo
 
-		
+	int SelectionId;
+	double bestBack;
+	double bestLay;
+	String stat = "neutral";
+	double addBack=2;
+	double addLay=6;
+	double canBack=1;
+	double canLay=5;
+	int marginBestBack=1;
+	int marginBestLay=1;
+	boolean forceCanBestBack=true;
+	boolean forceCanBestLay=true;
 	   
 		boolean exitStrat=false;
 		   
@@ -130,18 +141,18 @@ try{
 			double[][] implicitP=Basics.implicitPrice(OB);
 			
 			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
-				int SelectionId=SelectionIDs[horseNumber];
-				double bestBack=Basics.findBest("B", OB, SelectionId);
-				double bestLay=Basics.findBest("L", OB, SelectionId);
-				String stat = "neutral";
-				double addBack=2;
-				double addLay=6;
-				double canBack=1;
-				double canLay=5;
-				int marginBestBack=1;
-				int marginBestLay=1;
-				boolean forceCanBestBack=true;
-				boolean forceCanBestLay=true;
+				SelectionId=SelectionIDs[horseNumber];
+				bestBack=Basics.findBest("B", OB, SelectionId);
+				 bestLay=Basics.findBest("L", OB, SelectionId);
+				 stat = "neutral";
+				 addBack=2;
+				 addLay=6;
+				 canBack=1;
+				 canLay=5;
+				 marginBestBack=1;
+				 marginBestLay=1;
+				forceCanBestBack=true;
+				forceCanBestLay=true;
 				
 				if(inventory[horseNumber][0]-inventory[horseNumber][1]>0.5*bestBack*10){
 					addBack=1;
