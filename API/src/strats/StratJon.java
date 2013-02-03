@@ -323,6 +323,7 @@ public static boolean howToFuckBetfair(){
 	BigDecimal vol1=volParCote;
 	MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
 	vol1.divide(new BigDecimal(bests[0][1]), Mc);
+	System.out.println(vol1.doubleValue());
 	if(vol1.doubleValue()>volParCote.doubleValue()){
 		return res;
      }
