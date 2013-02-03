@@ -327,7 +327,7 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
    
 }
 
-public static boolean howToFuckBetfair(){
+public static boolean testTriArb(){
 	
 	boolean exitStrat=false;
 	boolean res=false;

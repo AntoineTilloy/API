@@ -50,10 +50,10 @@ public class APIDemo {
 
 	// Menus
 	private static final String[] MAIN_MENU = new String[] 
-	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market"};
+	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market", "Quick search for Horse race"};
 	   
 	private static final String[] BETS_MENU = new String[] 
- 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel","Strat Market Making Market++","Fuck Betfair"};
+ 	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel","Strat Market Making Market++"};
 
 
 
@@ -126,10 +126,13 @@ public class APIDemo {
 					case 6: // Exit
 						finished = true;
 						break;
-					case 7: // Exit
+					case 7: // Choose last main market
 						Basics.chooselastMkt("C:\\Users\\GREG\\workspace\\market.txt");
 						break;
-
+					case 8://Quick search
+						searchForHorseRace();
+						
+						
 				}
 			} catch (Exception e) {
 				// Print out the exception and carry on.
@@ -299,7 +302,7 @@ public class APIDemo {
 				}
 			}				
 		}
-		if(number==0){
+		if(number==0 ){
 			selectedMarket=selectedMarketInt;
 		}else{
 			selectedMarket2=selectedMarketInt;
@@ -378,11 +381,6 @@ public class APIDemo {
 						java.util.Calendar stopTime1=APIDemo.selectedMarket.getMarketTime();
 						stopTime1.add(Calendar.MINUTE, -delay1);
 						StratPierre.IlliquidMM( stopTime1);
-						//finished = true;
-						break;
-					case 9: // Back
-						StratJon.howToFuckBetfair();
-						Basics.cancelAll();
 						//finished = true;
 						break;
 					
@@ -474,4 +472,146 @@ public class APIDemo {
 			}
 		}
 	}
+	
+	
+	public static void searchForHorseRace() throws Exception {
+		// Get available event types.
+		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);
+		
+		//Added by Jonathan
+		
+		String country=Display.getStringAnswer("Country : ");
+		String place=Display.getStringAnswer("Place : ");
+		String race=Display.getStringAnswer("Race : ");
+		
+		int j=0;
+		int typeE=0;
+		int typeM=0;
+		
+		for(EventType ET : types){
+			if ((ET.getName().contains("Todays")==false | ET.getName().contains("Horse"))){
+				j++;
+			}
+		}
+		EventType[] typeHorse= new EventType[j];
+		int i=0;
+		for(EventType ET : types){
+			if ((ET.getName().contains("Todays")==false | ET.getName().contains("Horse"))){
+				typeHorse[i]=ET;
+				i++;
+			}
+		}
+		
+		int typeChoice=1;
+		if(j!=1){
+			typeChoice  = Display.getChoiceAnswer("Choose an event type:", typeHorse); //Modified
+		}
+		
+		// Get available events of this type
+		Market selectedMarketInt = null;
+		int eventId = typeHorse[typeChoice].getId();  //Modified
+		while (selectedMarketInt == null) {
+			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
+			BFEvent[] events = resp.getEventItems().getBFEvent();
+			if (events == null) {
+				events = new BFEvent[] {};
+			} else {
+				// The API returns Coupons as event names, but Coupons don't contain markets so we remove any
+				// events that are Coupons.
+				ArrayList<BFEvent> nonCouponEvents = new ArrayList<BFEvent>(events.length);
+				for(BFEvent e: events) {
+					if(!e.getEventName().equals("Coupons")) {
+						nonCouponEvents.add(e);
+					}
+				}
+				events = (BFEvent[]) nonCouponEvents.toArray(new BFEvent[]{});
+			}
+			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
+			if (markets == null) {
+				markets = new MarketSummary[] {};
+			}
+			
+
+			
+				//Choisir parmi les Markets
+				j=0;
+				for(MarketSummary MS : markets){
+					if (MS.getMarketName().toLowerCase().contains(race.toLowerCase())){
+						j++;
+						typeM=1;					
+					}
+				}
+				MarketSummary[] marketPartialName = new MarketSummary[j];
+				i=0;
+				for(MarketSummary MS : markets){
+					if (MS.getMarketName().toLowerCase().contains(race.toLowerCase())){
+						marketPartialName[i]=MS;
+						i++;
+					}
+				}
+				if (typeM==1){ 
+					markets=marketPartialName;
+				}
+
+				//Choisir parmi les Events
+				j=0;
+				for(BFEvent EV : events){
+					if ((EV.getEventName().toLowerCase().contains(country.toLowerCase()) && EV.getEventName().length()<4)){
+						j++;
+						typeE=1;
+					}
+					if ((EV.getEventName().toLowerCase().contains(place.toLowerCase()))){
+						j++;
+						typeE=1;
+					}
+				}
+				BFEvent[] eventPartialName = new BFEvent[j];
+				i=0;
+				for(BFEvent EV : events){
+					if ((EV.getEventName().toLowerCase().contains(country.toLowerCase()) && EV.getEventName().length()<4)){
+						eventPartialName[i]=EV;
+						i++;
+					}
+					if ((EV.getEventName().toLowerCase().contains(place.toLowerCase()))){
+							eventPartialName[i]=EV;
+						i++;
+					}
+				}
+				if (typeE==1){ 
+					events=eventPartialName;
+				}
+				
+				
+			if(typeM==0){
+				markets= new MarketSummary[] {};;
+			}
+			if(typeE==0){
+				events= new BFEvent[] {};
+			}
+			
+		
+			//End of added
+			int choice=1;
+			if(j!=1){
+				choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
+			}
+			
+			if (choice==999){
+				break;
+			}
+			
+			// Exchange ID of 1 is the UK, 2 is AUS
+			if (choice < events.length) {
+				eventId = events[choice].getEventId(); 
+			} else {
+				choice -= events.length;
+				selectedExchange = markets[choice].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
+				selectedMarketInt = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[choice].getMarketId());
+					Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[choice]);
+			}				
+		}
+			selectedMarket=selectedMarketInt;
+	}
+	
+	
 }
