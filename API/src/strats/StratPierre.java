@@ -167,7 +167,7 @@ public class StratPierre {
 					double layLimit=1.0+1.0/(bestBackL-1.0);
 					double backLimit=1.0+1.0/(bestLayL-1.0);
 					boolean backPlaced=false;
-					boolean layPlaced=true;
+					boolean layPlaced=false;
 					
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
