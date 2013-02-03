@@ -143,14 +143,14 @@ try{
 				boolean forceCanBestBack=true;
 				boolean forceCanBestLay=true;
 				
-				if(inventory[horseNumber][0]-inventory[horseNumber][1]>2*bestBack*10){
+				if(inventory[horseNumber][0]-inventory[horseNumber][1]>0.5*bestBack*10){
 					addBack=1;
 					canBack=1;
 					marginBestBack=0;
 					forceCanBestBack=false;					
 				}
 				
-				if(inventory[horseNumber][1]-inventory[horseNumber][0]>2*bestBack*10){
+				if(inventory[horseNumber][1]-inventory[horseNumber][0]>0.5*bestLay*10){
 					addLay=1;
 					canLay=1;
 					marginBestLay=0;
