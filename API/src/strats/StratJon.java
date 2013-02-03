@@ -133,7 +133,7 @@ try{
 				}
 				
 				if(inventory[horseNumber][1]-inventory[horseNumber][0]>2*bestBack*10){
-					addLay=2;
+					addLay=1;
 					canLay=1;
 				}
 				
