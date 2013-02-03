@@ -317,7 +317,7 @@ public static boolean howToFuckBetfair(){
 	
 	for(int i=0;i<StratAntoine.numberOfRunners();i++){
 		bests[i][1]=Basics.findBest("B", OB, SelectionIDs[i]);
-		bests[i][0]=Basics.findBest("B", OB, SelectionIDs[i]);
+		bests[i][0]=Basics.findBest("L", OB, SelectionIDs[i]);
 	}
 	
 	BigDecimal vol1=volParCote;
