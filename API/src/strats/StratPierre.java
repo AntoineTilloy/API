@@ -166,6 +166,9 @@ public class StratPierre {
 					System.out.println();
 					double layLimit=1.0+1.0/(bestBackL-1.0);
 					double backLimit=1.0+1.0/(bestLayL-1.0);
+					boolean backPlaced=false;
+					boolean layPlaced=true;
+					
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
 						
@@ -175,10 +178,18 @@ public class StratPierre {
 							}
 							if(bet.getBetType().toString()=="B" && (bet.getPrice()>bestBackI+0.005 | bet.getPrice() < backLimit - 0.005)){
 								Basics.cancelBet(bet);					
-							}				
+							}
+							if(bet.getBetType().toString()=="L" ){
+								layPlaced=true;
+							}
+							if(bet.getBetType().toString()=="B" ){
+								backPlaced=true;					
+							}	
 						}		
-					
 					}
+					
+					if(layPlaced==false){lastPlacedLay = 1;}
+					if(backPlaced==false){lastPlacedBack = 1000;}
 					
 					boolean status = false;
 					System.out.println(layLimit + " " + backLimit);
