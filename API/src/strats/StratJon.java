@@ -4,9 +4,17 @@ import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
+import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
+import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
+import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
 import generated.exchange.BFExchangeServiceStub.MUBet;
+import generated.exchange.BFExchangeServiceStub.PlaceBets;
+import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
 import generated.exchange.BFExchangeServiceStub.Runner;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.*;
 
 import basics.Basics;
@@ -289,9 +297,90 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
    
 }
 
-public static void triArb(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+public static void howToFuckBetfair(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
 	
 	boolean exitStrat=false;
+	boolean res=false;
+	
+	BigDecimal volParCote=new BigDecimal(20);
+	
+	MUBet[] MUBets;
+	try {
+	
+		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	
+	//récupérer l'OB
+	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+	int[] SelectionIDs=Basics.getSelectID();
+	double[][] bests=new double[StratAntoine.numberOfRunners()][2];
+	
+	for(int i=0;i<StratAntoine.numberOfRunners();i++){
+		bests[i][1]=Basics.findBest("B", OB, SelectionIDs[i]);
+		bests[i][0]=Basics.findBest("B", OB, SelectionIDs[i]);
+	}
+	
+	BigDecimal vol1=volParCote;
+	MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
+	vol1.divide(new BigDecimal(bests[0][1]), Mc);
+	Basics.placeBetlevel("B", bests[0][1], -1, vol1.doubleValue(), SelectionIDs[0]);
+
+	BigDecimal vol2=volParCote;
+	vol2.divide(new BigDecimal(bests[2][1]), Mc);
+	Basics.placeBetlevel("B", bests[2][1], -1, vol2.doubleValue(), SelectionIDs[2]);
+
+	BigDecimal vol3=volParCote;
+	vol3.divide(new BigDecimal(bests[0][0]), Mc);
+	Basics.placeBetlevel("B", bests[0][0], 2, vol3.doubleValue(), SelectionIDs[0]);
+	
+	Basics.waiting(1000);
+	OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+	double priceBetfair=Basics.findBest("L", OB, SelectionIDs[1]);
+	//TestOrdre Betfair
+	BigDecimal volBetfair=volParCote;
+	volBetfair.divide(new BigDecimal(priceBetfair), Mc);
+	if(Math.abs(StratAntoine.getVolume(OB, SelectionIDs[1], priceBetfair, "L")-volBetfair.doubleValue())<1){
+		
+	
+	/////////////////////////////////////////////////////////////////////////////
+	
+	PlaceBets bet1 = new PlaceBets();
+	bet1.setMarketId(APIDemo.selectedMarket.getMarketId());
+	bet1.setSelectionId(SelectionIDs[0]);
+	bet1.setBetCategoryType(BetCategoryTypeEnum.E);
+	bet1.setBetType(BetTypeEnum.Factory.fromValue("L"));
+	bet1.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+    bet1.setPrice(APIDemo.priceLadder[Basics.findPriceLadder(bests[0][1])]);
+	bet1.setSize(vol3.doubleValue());
+	
+	PlaceBets bet2 = new PlaceBets();
+	bet2.setMarketId(APIDemo.selectedMarket.getMarketId());
+	bet2.setSelectionId(SelectionIDs[1]);
+	bet2.setBetCategoryType(BetCategoryTypeEnum.E);
+	bet2.setBetType(BetTypeEnum.Factory.fromValue("B"));
+	bet2.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+    bet2.setPrice(APIDemo.priceLadder[Basics.findPriceLadder(bests[1][0])]);
+	bet2.setSize(volBetfair.doubleValue());
+	
+	PlaceBets[] betVector = new PlaceBets[2];
+	betVector[0]=bet1;
+	betVector[1]=bet2;
+	
+	try {
+		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
+		res=betResult.getSuccess();
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	
+	}
+	//Basics.findBest(type, OB, SelectionId);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} //Rendre publiques ces variables dans APIDemo
 
 		
 }
