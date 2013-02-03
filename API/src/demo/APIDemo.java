@@ -283,6 +283,10 @@ public class APIDemo {
 			
 			int choice = Display.getChoiceAnswer("Choose a Market or Event:", events, markets);
 
+			if (choice==999){
+				break;
+			}
+			
 			// Exchange ID of 1 is the UK, 2 is AUS
 			if (choice < events.length) {
 				eventId = events[choice].getEventId(); 
