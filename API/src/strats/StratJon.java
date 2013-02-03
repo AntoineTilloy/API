@@ -380,8 +380,8 @@ public static boolean howToFuckBetfair(){
 	bet2.setSize(volBetfair.doubleValue());
 	
 	PlaceBets[] betVector = new PlaceBets[2];
-	betVector[0]=bet1;
-	betVector[1]=bet2;
+	betVector[1]=bet1;
+	betVector[0]=bet2;
 	
 	try {
 		PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
