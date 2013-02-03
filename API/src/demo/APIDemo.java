@@ -489,14 +489,14 @@ public class APIDemo {
 		int typeM=0;
 		
 		for(EventType ET : types){
-			if ((ET.getName().contains("Todays")==false | ET.getName().contains("Horse"))){
-				j++;
+			if ((ET.getName().toLowerCase().contains("today")==false && ET.getName().toLowerCase().contains("horse"))){
+					j++;
 			}
 		}
 		EventType[] typeHorse= new EventType[j];
 		int i=0;
 		for(EventType ET : types){
-			if ((ET.getName().contains("Todays")==false | ET.getName().contains("Horse"))){
+			if ((ET.getName().toLowerCase().contains("today")==false && ET.getName().toLowerCase().contains("horse"))){
 				typeHorse[i]=ET;
 				i++;
 			}
