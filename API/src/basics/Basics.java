@@ -533,7 +533,19 @@ public static void chooselastMkt(String path){
 	
 }
 
-
+public static PlaceBets generateBet(String Type,double price,double size,int SelectionId){
+	
+	PlaceBets bet = new PlaceBets();
+	bet.setMarketId(APIDemo.selectedMarket.getMarketId());
+	bet.setSelectionId(SelectionId);
+	bet.setBetCategoryType(BetCategoryTypeEnum.E);
+	bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
+	bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
+    bet.setPrice(price);
+	bet.setSize(size);
+	
+	return bet;
+}
 
 
 }
