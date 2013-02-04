@@ -464,7 +464,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
 				betVector[i]=Basics.generateBet("B",APIDemo.priceLadder[numBack-i-1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay-distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
 		}
 		
 		
