@@ -123,7 +123,7 @@ try{
 		try{	
 					
 				
-		  if(true | Calendar.getInstance().getTime().before(stopTime.getTime())){
+		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
 			Basics.waiting(2500);
 
