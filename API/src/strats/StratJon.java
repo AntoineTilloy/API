@@ -125,7 +125,7 @@ try{
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(2500);
+			Basics.waiting(12500);
 
 			int[] SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -146,6 +146,7 @@ try{
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 				spreadFilled=false;
+				exitStrat=true;
 			}
 			
 			double[][] implicitP=Basics.implicitPrice(OB);
