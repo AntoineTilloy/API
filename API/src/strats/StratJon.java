@@ -447,13 +447,13 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	int numBack=Basics.findPriceLadder(Basics.findBest("B", OB, SelectionIDs[horseNumber]));
 	int numLay=Basics.findPriceLadder(Basics.findBest("L", OB, SelectionIDs[horseNumber]));
 	int spreadSize=numBack-numLay;
+	System.out.println("in");
+System.out.println(spreadSize);
+System.out.println(distToOppositeBest);
 	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
 	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>0){
 		
 		PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
-		System.out.println("in");
-System.out.println(spreadSize);
-System.out.println(distToOppositeBest);
 
 		if(inventaire>0){
 
