@@ -447,9 +447,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	int numBack=Basics.findPriceLadder(Basics.findBest("B", OB, SelectionIDs[horseNumber]));
 	int numLay=Basics.findPriceLadder(Basics.findBest("L", OB, SelectionIDs[horseNumber]));
 	int spreadSize=numBack-numLay;
-	System.out.println("in");
-System.out.println(spreadSize);
-System.out.println(distToOppositeBest);
+
 	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
 	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>0){
 		
@@ -461,7 +459,7 @@ System.out.println(distToOppositeBest);
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
 				betVector[i]=Basics.generateBet("L",APIDemo.priceLadder[numLay+i+1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
 		}else{
 			//Plus de BACK que de LAY dans l'inventaire : on veut mettre le prix en haut du spread
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
@@ -469,14 +467,12 @@ System.out.println(distToOppositeBest);
 			}
 			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
 		}
-		System.out.println("out");
-		
-		
+
 		
 		try {
-		//	PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
-		//	res=betResult.getSuccess();
-		//	System.out.println(res);
+			PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
+			res=betResult.getSuccess();
+			System.out.println(res);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
