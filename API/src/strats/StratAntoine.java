@@ -108,21 +108,21 @@ public class StratAntoine {
 	
 	public static Double transactionPrice(InflatedCompleteMarketPrices OB,int runnerId,Double currentPosition,Double finalPosition){
 		// gives the Cost to reach a position of finalPosition for the horse given by runnerNumber
-		System.out.println("Calculating transaction price for market "+runnerId+ " with potential final position "+finalPosition);
+		//System.out.println("Calculating transaction price for market "+runnerId+ " with potential final position "+finalPosition);
 		Double cost=0.0;
 		Double posToExecute=finalPosition-currentPosition;
 		
 		if (posToExecute>0.0001){
 			String type="L";//je veux regarder ce qu'il y a au lay pour backer
-			System.out.println("on regarde du coté du BACK");
+			//System.out.println("on regarde du coté du BACK");
 			Double quote=Basics.findBest("L", OB, runnerId);//donc je regarde le meilleur prix des layeurs presents
-			System.out.println("quote "+quote);
+			//System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
-			System.out.println("quoteIndex "+quoteIndex);
+			//System.out.println("quoteIndex "+quoteIndex);
 			Double availableVolume;
 			while (posToExecute>0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
-				System.out.println("available Volume "+availableVolume);
+				//System.out.println("available Volume "+availableVolume);
 				if (posToExecute<availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
@@ -145,15 +145,15 @@ public class StratAntoine {
 		}
 		if (posToExecute<-0.0001){
 			String type="B";// je veux regarder ce qu'il y a au back pour layer
-			System.out.println("on regarde du coté du LAY");
+			//System.out.println("on regarde du coté du LAY");
 			Double quote=Basics.findBest("B", OB, runnerId);//donc je regarde le meilleur prix des backeurs
-			System.out.println("quote "+quote);
+			//System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
-			System.out.println("quoteIndex "+quoteIndex);
+			//System.out.println("quoteIndex "+quoteIndex);
 			Double availableVolume;
 			while (posToExecute<-0.0001){
 				availableVolume=getVolume(OB,runnerId,quote,type);
-				System.out.println("available Volume "+availableVolume);
+				//System.out.println("available Volume "+availableVolume);
 				if (posToExecute>-availableVolume*quote){
 					cost=cost+posToExecute/quote;
 					posToExecute=0.0;
@@ -174,7 +174,12 @@ public class StratAntoine {
 				}
 			}
 		}
-		System.out.println("Fin du calcul du transaction price pour un sous marché");
+		if (Basics.findBest("L", OB, runnerId)>900){ // je coupe la queue de distribution, si le cheval est trop improbable je considere qu'il y 
+			//a une couille et je ne le compte pas
+			cost=0.0;
+		}
+		
+		//System.out.println("Fin du calcul du transaction price pour un sous marché");
 		
 		return cost;
 	}
@@ -192,7 +197,7 @@ public class StratAntoine {
 	public static Double[] transactionPrice(InflatedCompleteMarketPrices OB,Double[][] inventory,Double finalPosition){
 		// Cost to put every horse to position finalPosition
 		
-		System.out.println("Calculating complete transaction price");
+		//System.out.println("Calculating complete transaction price");
 		
 		Double[] costVector=new Double[numberOfRunners()];
 		int i=0;
@@ -231,6 +236,10 @@ public class StratAntoine {
 			potentialFinalProfit[i]=profit;
 			for (int j=0;j<costVector.length;j=j+1){
 				potentialFinalProfit[i]=potentialFinalProfit[i]-costVector[j];
+				if ((costVector[j]>0.1)&&(costVector[j]<1.99)){
+					potentialFinalProfit[i]=potentialFinalProfit[i]-1000000; //Si on doit deboucler avec moins de 2 (mais plus de 0.1) alors je 
+					//penalise fortement cette possibilité (en gros elle est impossible).
+				}
 			}
 		}
 		int bestChoice=argmax(potentialFinalProfit);
