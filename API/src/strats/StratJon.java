@@ -123,7 +123,7 @@ try{
 		try{	
 					
 				
-		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+		  if(true | Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
 			Basics.waiting(12500);
 
@@ -451,7 +451,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>0){
 		
 		PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
-
+System.out.println("in");
 		if(inventaire>0){
 
 			//Plus de LAY que de BACK dans l'inventaire : on veut mettre le prix en haut du spread
@@ -466,6 +466,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 			}
 			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
 		}
+		System.out.println("out");
 		
 		
 		

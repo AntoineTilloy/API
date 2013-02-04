@@ -145,7 +145,6 @@ public static int[] getSelectID(Market SM){
 			inventory[j][1]=0.0;
 			inventory[j][2]=0.0;
 			inventory[j][3]=0.0;
-			//Attention, colone 4 est le selection id du runner en double!
 			
 			for(int i=0; i<MUbets.length;i++){			
 				if(MUbets[i].getSelectionId()==mr.getSelectionId()){	
