@@ -115,7 +115,8 @@ try{
 	boolean forceCanBestLay=true;
 	   
 		boolean exitStrat=false;
-		   
+		boolean spreadFilled=false;
+		
 		while(exitStrat==false){
 			
 			   
@@ -124,19 +125,28 @@ try{
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			//Récupérer les Matched et Unmatched
 			Basics.waiting(2500);
-			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
-
-			//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
-			Double[][] inventory=Basics.getInventory(MUBets);
-			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
-			//récupérer l'OB
-			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 			int[] SelectionIDs=Basics.getSelectID();
+			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		
 			
 			
+			///////////////////////////////////////////////////////
+			//spreadFilled=fillSpread(1, inutile, OB, SelectionIDs);
+			///////////////////////////////////////////////////////////
+			
+			
+			
+			Double[][] inventory=Basics.getInventory(MUBets);
+			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
+			
+			if(spreadFilled==true){
+				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				spreadFilled=false;
+			}
 			
 			double[][] implicitP=Basics.implicitPrice(OB);
 			
@@ -172,9 +182,7 @@ try{
 					
 					System.out.println(implicitP[horseNumber][0]);
 					System.out.println(implicitP[horseNumber][1]);
-					
-					
-					
+										
 					MUBet bet=null;
 					Basics.waiting(200);
 					for(int i = 0 ; i< MUBets.length; i++){
@@ -190,8 +198,6 @@ try{
 						}		
 					
 					}
-					
-					
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
 					for(int k=0;k<=2;k++){
@@ -243,15 +249,11 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				
 			
 	  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
-					
-		//Récupérer les Matched et Unmatched
+
+
 		Basics.waiting(1500);
 		MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
-
-		//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
-		Double[][] inventory=Basics.getInventory(MUBets);
-		
-		//récupérer l'OB
+    	Double[][] inventory=Basics.getInventory(MUBets);
 		InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 		int[] SelectionIDs=Basics.getSelectID();
@@ -336,13 +338,12 @@ public static boolean testTriArb(){
 	
 	MUBet[] MUBets;
 	try {
-	
-		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-	
-	//récupérer l'OB
-	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 	int[] SelectionIDs=Basics.getSelectID();
+		
+	MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
 	double[][] bests=new double[StratAntoine.numberOfRunners()][2];
 	
 	for(int i=0;i<StratAntoine.numberOfRunners();i++){
@@ -433,5 +434,49 @@ public static boolean testTriArb(){
 return res;
 		
 }
+
+
+public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs){
+	
+	boolean res=false;
+	String type="";
+	String oppType="";
+	Double[][] inventory=Basics.getInventory(MUBets);
+	
+	double inventaire=inventory[horseNumber][0]-inventory[horseNumber][1];
+	
+	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
+	if(Basics.findBest("B", OB, SelectionIDs[horseNumber])-Basics.findBest("L", OB, SelectionIDs[horseNumber])>distToOppositeBest+1 && Math.abs(inventaire)>9){
+		
+		try {
+		
+		if(inventaire>0){
+			//Trop de LAY : on veut mettre le prix en haut du spread
+			type="L";
+			oppType="B";
+		}else{
+			//Trop de BACK : on veut mettre le prix en bas du spread
+			type="B";
+			oppType="L";
+		}
+		
+		
+		
+		
+		res=true;
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //Rendre publiques ces variables dans APIDemo
+
+		
+	}
+	
+	return res;
+	
+}
+
+
 
 }
