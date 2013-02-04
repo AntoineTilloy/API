@@ -125,7 +125,7 @@ try{
 				
 		  if(true | Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(12500);
+			Basics.waiting(2500);
 
 			int[] SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -471,6 +471,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 		
 		try {
 			PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
+			Basics.waiting(50000);
 			res=betResult.getSuccess();
 			System.out.println(res);
 		} catch (Exception e1) {
