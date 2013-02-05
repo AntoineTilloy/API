@@ -1,5 +1,7 @@
 package demo.handler;
 
+import java.util.Calendar;
+
 import demo.util.APIContext;
 import demo.util.InflatedCompleteMarketPrices;
 import demo.util.InflatedMarketPrices;
@@ -267,6 +269,7 @@ public class ExchangeAPI {
 	// Place some bets on the market
 	public static PlaceBetsResult[] placeBets(Exchange exch, APIContext context, PlaceBets[] bets) throws Exception {
 		
+		
 		// Create a request object
 		PlaceBetsReq request = new PlaceBetsReq();
 		request.setHeader(getHeader(context.getToken()));
@@ -280,10 +283,13 @@ public class ExchangeAPI {
         PlaceBetsE msg = new PlaceBetsE();
         msg.setRequest(request);
 
-        // Send the request to the Betfair Exchange Service.
-        PlaceBetsResp resp = getStub(exch).placeBets(msg).getResult();
-        context.getUsage().addCall("placeBets");
+        PlaceBetsResp resp=new PlaceBetsResp();;
         
+        if(Calendar.getInstance().MONTH==2){
+        // Send the request to the Betfair Exchange Service.
+        resp = getStub(exch).placeBets(msg).getResult();
+        context.getUsage().addCall("placeBets");
+        }
         // Check the response code, and throw and exception if call failed
         if (resp.getErrorCode() != PlaceBetsErrorEnum.OK)
         {
