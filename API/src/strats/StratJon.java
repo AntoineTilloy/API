@@ -178,6 +178,12 @@ try{
 					marginBestLay=0;
 					forceCanBestLay=false;
 				}
+				if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)<=0.5*bestBack*10){
+					forceCanBestBack=false;	
+				}
+				if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)<=0.5*bestLay*10){
+					forceCanBestLay=false;	
+				}
 				
 					double price=bestBack;
 					
@@ -190,10 +196,10 @@ try{
 						bet = MUBets[i];
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if((bet.getBetType().toString()=="L" && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
+							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*bestLay*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
 								Basics.cancelBet(bet);
 							}
-							if((bet.getBetType().toString()=="B" & bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
+							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*bestBack*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
 								Basics.cancelBet(bet);					
 							}				
 						}		
