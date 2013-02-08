@@ -285,7 +285,8 @@ public class ExchangeAPI {
 
         PlaceBetsResp resp=new PlaceBetsResp();;
         
-        if(Calendar.getInstance().MONTH==2){
+        Calendar.getInstance();
+		if(Calendar.MONTH==2){
         // Send the request to the Betfair Exchange Service.
         resp = getStub(exch).placeBets(msg).getResult();
         context.getUsage().addCall("placeBets");

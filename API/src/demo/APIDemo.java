@@ -364,7 +364,7 @@ public class APIDemo {
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
-						int delay=1;
+						int delay=5;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
 						StratJon.stackSmashing(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);

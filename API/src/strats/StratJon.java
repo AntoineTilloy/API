@@ -217,7 +217,18 @@ try{
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 					
-				}	
+					 }
+					if(inventory[horseNumber][0]-inventory[horseNumber][1]<=0.5*bestBack*10 & inventory[horseNumber][0]-inventory[horseNumber][1]>0){
+						if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)<inventory[horseNumber][0]-inventory[horseNumber][1]){
+							Basics.placeBetlevel("B", bestBack, 0, inventory[horseNumber][0]-inventory[horseNumber][1]-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
+						}
+					}
+					if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0.5*bestLay*10 & inventory[horseNumber][1]-inventory[horseNumber][0]>0){
+						if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)<inventory[horseNumber][1]-inventory[horseNumber][0]){
+							Basics.placeBetlevel("L", bestLay, 0, inventory[horseNumber][1]-inventory[horseNumber][0]-Basics.volumeAt(SelectionId, "L", bestLay, MUBets), SelectionId);
+						}
+					}
+					
 			}
 		  }else{
 			  	boolean done=false;
