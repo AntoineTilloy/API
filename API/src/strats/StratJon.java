@@ -127,7 +127,7 @@ try{
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(1500);
+			Basics.waiting(2500);
 
 			int[] SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
