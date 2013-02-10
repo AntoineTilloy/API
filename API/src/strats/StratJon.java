@@ -198,10 +198,10 @@ try{
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
-		//						Basics.cancelBet(bet);
+								Basics.cancelBet(bet);
 							}
 							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
-		//						Basics.cancelBet(bet);					
+								Basics.cancelBet(bet);					
 							}				
 						}		
 					
@@ -246,9 +246,9 @@ try{
 					}
 					if(numberOfBets>0){
 					try {
-		//				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
-		//				res=betResult.getSuccess();
-		//				System.out.println(res);
+						PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
+						res=betResult.getSuccess();
+						System.out.println(res);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
