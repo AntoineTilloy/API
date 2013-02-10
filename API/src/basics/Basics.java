@@ -555,6 +555,38 @@ public static PlaceBets generateBet(String Type,double price, double siz,int Sel
 	return bet;
 }
 
+public static CancelBets generateCancelBet(MUBet bet){
+
+	CancelBets canc = new CancelBets();
+	canc.setBetId(bet.getBetId());
+	
+	return canc;
+}
+
+public static void placeBetVector(PlaceBets[] bet) throws Exception {
+	
+
+	PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, bet)[0];
+	
+	if (betResult.getSuccess()) {
+		Display.println("Bet "+betResult.getBetId()+" placed.");
+	} else {
+		Display.println("Failed to place bet: Problem was: "+betResult.getResultCode());
+	}
+}
+
+public static void cancelBetVector(CancelBets[] bet) throws Exception {
+	
+
+	CancelBetsResult betResult = ExchangeAPI.cancelBets(APIDemo.selectedExchange, APIDemo.apiContext, bet)[0];
+	
+	if (betResult.getSuccess()) {
+		Display.println("Bet "+betResult.getBetId()+" cancelled.");
+	} else {
+		Display.println("Failed to cancel bet: Problem was: "+betResult.getResultCode());
+	}
+}
+
 
 
 
