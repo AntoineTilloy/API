@@ -136,7 +136,7 @@ try{
 			
 			
 			///////////////////////////////////////////////////////
-			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
 			///////////////////////////////////////////////////////////
 			
 			
@@ -212,7 +212,6 @@ try{
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
 					for(int k=0;k<=6;k++){
 						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
-							System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
 							betsVector[numberOfBets]=Basics.generateBet("L", price, 10, SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
@@ -222,7 +221,6 @@ try{
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+marginBestBack];
 					for(int k=0; k<= 6; k++){
 						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
-							System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
 							betsVector[numberOfBets]=Basics.generateBet("B", price, 10, SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
@@ -334,7 +332,6 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1];
 				for(int k=0;k<=2;k++){
 					if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
-						System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
 						Basics.placeBetlevel("L", price, 0, 10, SelectionId);
 					}
 					price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
@@ -343,7 +340,6 @@ public static void launch3(int inutile, double nbLevels, double volume, double v
 				price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1];
 				for(int k=0; k<= 2; k++){
 					if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/3 & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
-						System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
 						Basics.placeBetlevel("B", price, 0, 10, SelectionId);
 					}
 					price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
@@ -488,7 +484,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	int spreadSize=numBack-numLay;
 
 	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
-	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>2){
+	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>5){
 		
 		PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
 
