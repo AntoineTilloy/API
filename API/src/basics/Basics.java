@@ -534,7 +534,13 @@ public static void chooselastMkt(String path){
 	
 }
 
-public static PlaceBets generateBet(String Type,double price,double size,int SelectionId){
+public static PlaceBets generateBet(String Type,double price, double siz,int SelectionId){
+
+	BigDecimal bd2=new BigDecimal(0.01);
+	BigDecimal bd=new BigDecimal(Math.floor(100*siz));
+	MathContext Mc = new MathContext(3, RoundingMode.HALF_UP);
+	
+	double size=bd.multiply(bd2,Mc).doubleValue();
 	
 	PlaceBets bet = new PlaceBets();
 	bet.setMarketId(APIDemo.selectedMarket.getMarketId());
