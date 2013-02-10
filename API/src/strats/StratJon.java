@@ -265,6 +265,9 @@ try{
 						Basics.placeBetVector(betsToSend);
 					}
 					
+					if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>30 | Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>30){
+						Basics.cancelAll();
+					}
 			}
 		  }else{
 			  	boolean done=false;
