@@ -198,10 +198,10 @@ try{
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
-								Basics.cancelBet(bet);
+		//						Basics.cancelBet(bet);
 							}
 							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
-								Basics.cancelBet(bet);					
+		//						Basics.cancelBet(bet);					
 							}				
 						}		
 					
@@ -248,9 +248,9 @@ try{
 					}
 					if(numberOfBets>0){
 					try {
-						PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
-						res=betResult.getSuccess();
-						System.out.println(res);
+		//				PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
+		//				res=betResult.getSuccess();
+		//				System.out.println(res);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -488,7 +488,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	int spreadSize=numBack-numLay;
 
 	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
-	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>0){
+	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>2){
 		
 		PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
 
@@ -498,13 +498,13 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
 				betVector[i]=Basics.generateBet("L",APIDemo.priceLadder[numLay+i+1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.abs(inventaire)+2, SelectionIDs[horseNumber]);
 		}else{
 			//Plus de BACK que de LAY dans l'inventaire : on veut mettre le prix en haut du spread
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
 				betVector[i]=Basics.generateBet("B",APIDemo.priceLadder[numBack-i-1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.floor(Math.abs(inventaire)+2), SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.abs(inventaire)+2, SelectionIDs[horseNumber]);
 		}
 
 		
