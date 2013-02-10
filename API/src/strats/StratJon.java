@@ -192,7 +192,7 @@ try{
 					System.out.println(implicitP[horseNumber][1]);
 										
 					MUBet bet=null;
-					Basics.waiting(200);
+					//Basics.waiting(200);
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
 						
