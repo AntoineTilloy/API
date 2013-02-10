@@ -328,8 +328,10 @@ public static int[] getSelectID(Market SM){
 	}
 	
 	
-	public static boolean placeBetlevel(int SMId, String Type,double best, int level,double size,int SelectionId){
+	public static boolean placeBetlevel(int SMId, String Type,double best, int level,double siz,int SelectionId){
 		boolean res=false;
+		
+		double size=0.01*Math.floor(100*siz);
 		
 		if(Type=="B"){
 			PlaceBets bet = new PlaceBets();
@@ -541,7 +543,7 @@ public static PlaceBets generateBet(String Type,double price,double size,int Sel
 	bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 	bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
     bet.setPrice(price);
-	bet.setSize(size);
+	bet.setSize(0.01*Math.floor(100*size));
 	
 	return bet;
 }
