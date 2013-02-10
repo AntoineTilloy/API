@@ -228,7 +228,7 @@ try{
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
 					for(int k=0;k<=6;k++){
-						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<10+4*k-2){
+						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
@@ -237,7 +237,7 @@ try{
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+marginBestBack];
 					for(int k=0; k<= 6; k++){
-						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<10+4*k-2 ){
+						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2 ){
 							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
