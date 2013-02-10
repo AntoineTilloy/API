@@ -246,6 +246,7 @@ try{
 					for(int i=0;i<numberOfBets;i++){
 						betsToSend[i]=betsVector[i];
 					}
+					if(numberOfBets>0){
 					try {
 						PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
 						res=betResult.getSuccess();
@@ -254,6 +255,7 @@ try{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				}
 					
 			}
 		  }else{
