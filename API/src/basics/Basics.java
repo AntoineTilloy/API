@@ -543,7 +543,7 @@ public static PlaceBets generateBet(String Type,double price,double size,int Sel
 	bet.setBetType(BetTypeEnum.Factory.fromValue(Type));
 	bet.setBetPersistenceType(BetPersistenceTypeEnum.NONE);
     bet.setPrice(price);
-	bet.setSize(0.01*Math.floor(100*size));
+	bet.setSize(size);
 	
 	return bet;
 }
