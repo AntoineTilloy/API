@@ -230,13 +230,13 @@ try{
 					
 					 }
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]<=0.5*bestBack*10 & inventory[horseNumber][0]-inventory[horseNumber][1]>0){
-						if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)*bestBack<inventory[horseNumber][0]-inventory[horseNumber][1]){
+						if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)*bestBack<inventory[horseNumber][0]-inventory[horseNumber][1] && (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets)>=2){
 							betsVector[numberOfBets]=Basics.generateBet("B", bestBack, (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
 					}
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0.5*bestLay*10 & inventory[horseNumber][1]-inventory[horseNumber][0]>0){
-						if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)*bestLay<inventory[horseNumber][1]-inventory[horseNumber][0]){
+						if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)*bestLay<inventory[horseNumber][1]-inventory[horseNumber][0] && (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets)>=2){
 							betsVector[numberOfBets]=Basics.generateBet("L", bestLay, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
 						}
