@@ -11,6 +11,7 @@ import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
 import generated.exchange.BFExchangeServiceStub.PlaceBetsResult;
 import generated.exchange.BFExchangeServiceStub.Runner;
+import generated.exchange.BFExchangeServiceStub.UpdateBets;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -553,6 +554,8 @@ public static PlaceBets generateBet(String Type,double price, double siz,int Sel
 	
 	return bet;
 }
+
+
 
 
 }
