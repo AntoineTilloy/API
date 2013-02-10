@@ -148,7 +148,7 @@ try{
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 				spreadFilled=false;
-				exitStrat=true;
+				//exitStrat=true;
 			}
 			
 			double[][] implicitP=Basics.implicitPrice(OB);
