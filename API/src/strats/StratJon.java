@@ -479,12 +479,14 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	Double[][] inventory=Basics.getInventory(MUBets);
 	
 	double inventaire=inventory[horseNumber][0]-inventory[horseNumber][1];
-	int numBack=Basics.findPriceLadder(Basics.findBest("B", OB, SelectionIDs[horseNumber]));
-	int numLay=Basics.findPriceLadder(Basics.findBest("L", OB, SelectionIDs[horseNumber]));
+	double bestLay=Basics.findBest("L", OB, SelectionIDs[horseNumber]);
+	double bestBack=Basics.findBest("B", OB, SelectionIDs[horseNumber]);
+	int numBack=Basics.findPriceLadder(bestBack);
+	int numLay=Basics.findPriceLadder(bestLay);
 	int spreadSize=numBack-numLay;
 
 	//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
-	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)>5){
+	if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)*bestBack>5){
 		
 		PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
 
@@ -492,15 +494,15 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 
 			//Plus de LAY que de BACK dans l'inventaire : on veut mettre le prix en haut du spread
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
-				betVector[i]=Basics.generateBet("L",APIDemo.priceLadder[numLay+i+1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
+				betVector[i]=Basics.generateBet("L",APIDemo.priceLadder[numLay+i+1], 3+rand.nextInt(2), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.abs(inventaire)+2, SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("B",APIDemo.priceLadder[numBack-distToOppositeBest], Math.abs(inventaire)/APIDemo.priceLadder[numBack-distToOppositeBest]+3, SelectionIDs[horseNumber]);
 		}else{
 			//Plus de BACK que de LAY dans l'inventaire : on veut mettre le prix en haut du spread
 			for(int i=0;i<spreadSize-distToOppositeBest-1;i++){
-				betVector[i]=Basics.generateBet("B",APIDemo.priceLadder[numBack-i-1], 2+rand.nextInt(1), SelectionIDs[horseNumber]);
+				betVector[i]=Basics.generateBet("B",APIDemo.priceLadder[numBack-i-1], 3+rand.nextInt(2), SelectionIDs[horseNumber]);
 			}
-			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.abs(inventaire)+2, SelectionIDs[horseNumber]);
+			betVector[spreadSize-distToOppositeBest-1]=Basics.generateBet("L",APIDemo.priceLadder[numLay+distToOppositeBest], Math.abs(inventaire)/APIDemo.priceLadder[numLay+distToOppositeBest]+3, SelectionIDs[horseNumber]);
 		}
 
 		
