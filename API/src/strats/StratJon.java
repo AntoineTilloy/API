@@ -508,7 +508,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 		
 		try {
 			PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betVector)[0];
-			Basics.waiting(50000);
+			Basics.waiting(2000);
 			res=betResult.getSuccess();
 			System.out.println(res);
 		} catch (Exception e1) {
