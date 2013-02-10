@@ -104,7 +104,6 @@ try{
 	int SelectionId;
 	double bestBack;
 	double bestLay;
-	String stat = "neutral";
 	double addBack=3;
 	double addLay=8;
 	double canBack=2;
@@ -113,9 +112,12 @@ try{
 	int marginBestLay=1;
 	boolean forceCanBestBack=true;
 	boolean forceCanBestLay=true;
-	   
+	boolean res;
+	
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
+		PlaceBets[] betsVector = new PlaceBets[100];
+		int numberOfBets;
 		
 		while(exitStrat==false){
 			
@@ -155,7 +157,6 @@ try{
 				SelectionId=SelectionIDs[horseNumber];
 				bestBack=Basics.findBest("B", OB, SelectionId);
 				 bestLay=Basics.findBest("L", OB, SelectionId);
-				 stat = "neutral";
 				 addBack=2;
 				 addLay=6;
 				 canBack=1;
@@ -206,11 +207,14 @@ try{
 					
 					}
 					
+					numberOfBets=0;
+					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
 					for(int k=0;k<=2;k++){
 						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<=0.1){
 							System.out.println(Basics.volumeAt(SelectionId, "L", price, MUBets));
-							Basics.placeBetlevel("L", price, 0, 10, SelectionId);
+							betsVector[numberOfBets]=Basics.generateBet("L", price, 10, SelectionId);
+							numberOfBets=numberOfBets+1;
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 					}
@@ -219,20 +223,36 @@ try{
 					for(int k=0; k<= 2; k++){
 						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<=0.1 ){
 							System.out.println(Basics.volumeAt(SelectionId, "B", price, MUBets));
-							Basics.placeBetlevel("B", price, 0, 10, SelectionId);
+							betsVector[numberOfBets]=Basics.generateBet("B", price, 10, SelectionId);
+							numberOfBets=numberOfBets+1;
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 					
 					 }
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]<=0.5*bestBack*10 & inventory[horseNumber][0]-inventory[horseNumber][1]>0){
 						if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)*bestBack<inventory[horseNumber][0]-inventory[horseNumber][1]){
-							Basics.placeBetlevel("B", bestBack, 0, (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
+							betsVector[numberOfBets]=Basics.generateBet("B", bestBack, (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
 						}
 					}
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0.5*bestLay*10 & inventory[horseNumber][1]-inventory[horseNumber][0]>0){
 						if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)*bestLay<inventory[horseNumber][1]-inventory[horseNumber][0]){
-							Basics.placeBetlevel("L", bestLay, 0, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets), SelectionId);
+							betsVector[numberOfBets]=Basics.generateBet("L", bestLay, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
 						}
+					}
+					
+					PlaceBets[] betsToSend=new PlaceBets[numberOfBets];
+					for(int i=0;i<numberOfBets;i++){
+						betsToSend[i]=betsVector[i];
+					}
+					try {
+						PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, betsToSend)[0];
+						res=betResult.getSuccess();
+						System.out.println(res);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 					
 			}
