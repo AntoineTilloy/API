@@ -709,7 +709,9 @@ public class APIDemo {
 							}
 						}
 					}	
-		
+					System.out.println(Calendar.getInstance().getTime());
+					System.out.println(bestInPlayTime.getTime());
+					
 					selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
 					selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
 					Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
