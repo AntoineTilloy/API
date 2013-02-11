@@ -692,31 +692,33 @@ public class APIDemo {
 				}
 				if (typeM==1){ 
 					markets=marketPartialName;
-				}
 				
-				int marketNumber=0;
-				Calendar bestInPlayTime=markets[0].getStartTime();;
-				Calendar inPlayTime;
-				
-				for(int m=0;m<markets.length;m++){
-					inPlayTime=markets[m].getStartTime();
-					inPlayTime.add(Calendar.MINUTE, -delay);
-					if(m>0){
-						if(Calendar.getInstance().getTime().before(inPlayTime.getTime())){
-							if(inPlayTime.before(bestInPlayTime) && m!=0){
-								bestInPlayTime=inPlayTime;
-								marketNumber=m;
+					int marketNumber=0;
+					Calendar bestInPlayTime=markets[0].getStartTime();;
+					Calendar inPlayTime;
+					
+					for(int m=0;m<markets.length;m++){
+						inPlayTime=markets[m].getStartTime();
+						inPlayTime.add(Calendar.MINUTE, -delay);
+						if(m>0){
+							if(Calendar.getInstance().getTime().before(inPlayTime.getTime())){
+								if(inPlayTime.before(bestInPlayTime) && m!=0){
+									bestInPlayTime=inPlayTime;
+									marketNumber=m;
+								}
 							}
 						}
-					}
-				}	
+					}	
+		
+					selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
+					selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
+					Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
 	
-				selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
-				selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
-				Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
-
-				System.out.println("Market selected : "+selectedMarket.getName());
-				System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
+					System.out.println("Market selected : "+selectedMarket.getName());
+					System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
+				}else{
+					System.out.println("No Market Found");
+				}
 	}
 	}
 	
