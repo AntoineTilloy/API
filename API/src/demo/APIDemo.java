@@ -677,7 +677,7 @@ public class APIDemo {
 				//Choisir parmi les Markets
 				j=0;
 				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(US)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
+					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
 						j++;
 						typeM=1;					
 					}
@@ -685,7 +685,7 @@ public class APIDemo {
 				MarketSummary[] marketPartialName = new MarketSummary[j];
 				i=0;
 				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(US)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
+					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
 						marketPartialName[i]=MS;
 						i++;
 					}
@@ -711,16 +711,13 @@ public class APIDemo {
 					}	
 					
 					if(marketNumber!=-1){
-					
-					System.out.println(Calendar.getInstance().getTime());
-					System.out.println(bestInPlayTime.getTime());
-					
-					selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
-					selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
-					Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
-	
-					System.out.println("Market selected : "+selectedMarket.getName());
-					System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
+										
+						selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
+						selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
+						Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
+		
+						System.out.println("Market selected : "+selectedMarket.getName());
+						System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
 					}else{
 						System.out.println("No Market Found");
 					}
