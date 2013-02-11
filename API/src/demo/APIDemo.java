@@ -693,22 +693,25 @@ public class APIDemo {
 				if (typeM==1){ 
 					markets=marketPartialName;
 				
-					int marketNumber=0;
-					Calendar bestInPlayTime=markets[0].getStartTime();;
+					int marketNumber=-1;
+					Calendar bestInPlayTime=Calendar.getInstance();
+					bestInPlayTime.add(Calendar.HOUR, 10);
 					Calendar inPlayTime;
 					
 					for(int m=0;m<markets.length;m++){
 						inPlayTime=markets[m].getStartTime();
 						inPlayTime.add(Calendar.MINUTE, -delay);
-						if(m>0){
-							if(Calendar.getInstance().getTime().before(inPlayTime.getTime())){
-								if(inPlayTime.before(bestInPlayTime) && m!=0){
+
+							if(Calendar.getInstance().getTime().before(inPlayTime.getTime())) {
+								if(inPlayTime.before(bestInPlayTime)){
 									bestInPlayTime=inPlayTime;
 									marketNumber=m;
 								}
 							}
-						}
 					}	
+					
+					if(marketNumber!=-1){
+					
 					System.out.println(Calendar.getInstance().getTime());
 					System.out.println(bestInPlayTime.getTime());
 					
@@ -718,6 +721,9 @@ public class APIDemo {
 	
 					System.out.println("Market selected : "+selectedMarket.getName());
 					System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
+					}else{
+						System.out.println("No Market Found");
+					}
 				}else{
 					System.out.println("No Market Found");
 				}
