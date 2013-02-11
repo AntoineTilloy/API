@@ -222,8 +222,8 @@ try{
 					if(numberOfCancelBets>0){
 						Basics.cancelBetVector(cancelToSend);
 					}
-					
-					
+
+
 					numberOfBets=0;
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
