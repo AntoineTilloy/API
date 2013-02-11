@@ -50,7 +50,7 @@ public class APIDemo {
 
 	// Menus
 	private static final String[] MAIN_MENU = new String[] 
-	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market", "Quick search for Horse race"};
+	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market", "Quick search for Horse race", "Select Next Market"};
 	   
 	private static final String[] BETS_MENU = new String[] 
  	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel","Strat Market Making Market++"};
@@ -131,6 +131,9 @@ public class APIDemo {
 						break;
 					case 8://Quick search
 						searchForHorseRace();
+					case 9://Auto Select
+						int delay=15;
+						searchNextRace(delay);
 						
 						
 				}
