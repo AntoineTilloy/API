@@ -142,6 +142,11 @@ public class APIDemo {
 						while(true){
 							System.out.println();
 							searchNextRace(15);
+							if(!isMarketSelected()){
+								finished=true;
+								System.out.println("Ending");
+								break;
+							}
 							System.out.println();
 							StratAntoine.numberOfRunners();
 							StratPierre.printRace();
