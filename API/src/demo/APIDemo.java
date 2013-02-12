@@ -198,7 +198,12 @@ public class APIDemo {
 			}
 		}
 			
-
+		int typeChoice=0;
+		if(j!=1){
+			typeChoice  = Display.getChoiceAnswer("Choose an event type:", typeHorseSoccer); //Modified
+		}else{
+			System.out.println(typeHorseSoccer[0].getName());
+		}
 		// Get available events of this type
 		Market selectedMarketInt = null;
 		int eventId = typeHorseSoccer[0].getId();
