@@ -134,7 +134,7 @@ public class APIDemo {
 					case 9://Auto Select
 						int delay=15;
 						searchNextRace(delay);
-						Basics.Send("centaure", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@gmail.com", "First Automated Email", "C'est trop stylé si ça marche");
+						Basics.Send("centaurecapital@gmail.com", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@gmail.com", "First Automated Email", "C'est trop stylé si ça marche");
 						
 						
 				}
