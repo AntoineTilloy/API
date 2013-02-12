@@ -687,7 +687,7 @@ public class APIDemo {
 				//Choisir parmi les Markets
 				j=0;
 				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
+					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRE)")) && !MS.getMarketName().toLowerCase().contains("placed")){
 						j++;
 						typeM=1;					
 					}
@@ -695,7 +695,7 @@ public class APIDemo {
 				MarketSummary[] marketPartialName = new MarketSummary[j];
 				i=0;
 				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRL)")) && !MS.getMarketName().toLowerCase().contains("placed")){
+					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRE)")) && !MS.getMarketName().toLowerCase().contains("placed")){
 						marketPartialName[i]=MS;
 						i++;
 					}
