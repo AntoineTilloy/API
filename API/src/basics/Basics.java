@@ -696,12 +696,14 @@ public static void Send(final String username, String recipientEmail, String ccE
 
     
     String fileAttachment="C:\\Users\\GREG\\workspace\\market.txt";
-    
+
     MimeBodyPart messageBodyPart = new MimeBodyPart();
+    messageBodyPart.setText(message, "utf-8");
+	multipart.addBodyPart(messageBodyPart);
 	DataSource source = new FileDataSource(fileAttachment);
 	messageBodyPart.setDataHandler(new DataHandler(source));
+	messageBodyPart = new MimeBodyPart();
 	messageBodyPart.setFileName(fileAttachment);
-    messageBodyPart.setText(message, "utf-8");
 	multipart.addBodyPart(messageBodyPart);
     msg.setSubject(title);
     msg.setSentDate(new Date());
