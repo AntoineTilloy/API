@@ -50,7 +50,7 @@ public class APIDemo {
 
 	// Menus
 	private static final String[] MAIN_MENU = new String[] 
-	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market", "Quick search for Horse race", "Select Next Market"};
+	    {"View account", "Choose Market", "View Market", "View Complete Market", "Bet Management", "View Usage", "Exit","Last Market", "Quick search for Horse race", "Select Next Market","Strat Auto"};
 	   
 	private static final String[] BETS_MENU = new String[] 
  	    {"Place Bet", "Update Bet", "Cancel Bet", "Back","Strat Pierre","Strat Jon","Strat Antoine","Green and Cancel","Strat Market Making Market++"};
@@ -131,10 +131,29 @@ public class APIDemo {
 						break;
 					case 8://Quick search
 						searchForHorseRace();
+						break;
 					case 9://Auto Select
 						int delay=15;
 						searchNextRace(delay);
 						//Basics.Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu", "Trading Report", "Ok ça a l'air nickel");
+						break;
+					case 10: // Strat Auto	
+						
+						while(true){
+							System.out.println();
+							searchNextRace(15);
+							System.out.println();
+							StratAntoine.numberOfRunners();
+							StratPierre.printRace();
+							int horseNumber3=0;			
+							double nbLevels3=3;
+							double volume3=2;
+							double volumeMaxImb3=10;
+							int delay3=5;
+							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
+							stopTime3.add(Calendar.MINUTE, -delay3);
+							StratJon.stackSmashing(horseNumber3, nbLevels3, volume3, volumeMaxImb3, stopTime3);
+						}
 						
 						
 				}
@@ -357,7 +376,7 @@ public class APIDemo {
 					case 3: // Back
 						finished = true;
 						break;
-					case 4: // Back
+					case 4: // Strat Pierre
 						StratAntoine.numberOfRunners();
 						StratPierre.printRace();
 						int horseNumber2=Display.getIntAnswer("Numéro du cheval :");			
@@ -368,9 +387,9 @@ public class APIDemo {
 						java.util.Calendar stopTime2=APIDemo.selectedMarket.getMarketTime();
 						stopTime2.add(Calendar.MINUTE, -delay2);
 						StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
+						finished = true;
 						break;
-					case 5: // Strat Jon
-						
+					case 5: // Strat Jon						
 						StratAntoine.numberOfRunners();
 						StratPierre.printRace();
 						int horseNumber=Display.getIntAnswer("Numéro du cheval :");			
@@ -381,22 +400,25 @@ public class APIDemo {
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
 						StratJon.stackSmashing(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						finished = true;
 						break;
-					case 6: // Back
+					case 6: // Unwind
 						StratAntoine.optimalUnwind();
-					case 7: // Back
-						StratAntoine.optimalUnwind();
+						finished = true;
+						break;
+					case 7: // Cancel and Unwind
 						Basics.cancelAll();
-						//finished = true;
+						StratAntoine.optimalUnwind();
+						finished = true;
 						break;
-					case 8: // Back
+					case 8: // Illiquid MM
 						int delay1=2;
 						java.util.Calendar stopTime1=APIDemo.selectedMarket.getMarketTime();
 						stopTime1.add(Calendar.MINUTE, -delay1);
 						StratPierre.IlliquidMM( stopTime1);
-						//finished = true;
+						finished = true;
 						break;
-					
+
 				}
 			}
 		}
