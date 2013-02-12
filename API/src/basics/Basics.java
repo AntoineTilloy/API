@@ -43,10 +43,17 @@ import java.security.Security;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+
 
 
 public class Basics {// Ajouté par pierre
@@ -684,9 +691,20 @@ public static void Send(final String username, String recipientEmail, String ccE
         msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(ccEmail, false));
     }
 
+    Multipart multipart = new MimeMultipart();
+    
     msg.setSubject(title);
     msg.setText(message, "utf-8");
     msg.setSentDate(new Date());
+    
+    String fileAttachment="C:\\Users\\GREG\\workspace\\market.txt";
+    
+    MimeBodyPart messageBodyPart = new MimeBodyPart();
+	DataSource source = new FileDataSource(fileAttachment);
+	messageBodyPart.setDataHandler(new DataHandler(source));
+	messageBodyPart.setFileName(fileAttachment);
+	multipart.addBodyPart(messageBodyPart);
+	msg.setContent(multipart);
 
     SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
 
@@ -694,6 +712,7 @@ public static void Send(final String username, String recipientEmail, String ccE
     t.sendMessage(msg, msg.getAllRecipients());      
     t.close();
 }
+
 
 
 }
