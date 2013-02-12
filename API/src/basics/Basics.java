@@ -700,9 +700,9 @@ public static void Send(final String username, String recipientEmail, String ccE
     MimeBodyPart messageBodyPart = new MimeBodyPart();
     messageBodyPart.setText(message, "utf-8");
 	multipart.addBodyPart(messageBodyPart);
+	messageBodyPart = new MimeBodyPart();
 	DataSource source = new FileDataSource(fileAttachment);
 	messageBodyPart.setDataHandler(new DataHandler(source));
-	messageBodyPart = new MimeBodyPart();
 	messageBodyPart.setFileName(fileAttachment);
 	multipart.addBodyPart(messageBodyPart);
     msg.setSubject(title);
