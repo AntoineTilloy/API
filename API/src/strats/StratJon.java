@@ -202,11 +202,11 @@ try{
 						bet = MUBets[i];
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
+							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);			
 								numberOfCancelBets=numberOfCancelBets+1;
 							}
-							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
+							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
@@ -289,6 +289,235 @@ try{
 	}
 
 
+   public static void stackSmashing2(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	   MUBet[] MUBets;
+	   InflatedCompleteMarketPrices OB;
+	   int lastdelay=0;
+	try {
+		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); 		
+		lastdelay=OB.getInPlayDelay();
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} //Rendre publiques ces variables dans APIDemo
+
+	int SelectionId;
+	double bestBack;
+	double bestLay;
+	double addBack2=3;
+	double addLay2=8;
+	double canBack2=2;
+	double canLay2=6;
+	double spread;
+	double spreadImplicite;
+	int marginBestBack=1;
+	int marginBestLay=1;
+	boolean forceCanBestBack=true;
+	boolean forceCanBestLay=true;
+	boolean res;
+	int numberofRunners=StratAntoine.numberOfRunners();
+	
+		boolean exitStrat=false;
+		boolean spreadFilled=false;
+		PlaceBets[] betsVector = new PlaceBets[100];
+		CancelBets[] cancelVector = new CancelBets[100];
+		int numberOfBets;
+		int numberOfCancelBets;
+		
+		while(exitStrat==false){
+			
+			   
+		try{	
+					
+				
+		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+						
+			Basics.waiting(2500);
+
+			int[] SelectionIDs=Basics.getSelectID();
+			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			
+			////////// Pour stop lorsque trop échecs API
+			/*
+			System.out.println("in play delay: " + OB.getInPlayDelay());
+			if(OB.getInPlayDelay()==lastdelay){
+		  		Basics.cancelAll();
+		  		StratAntoine.optimalUnwind();
+				while(OB.getInPlayDelay()==lastdelay){
+					System.out.println("Bug API, in play delay: " + OB.getInPlayDelay());
+					Basics.waiting(5000);
+					OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());				
+				}
+				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());				
+		  		Basics.cancelAll();
+		  		StratAntoine.optimalUnwind();
+				exitStrat=true;
+				System.out.println("Exit Strat : " + exitStrat);
+		  		break;
+			}
+			*/
+			//####################################
+			
+			
+			
+			///////////////////////////////////////////////////////
+			spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			///////////////////////////////////////////////////////////
+			
+			
+			
+			Double[][] inventory=Basics.getInventory(MUBets);
+			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
+			
+			if(spreadFilled==true){
+				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				spreadFilled=false;
+				//exitStrat=true;
+			}
+			
+			double[][] implicitP=Basics.implicitPrice(OB);
+			double[] implicitmidP=Basics.implicitmidPrice(OB);
+			
+			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
+				SelectionId=SelectionIDs[horseNumber];
+				bestBack=Basics.findBest("B", OB, SelectionId);
+				 bestLay=Basics.findBest("L", OB, SelectionId);
+				 //spread=bestBack-bestLay;
+				 spreadImplicite=(implicitP[horseNumber][1]-implicitP[horseNumber][0])/(numberofRunners-1);
+				 double tickunitBack=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1]-bestBack;
+				 double tickunitLay=-APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1]+bestLay;
+				 addBack2=1.5*spreadImplicite;
+				 addLay2=1.5*spreadImplicite;
+				 canBack2=1*spreadImplicite;
+				 canLay2=1*spreadImplicite;
+				 marginBestBack=1;
+				 marginBestLay=1;
+				forceCanBestBack=true;
+				forceCanBestLay=true;
+				
+				if(inventory[horseNumber][0]-inventory[horseNumber][1]>0.5*bestBack*10){
+					addBack2=0;
+					canBack2=0;
+					marginBestBack=0;
+					forceCanBestBack=false;					
+				}
+				
+				if(inventory[horseNumber][1]-inventory[horseNumber][0]>0.5*bestLay*10){
+					addLay2=0;
+					canLay2=0;
+					marginBestLay=0;
+					forceCanBestLay=false;
+				}
+				if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)<=0.5*10){
+					forceCanBestBack=false;	
+				}
+				if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)<=0.5*10){
+					forceCanBestLay=false;	
+				}
+				
+					double price=bestBack;
+					
+					System.out.println(implicitP[horseNumber][0]);
+					System.out.println(implicitP[horseNumber][1]);
+										
+					MUBet bet=null;
+					numberOfCancelBets=0;
+					//Basics.waiting(200);
+					for(int i = 0 ; i< MUBets.length; i++){
+						bet = MUBets[i];
+						
+						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
+							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()>=implicitmidP[horseNumber]-canLay2) | (forceCanBestLay && bet.getPrice()==bestLay) ){
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);			
+								numberOfCancelBets=numberOfCancelBets+1;
+							}
+							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()<=implicitmidP[horseNumber]+canBack2) | (forceCanBestBack && bet.getPrice()==bestBack) ){
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
+								numberOfCancelBets=numberOfCancelBets+1;
+							}				
+						}		
+					
+					}
+					
+
+					CancelBets[] cancelToSend=new CancelBets[numberOfCancelBets];
+					for(int i=0;i<numberOfCancelBets;i++){
+						cancelToSend[i]=cancelVector[i];
+					}
+					if(numberOfCancelBets>0){
+						Basics.cancelBetVector(cancelToSend);
+					}
+
+
+					numberOfBets=0;
+					
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
+					for(int k=0;k<=6;k++){
+						if(price<=implicitmidP[horseNumber]-addLay2 & Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
+							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+					}
+					
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+marginBestBack];
+					for(int k=0; k<= 6; k++){
+						if(price>=implicitmidP[horseNumber]+addBack2 & Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2 ){
+							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+					
+					 }
+					if(inventory[horseNumber][0]-inventory[horseNumber][1]<=0.5*bestBack*10 & inventory[horseNumber][0]-inventory[horseNumber][1]>0){
+						if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)*bestBack<inventory[horseNumber][0]-inventory[horseNumber][1] && (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets)>=2){
+							betsVector[numberOfBets]=Basics.generateBet("B", bestBack, (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+					}
+					if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0.5*bestLay*10 & inventory[horseNumber][1]-inventory[horseNumber][0]>0){
+						if(Basics.volumeAt(SelectionId, "L", bestLay, MUBets)*bestLay<inventory[horseNumber][1]-inventory[horseNumber][0] && (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets)>=2){
+							betsVector[numberOfBets]=Basics.generateBet("L", bestLay, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay-Basics.volumeAt(SelectionId, "L", bestLay, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+					}
+					
+					PlaceBets[] betsToSend=new PlaceBets[numberOfBets];
+					for(int i=0;i<numberOfBets;i++){
+						betsToSend[i]=betsVector[i];
+					}
+					if(numberOfBets>0){
+						Basics.placeBetVector(betsToSend);
+					}
+					
+					if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>30 | Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>30){
+						Basics.cancelAll();
+					}
+			}
+		  }else{
+			  	boolean done=false;
+			  	while(done==false){
+			  		done=Basics.cancelAll();
+			  		StratAntoine.optimalUnwind();
+			  	}	
+				
+				exitStrat=true;
+				System.out.println("Exit Strat : " + exitStrat);
+		  }
+		  } catch(Exception e){
+				e.printStackTrace();
+		
+		}
+		
+	}
+	   
+	}
+
+   
+   
 public static void launch3(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
 	
 	boolean exitStrat=false;

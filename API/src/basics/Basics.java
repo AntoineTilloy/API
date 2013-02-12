@@ -435,6 +435,38 @@ public static double[][] implicitPrice(InflatedCompleteMarketPrices OB){
 
 }
 
+
+public static double[] implicitmidPrice(InflatedCompleteMarketPrices OB){
+
+	int n=strats.StratAntoine.numberOfRunners();
+	
+	int[] selectionIDs=getSelectID();
+	double[][] bestPrice = new double[n][2];
+	double[] implmidPrice = new double[n];
+	
+	//0=lay side, 1=back side
+	for (int i=0;i<n;i++){
+		bestPrice[i][0]=Basics.findBest("L", OB, selectionIDs[i]);		
+		bestPrice[i][1]=Basics.findBest("B", OB, selectionIDs[i]);
+	}
+	
+	for(int i=0;i<n; i++){
+		implmidPrice[i]=1;
+		for(int j=0; j<n; j++){		
+			if(j!=i){
+			implmidPrice[i]-=(1/bestPrice[j][1]+1/bestPrice[j][0])/2;
+			}		
+		}
+		implmidPrice[i]=1/implmidPrice[i];
+	}
+	
+	return implmidPrice;
+
+}
+
+
+
+
 public static void cancelBet(MUBet bet) throws Exception {
 	
 
