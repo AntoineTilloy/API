@@ -197,8 +197,6 @@ public class APIDemo {
 				i++;
 			}
 		}
-		
-		if (i==1){
 			
 
 		// Get available events of this type
@@ -306,7 +304,6 @@ public class APIDemo {
 			selectedMarket=selectedMarketInt;
 		}else{
 			selectedMarket2=selectedMarketInt;
-		}
 		}
 	}
 	
