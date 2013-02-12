@@ -29,6 +29,7 @@ import java.util.Date;
 import demo.APIDemo;
 import demo.handler.ExchangeAPI;
 import demo.handler.ExchangeAPI.Exchange;
+import demo.handler.GlobalAPI;
 import demo.util.Display;
 import demo.util.InflatedCompleteMarketPrices;
 import demo.util.InflatedCompleteMarketPrices.InflatedCompletePrice;
@@ -631,8 +632,8 @@ public static void cancelBetVector(CancelBets[] bet) throws Exception {
 }
 
 
-public static void Send(final String username, final String password, String recipientEmail, String title, String message) throws AddressException, MessagingException {
-    Send(username, password, recipientEmail, "", title, message);
+public static void Send(final String username, String recipientEmail, String title, String message) throws AddressException, MessagingException {
+    Send(username, recipientEmail, "", title, message);
 }
 
 /**
@@ -647,7 +648,7 @@ public static void Send(final String username, final String password, String rec
  * @throws AddressException if the email address parse failed
  * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
  */
-public static void Send(final String username, final String password, String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
+public static void Send(final String username, String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
     Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
     final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
@@ -689,7 +690,7 @@ public static void Send(final String username, final String password, String rec
 
     SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
 
-    t.connect("smtp.gmail.com", username, password);
+    t.connect("smtp.gmail.com", username, GlobalAPI.smtp);
     t.sendMessage(msg, msg.getAllRecipients());      
     t.close();
 }
