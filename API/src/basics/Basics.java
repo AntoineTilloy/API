@@ -693,9 +693,7 @@ public static void Send(final String username, String recipientEmail, String ccE
 
     Multipart multipart = new MimeMultipart();
     
-    msg.setSubject(title);
-    msg.setText(message, "utf-8");
-    msg.setSentDate(new Date());
+
     
     String fileAttachment="C:\\Users\\GREG\\workspace\\market.txt";
     
@@ -703,7 +701,10 @@ public static void Send(final String username, String recipientEmail, String ccE
 	DataSource source = new FileDataSource(fileAttachment);
 	messageBodyPart.setDataHandler(new DataHandler(source));
 	messageBodyPart.setFileName(fileAttachment);
+    messageBodyPart.setText(message, "utf-8");
 	multipart.addBodyPart(messageBodyPart);
+    msg.setSubject(title);
+    msg.setSentDate(new Date());
 	msg.setContent(multipart);
 
     SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
