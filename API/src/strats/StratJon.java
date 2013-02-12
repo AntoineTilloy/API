@@ -340,6 +340,7 @@ try{
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			
 			////////// Pour stop lorsque trop échecs API
+			/*
 			System.out.println("in play delay: " + OB.getInPlayDelay());
 			if(OB.getInPlayDelay()==lastdelay){
 		  		Basics.cancelAll();
@@ -356,6 +357,7 @@ try{
 				System.out.println("Exit Strat : " + exitStrat);
 		  		break;
 			}
+			*/
 			//####################################
 			
 			
