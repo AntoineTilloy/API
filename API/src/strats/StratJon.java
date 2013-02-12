@@ -202,11 +202,11 @@ try{
 						bet = MUBets[i];
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
+							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);			
 								numberOfCancelBets=numberOfCancelBets+1;
 							}
-							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.5*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
+							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
@@ -389,10 +389,10 @@ try{
 				 spreadImplicite=(implicitP[horseNumber][1]-implicitP[horseNumber][0])/(numberofRunners-1);
 				 double tickunitBack=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1]-bestBack;
 				 double tickunitLay=-APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1]+bestLay;
-				 addBack2=1.5*tickunitBack*spreadImplicite;
-				 addLay2=1.5*tickunitLay*spreadImplicite;
-				 canBack2=1*tickunitBack*spreadImplicite;
-				 canLay2=1*tickunitLay*spreadImplicite;
+				 addBack2=1.5*spreadImplicite;
+				 addLay2=1.5*spreadImplicite;
+				 canBack2=1*spreadImplicite;
+				 canLay2=1*spreadImplicite;
 				 marginBestBack=1;
 				 marginBestLay=1;
 				forceCanBestBack=true;
