@@ -134,7 +134,11 @@ public class StratPierre {
 		int SelectionIdL=selIDRef;
 		double lastPlacedBack=1000;
 		double lastPlacedLay=0;
-		
+		double bestBackL;
+		double bestLayL;
+		double bestBackI;
+		double bestLayI;
+
 		
 		boolean exitStrat=false;
 		   
@@ -155,10 +159,10 @@ public class StratPierre {
 			InflatedCompleteMarketPrices OBL = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, ML.getMarketId());
 			
 			
-				double bestBackL=Basics.findBest("B", OBL, SelectionIdL);
-				double bestLayL=Basics.findBest("L", OBL, SelectionIdL);
-				double bestBackI=Basics.findBest("B", OBI, SelectionIdI);
-				double bestLayI=Basics.findBest("L", OBI, SelectionIdI);
+				bestBackL=Basics.findBest("B", OBL, SelectionIdL);
+				bestLayL=Basics.findBest("L", OBL, SelectionIdL);
+				bestBackI=Basics.findBest("B", OBI, SelectionIdI);
+				bestLayI=Basics.findBest("L", OBI, SelectionIdI);
 
 				
 					double price=bestBackI;
@@ -193,7 +197,7 @@ public class StratPierre {
 					
 					boolean status = false;
 					System.out.println(layLimit + " " + backLimit);
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)+1];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLayI)];
 					System.out.println(price);
 						if(price<layLimit & bestLayI>lastPlacedLay + 0.005 & Basics.volumeAt(SelectionIdI, "L", price, MUBets)<=0.1){
 
@@ -203,7 +207,7 @@ public class StratPierre {
 						}
 
 					
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)-1];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBackI)];
 					System.out.println(price);
 						if(price>backLimit & bestBackI<lastPlacedBack - 0.005 & Basics.volumeAt(SelectionIdI, "B", price, MUBets)<=0.1 ){
 
