@@ -231,7 +231,7 @@ public class APIDemo {
 		}
 		// Get available events of this type
 		Market selectedMarketInt = null;
-		int eventId = typeHorseSoccer[0].getId();
+		int eventId = typeHorseSoccer[typeChoice].getId(); /// modif par pierre
 
 		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
