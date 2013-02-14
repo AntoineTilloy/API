@@ -685,12 +685,8 @@ public class APIDemo {
 			}
 		}
 		
-		int typeChoice=0;
-		System.out.println(j);
-		if(j==1){
-		
 		// Get available events of the type "Horse Racing - Todays Card"
-		int eventId = typeHorse[typeChoice].getId(); 
+		int eventId = typeHorse[0].getId(); 
 
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
@@ -707,7 +703,7 @@ public class APIDemo {
 				}
 				events = (BFEvent[]) nonCouponEvents.toArray(new BFEvent[]{});
 			}
-			
+			System.out.println(events.length);
 			
 			//Finds the appropriate Events (ie GB races)
 			k=0;
@@ -766,8 +762,7 @@ public class APIDemo {
 				System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
 				
 			}
-			
-	}
+
 	}
 	
 }
