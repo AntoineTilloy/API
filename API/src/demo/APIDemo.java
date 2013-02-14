@@ -712,6 +712,7 @@ public class APIDemo {
 			//Finds the appropriate Events (ie GB races)
 			k=0;
 			for(BFEvent EV : events){
+				System.out.println(EV.getEventName());
 				if (!EV.getEventName().contains("(")){
 					k++;
 				}
