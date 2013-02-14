@@ -690,6 +690,7 @@ public class APIDemo {
 
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
+			System.out.println(events.length);
 			if (events == null) {
 				events = new BFEvent[] {};
 			} else {
@@ -703,7 +704,6 @@ public class APIDemo {
 				}
 				events = (BFEvent[]) nonCouponEvents.toArray(new BFEvent[]{});
 			}
-			System.out.println(events.length);
 			
 			//Finds the appropriate Events (ie GB races)
 			k=0;
