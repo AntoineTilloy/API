@@ -686,7 +686,7 @@ public class APIDemo {
 		}
 		
 		int typeChoice=0;
-		
+		System.out.println(j);
 		if(j==1){
 		
 		// Get available events of the type "Horse Racing - Todays Card"
