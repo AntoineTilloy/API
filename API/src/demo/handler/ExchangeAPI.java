@@ -238,7 +238,7 @@ public class ExchangeAPI {
         request.setBetStatus(BetStatusEnum.MU);
         request.setSortOrder(SortOrderEnum.ASC);
         request.setOrderBy(BetsOrderByEnum.BET_ID);
-        request.setRecordCount(100);
+        request.setRecordCount(500);
         request.setStartRecord(0);
 
         // Create the message and attach the request to it.
