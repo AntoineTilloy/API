@@ -754,7 +754,6 @@ public class APIDemo {
 			
 			k=0;
 			for(BFEvent EV : events){
-				System.out.println(EV.getEventName());
 				if (!EV.getEventName().contains("(")){
 					k++;
 				}
@@ -771,7 +770,6 @@ public class APIDemo {
 			
 			//Search the Events
 			for(BFEvent EV : events){
-				System.out.println(EV.getEventName());
 				resp = GlobalAPI.getEvents(apiContext, EV.getEventId());				
 				markets = resp.getMarketItems().getMarketSummary();
 				if (markets == null) {
