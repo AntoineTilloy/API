@@ -712,14 +712,14 @@ public class APIDemo {
 			//Finds the appropriate Events (ie GB races)
 			k=0;
 			for(BFEvent EV : events){
-				if (!EV.getEventName().toLowerCase().contains("(")){
+				if (!EV.getEventName().contains("(")){
 					k++;
 				}
 			}
 			BFEvent[] eventPartialName = new BFEvent[k];
 			i=0;
 			for(BFEvent EV : events){
-				if (!EV.getEventName().toLowerCase().contains("(")){
+				if (!EV.getEventName().contains("(")){
 					eventPartialName[i]=EV;
 					i++;
 				}
