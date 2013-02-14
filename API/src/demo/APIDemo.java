@@ -553,6 +553,7 @@ public class APIDemo {
 		// Get available events of this type
 		Market selectedMarketInt = null;
 		int eventId = typeHorse[typeChoice].getId();  //Modified
+	
 		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
@@ -658,17 +659,18 @@ public class APIDemo {
 			System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
 	}
 	
-	public static void searchNextRace(int delay) throws Exception {
-		// Get available event types.
-		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);
-		
-		//Added by Jonathan
+	public static void searchNextRace(int delay) throws Exception {	
 		
 		int j=0;
 		int k=0;
-		int typeE=0;
-		int typeM=0;
+		Calendar bestInPlayTime=Calendar.getInstance();
+		bestInPlayTime.add(Calendar.HOUR, 10);
+		Calendar inPlayTime;
 		
+		// Get available event types.
+		EventType[] types = GlobalAPI.getActiveEventTypes(apiContext);		
+		
+		//Search the event "Horse Racing - Todays Card"
 		for(EventType ET : types){
 			if ((ET.getName().toLowerCase().contains("today") && ET.getName().toLowerCase().contains("horse"))){
 					j++;
@@ -687,8 +689,8 @@ public class APIDemo {
 		
 		if(j==1){
 		
-		// Get available events of this type
-		int eventId = typeHorse[typeChoice].getId();  //Modified
+		// Get available events of the type "Horse Racing - Todays Card"
+		int eventId = typeHorse[typeChoice].getId(); 
 
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
 			BFEvent[] events = resp.getEventItems().getBFEvent();
@@ -705,37 +707,37 @@ public class APIDemo {
 				}
 				events = (BFEvent[]) nonCouponEvents.toArray(new BFEvent[]{});
 			}
-			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
-			if (markets == null) {
-				markets = new MarketSummary[] {};
-			}
 			
+			
+			//Finds the appropriate Events (ie GB races)
+			k=0;
+			for(BFEvent EV : events){
+				if (!EV.getEventName().toLowerCase().contains("(")){
+					k++;
+				}
+			}
+			BFEvent[] eventPartialName = new BFEvent[k];
+			i=0;
+			for(BFEvent EV : events){
+				if (!EV.getEventName().toLowerCase().contains("(")){
+					eventPartialName[i]=EV;
+					i++;
+				}
+			}			
+			events=eventPartialName;		
+			
+			//Search the Events
+			for(BFEvent EV : events){
+			
+				resp = GlobalAPI.getEvents(apiContext, EV.getEventId());				
+				MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
+				if (markets == null) {
+					markets = new MarketSummary[] {};
+				}			
 
 			
-				//Choisir parmi les Markets
-				j=0;
-				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(")==false | MS.getMarketName().contains("(")==false) && !MS.getMarketName().toLowerCase().contains("placed")){
-						j++;
-						typeM=1;					
-					}
-				}
-				MarketSummary[] marketPartialName = new MarketSummary[j];
-				i=0;
-				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRE)")) && !MS.getMarketName().toLowerCase().contains("placed")){
-						marketPartialName[i]=MS;
-						i++;
-					}
-				}
-				if (typeM==1){ 
-					markets=marketPartialName;
-				
+				//Finds the best market			
 					int marketNumber=-1;
-					Calendar bestInPlayTime=Calendar.getInstance();
-					bestInPlayTime.add(Calendar.HOUR, 10);
-					Calendar inPlayTime;
-					
 					for(int m=0;m<markets.length;m++){
 						inPlayTime=markets[m].getStartTime();
 						inPlayTime.add(Calendar.MINUTE, -delay);
@@ -747,21 +749,23 @@ public class APIDemo {
 								}
 							}
 					}	
-					
 					if(marketNumber!=-1){
 										
 						selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
 						selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
-						Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);
-		
-						System.out.println("Market selected : "+selectedMarket.getName());
-						System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
-					}else{
-						System.out.println("No Market Found");
+						Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);	
 					}
-				}else{
-					System.out.println("No Market Found");
-				}
+			}
+			
+			//Retour : marché trouvé ou non
+			if(!isMarketSelected()){
+				System.out.println("No Market Found");
+			}else{
+				System.out.println("Market selected : "+selectedMarket.getName());
+				System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
+				
+			}
+			
 	}
 	}
 	
