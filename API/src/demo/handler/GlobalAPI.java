@@ -68,7 +68,7 @@ public class GlobalAPI {
         // Set the parameters you wish to pass the the API
         request.setUsername(username);
         request.setPassword(password);
-        request.setProductId(58580); // 82 is the standard Free Access API
+        request.setProductId(22); // 82 is the standard Free Access API
         request.setIpAddress(""); // Does not need to be set, but may not be null so use an empty string.
 
         // Create the Login message and attach the request to it.
