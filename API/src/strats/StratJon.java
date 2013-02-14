@@ -123,6 +123,8 @@ try{
 		int numberOfBets;
 		int numberOfCancelBets;
 		
+		PlaceBets[] betsToSend=new PlaceBets[]{};
+		
 		while(exitStrat==false){
 			
 			   
@@ -257,7 +259,7 @@ try{
 						}
 					}
 					
-					PlaceBets[] betsToSend=new PlaceBets[numberOfBets];
+					betsToSend=new PlaceBets[numberOfBets];
 					for(int i=0;i<numberOfBets;i++){
 						betsToSend[i]=betsVector[i];
 					}
@@ -363,7 +365,7 @@ try{
 			
 			
 			///////////////////////////////////////////////////////
-			spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
 			///////////////////////////////////////////////////////////
 			
 			
