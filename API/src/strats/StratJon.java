@@ -141,7 +141,17 @@ try{
 			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-		
+			
+			///// print unmatched
+			System.out.println("length :" + MUBets.length);
+			for(int t =0 ; t<MUBets.length;t++){
+				if(MUBets[t].getBetStatus().toString()=="U"){
+					System.out.println("Size: " +MUBets[t].getSize());
+				}
+			}
+			
+			
+			///
 			
 			
 			///////////////////////////////////////////////////////
@@ -197,8 +207,9 @@ try{
 				
 					double price=bestBack;
 					
-					System.out.println(implicitP[horseNumber][0]);
-					System.out.println(implicitP[horseNumber][1]);
+					System.out.println("implicit lay: "+ implicitP[horseNumber][0]);
+					System.out.println("implicit back: " + implicitP[horseNumber][1]);
+					System.out.println();
 										
 					MUBet bet=null;
 					numberOfCancelBets=0;
@@ -210,6 +221,7 @@ try{
 							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);			
 								numberOfCancelBets=numberOfCancelBets+1;
+								
 							}
 							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
@@ -236,6 +248,7 @@ try{
 						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
+							//System.out.println("volume lay place" + (4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets)));
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 					}
@@ -245,6 +258,7 @@ try{
 						if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2 ){
 							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
+							//System.out.println("volume back place "+ (4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets)));
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 					
