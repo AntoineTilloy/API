@@ -142,16 +142,8 @@ try{
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			
-			///// print unmatched
 			System.out.println("length :" + MUBets.length);
-			for(int t =0 ; t<MUBets.length;t++){
-				if(MUBets[t].getBetStatus().toString()=="U"){
-					System.out.println("Size: " +MUBets[t].getSize());
-				}
-			}
-			
-			
-			///
+
 			
 			
 			///////////////////////////////////////////////////////
