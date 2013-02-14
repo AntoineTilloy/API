@@ -687,10 +687,57 @@ public class APIDemo {
 		
 		// Get available events of the type "Horse Racing - Todays Card"
 		int eventId = typeHorse[0].getId(); 
-
+	
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
+			
+			//Finds the appropriate Markets (ie GB races)
+			
+			MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
+			if (markets == null) {
+				markets = new MarketSummary[] {};
+			}	
+			
+			//Search appropriate Markets
+			j=0;
+			for(MarketSummary MS : markets){
+				if (!MS.getMarketName().contains("(")){
+					j++;					
+				}
+			}
+			MarketSummary[] marketPartialName = new MarketSummary[j];
+			i=0;
+			for(MarketSummary MS : markets){
+				if (!MS.getMarketName().contains("(")){
+					marketPartialName[i]=MS;
+					i++;
+				}
+			}
+			markets=marketPartialName;
+			
+			//Finds the best market			
+			int marketNumber=-1;
+			for(int m=0;m<markets.length;m++){
+				inPlayTime=markets[m].getStartTime();
+				inPlayTime.add(Calendar.MINUTE, -delay);
+
+					if(Calendar.getInstance().getTime().before(inPlayTime.getTime())) {
+						if(inPlayTime.before(bestInPlayTime)){
+							bestInPlayTime=inPlayTime;
+							marketNumber=m;
+						}
+					}
+			}							
+			if(marketNumber!=-1){								
+				selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
+				selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
+				Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);	
+			}
+			
+			
+			
+			
+			//Finds the appropriate Events (ie GB races)
 			BFEvent[] events = resp.getEventItems().getBFEvent();
-			System.out.println(events.length);
 			if (events == null) {
 				events = new BFEvent[] {};
 			} else {
@@ -705,7 +752,6 @@ public class APIDemo {
 				events = (BFEvent[]) nonCouponEvents.toArray(new BFEvent[]{});
 			}
 			
-			//Finds the appropriate Events (ie GB races)
 			k=0;
 			for(BFEvent EV : events){
 				System.out.println(EV.getEventName());
@@ -727,14 +773,14 @@ public class APIDemo {
 			for(BFEvent EV : events){
 				System.out.println(EV.getEventName());
 				resp = GlobalAPI.getEvents(apiContext, EV.getEventId());				
-				MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
+				markets = resp.getMarketItems().getMarketSummary();
 				if (markets == null) {
 					markets = new MarketSummary[] {};
 				}			
 
 			
 				//Finds the best market			
-					int marketNumber=-1;
+					marketNumber=-1;
 					for(int m=0;m<markets.length;m++){
 						inPlayTime=markets[m].getStartTime();
 						inPlayTime.add(Calendar.MINUTE, -delay);
