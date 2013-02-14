@@ -231,7 +231,7 @@ public class APIDemo {
 		}
 		// Get available events of this type
 		Market selectedMarketInt = null;
-		int eventId = typeHorseSoccer[0].getId();
+		int eventId = typeHorseSoccer[typeChoice].getId(); /// modif par pierre
 
 		while (selectedMarketInt == null) {
 			GetEventsResp resp = GlobalAPI.getEvents(apiContext, eventId);
@@ -401,7 +401,7 @@ public class APIDemo {
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
-						int delay=5;
+						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
 						StratJon.stackSmashing(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
@@ -715,7 +715,7 @@ public class APIDemo {
 				//Choisir parmi les Markets
 				j=0;
 				for(MarketSummary MS : markets){
-					if ((MS.getMarketName().contains("(GB)") | MS.getMarketName().contains("(IRE)")) && !MS.getMarketName().toLowerCase().contains("placed")){
+					if ((MS.getMarketName().contains("(")==false | MS.getMarketName().contains("(")==false) && !MS.getMarketName().toLowerCase().contains("placed")){
 						j++;
 						typeM=1;					
 					}
