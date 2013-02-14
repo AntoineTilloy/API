@@ -120,10 +120,13 @@ try{
 		boolean spreadFilled=false;
 		PlaceBets[] betsVector = new PlaceBets[100];
 		CancelBets[] cancelVector = new CancelBets[100];
+		CancelBets[] cancelToSend=new CancelBets[]{};
+		PlaceBets[] betsToSend=new PlaceBets[]{};
 		int numberOfBets;
 		int numberOfCancelBets;
-		
-		PlaceBets[] betsToSend=new PlaceBets[]{};
+		Double[][] inventory;
+		double[][] implicitP;
+		int[] SelectionIDs;
 		
 		while(exitStrat==false){
 			
@@ -135,7 +138,7 @@ try{
 						
 			Basics.waiting(1000);
 
-			int[] SelectionIDs=Basics.getSelectID();
+			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		
@@ -147,7 +150,7 @@ try{
 			
 			
 			
-			Double[][] inventory=Basics.getInventory(MUBets);
+			inventory=Basics.getInventory(MUBets);
 			System.out.println("invent runner, unmatched lay " +inventory[inutile][2]);
 			
 			if(spreadFilled==true){
@@ -157,7 +160,7 @@ try{
 				//exitStrat=true;
 			}
 			
-			double[][] implicitP=Basics.implicitPrice(OB);
+			implicitP=Basics.implicitPrice(OB);
 			
 			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
 				SelectionId=SelectionIDs[horseNumber];
@@ -217,7 +220,7 @@ try{
 					}
 					
 
-					CancelBets[] cancelToSend=new CancelBets[numberOfCancelBets];
+					cancelToSend=new CancelBets[numberOfCancelBets];
 					for(int i=0;i<numberOfCancelBets;i++){
 						cancelToSend[i]=cancelVector[i];
 					}
