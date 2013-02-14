@@ -802,7 +802,7 @@ public class APIDemo {
 			if(!isMarketSelected()){
 				System.out.println("No Market Found");
 			}else{
-				System.out.println("Market selected : "+ selectedMarket.getUnit());
+				System.out.println("Market selected : "+ selectedMarket.getCountryISO3()+ "  " + selectedMarket.getName());
 				System.out.println("Starting at : " + selectedMarket.getMarketTime().getTime());
 				
 			}
