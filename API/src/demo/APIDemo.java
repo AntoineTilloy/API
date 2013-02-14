@@ -728,7 +728,7 @@ public class APIDemo {
 			
 			//Search the Events
 			for(BFEvent EV : events){
-			
+				System.out.println(EV.getEventName());
 				resp = GlobalAPI.getEvents(apiContext, EV.getEventId());				
 				MarketSummary[] markets = resp.getMarketItems().getMarketSummary();
 				if (markets == null) {
