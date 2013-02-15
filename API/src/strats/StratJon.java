@@ -304,7 +304,7 @@ try{
 				System.out.println(PnL);
 				String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 				StratPierre.writeRace(path);
-				Basics.ecrire(path, "PnL is: " + String.valueOf(PnL)+" €" );
+				Basics.ecrire(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
 				exitStrat=true;
 				System.out.println("Exit Strat : " + exitStrat);
 		  }
