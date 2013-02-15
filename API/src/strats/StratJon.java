@@ -148,7 +148,7 @@ try{
 			
 			
 			///////////////////////////////////////////////////////
-			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
 			///////////////////////////////////////////////////////////
 			
 			
