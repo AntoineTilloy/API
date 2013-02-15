@@ -567,35 +567,48 @@ public static double PnL(){
 	
 	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 	inventory=Basics.getInventory(MUBets);
-		SelectionIDs=Basics.getSelectID();
-	for(int runner=0 ; runner<SelectionIDs.length;runner++){
-		SelectionId=SelectionIDs[runner];
-		bestBack=Basics.findBest("B", OB, SelectionId);
-		bestLay=Basics.findBest("L", OB, SelectionId);
-		if(inventory[runner][0]-inventory[runner][1]>0){
-			PnL+=(inventory[runner][0]-inventory[runner][1])/bestLay;
-		}
-		
-		if(inventory[runner][0]-inventory[runner][1]<0){
-			PnL-=(inventory[runner][0]-inventory[runner][1])/bestBack;
-		}
-	}
-	
-	for(int i = 0 ; i< MUBets.length; i++){
-		 MUBet bet = MUBets[i];
-		
-		 
-		if(bet.getBetStatus().toString()=="M"){
-			if(bet.getBetType().toString()=="B"){
-					PnL-=bet.getSize();
+	SelectionIDs=Basics.getSelectID();
+		try{	
+		for(int runner=0 ; runner<SelectionIDs.length;runner++){
+			SelectionId=SelectionIDs[runner];
+			bestBack=Basics.findBest("B", OB, SelectionId);
+			bestLay=Basics.findBest("L", OB, SelectionId);
+			if(inventory[runner][0]-inventory[runner][1]>0){
+				PnL+=(inventory[runner][0]-inventory[runner][1])/bestLay;
+			}
+			
+			if(inventory[runner][0]-inventory[runner][1]<0){
+				PnL-=(inventory[runner][0]-inventory[runner][1])/bestBack;
 			}
 		}
-		if(bet.getBetStatus().toString()=="M"){
-			if(bet.getBetType().toString()=="L"){
-					PnL+=bet.getSize();
+		
+		try{
+		for(int i = 0 ; i< MUBets.length; i++){
+			 MUBet bet = MUBets[i];
+			
+			 
+			if(bet.getBetStatus().toString()=="M"){
+				if(bet.getBetType().toString()=="B"){
+						PnL-=bet.getSize();
+				}
+			}
+			if(bet.getBetStatus().toString()=="M"){
+				if(bet.getBetType().toString()=="L"){
+						PnL+=bet.getSize();
+				}
 			}
 		}
-	}
+		}catch (Exception f) {
+			// TODO Auto-generated catch block
+			f.printStackTrace();
+			PnL=-3.14;
+		}
+		
+		}catch (Exception g) {
+			// TODO Auto-generated catch block
+			g.printStackTrace();
+			PnL=-1000;
+		}
 	
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
