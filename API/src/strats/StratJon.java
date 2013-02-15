@@ -139,6 +139,7 @@ try{
 			Basics.waiting(500);
 
 			SelectionIDs=Basics.getSelectID();
+			System.out.println("debut boucle");
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			
@@ -176,6 +177,15 @@ try{
 				forceCanBestBack=true;
 				forceCanBestLay=true;
 				
+				if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>19 ){
+					Basics.cancelAll("B");
+				}
+				
+				if(Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>19){
+					Basics.cancelAll("L");
+				}
+				
+				
 				if(inventory[horseNumber][0]-inventory[horseNumber][1]>0.5*bestBack*10){
 					addBack=1;
 					canBack=1;
@@ -210,19 +220,23 @@ try{
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if((bet.getBetType().toString()=="L" && Basics.volumeAt(SelectionId, "L", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()>=implicitP[horseNumber][0]+ (implicitP[horseNumber][1]-implicitP[horseNumber][0])/canLay) | (forceCanBestLay && bet.getPrice()==bestLay) ){
-								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);			
+								System.out.println("before cancel");
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
+								System.out.println("after cancel");
 								numberOfCancelBets=numberOfCancelBets+1;
 								
 							}
 							if((bet.getBetType().toString()=="B" && Basics.volumeAt(SelectionId, "B", bet.getPrice(), MUBets)>0.1*10 && bet.getPrice()<=implicitP[horseNumber][1]-(implicitP[horseNumber][1]-implicitP[horseNumber][0])/canBack) | (forceCanBestBack && bet.getPrice()==bestBack) ){
+								System.out.println("before cancel");
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
+								System.out.println("after cancel");
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
 						}		
 					
 					}
 					
-
+					System.out.println("before send cancel");
 					cancelToSend=new CancelBets[numberOfCancelBets];
 					for(int i=0;i<numberOfCancelBets;i++){
 						cancelToSend[i]=cancelVector[i];
@@ -230,10 +244,10 @@ try{
 					if(numberOfCancelBets>0){
 						Basics.cancelBetVector(cancelToSend);
 					}
-
+					System.out.println("after send cancel");
 
 					numberOfBets=0;
-					
+					System.out.println("debut placements ");
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-marginBestLay];
 					for(int k=0;k<=4;k++){
 						if(price<=implicitP[horseNumber][0] + (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addLay & Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
@@ -267,6 +281,9 @@ try{
 						}
 					}
 					
+					System.out.println("fin placements ");
+					
+					System.out.println("debut envoi bet vector ");
 					betsToSend=new PlaceBets[numberOfBets];
 					for(int i=0;i<numberOfBets;i++){
 						betsToSend[i]=betsVector[i];
@@ -274,14 +291,8 @@ try{
 					if(numberOfBets>0){
 						Basics.placeBetVector(betsToSend);
 					}
-					
-					if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>19 ){
-						Basics.cancelAll("B");
-					}
-					
-					if(Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>19){
-						Basics.cancelAll("L");
-					}
+					System.out.println("fin envoi bet vector ");
+
 			}
 		  }else{
 			  	boolean done=false;
@@ -289,7 +300,8 @@ try{
 			  		done=Basics.cancelAll();
 			  		StratAntoine.optimalUnwind();
 			  	}	
-				
+			  	double PnL=Basics.PnL();
+				System.out.println(PnL);
 				exitStrat=true;
 				System.out.println("Exit Strat : " + exitStrat);
 		  }

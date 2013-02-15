@@ -554,6 +554,59 @@ public static boolean cancelAll(String type){
 	}
 
 
+public static double PnL(){
+	double PnL=0;
+	try {
+	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+	Double[][] inventory;
+	InflatedCompleteMarketPrices OB;
+	OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	inventory=Basics.getInventory(MUBets);
+	int[] SelectionIDs;
+	int SelectionId;
+	double bestBack;
+	double bestLay;
+	SelectionIDs=Basics.getSelectID();
+	for(int runner=0 ; runner<SelectionIDs.length;runner++){
+		SelectionId=SelectionIDs[runner];
+		bestBack=Basics.findBest("B", OB, SelectionId);
+		bestLay=Basics.findBest("L", OB, SelectionId);
+		if(inventory[runner][0]-inventory[runner][1]>0){
+			PnL+=(inventory[runner][0]-inventory[runner][1])/bestLay;
+		}
+		
+		if(inventory[runner][0]-inventory[runner][1]>0){
+			PnL+=-(inventory[runner][0]-inventory[runner][1])/bestBack;
+		}
+	}
+	
+	for(int i = 0 ; i< MUBets.length; i++){
+		 MUBet bet = MUBets[i];
+		
+		 
+		if(bet.getBetStatus().toString()=="U"){
+			if(bet.getBetType().toString()=="B"){
+					PnL-=bet.getSize();
+			}
+		}
+		if(bet.getBetStatus().toString()=="U"){
+			if(bet.getBetType().toString()=="L"){
+					PnL+=bet.getSize();
+			}
+		}
+	}
+	
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return PnL;
+
+	}
+
+
+
+
 
 public static void ecrire(String path, String text) 
 {
