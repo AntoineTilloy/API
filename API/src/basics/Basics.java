@@ -527,6 +527,34 @@ public static boolean cancelAll(){
 	}
 
 
+public static boolean cancelAll(String type){
+	boolean done=true;
+
+	try {
+	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+
+		for(int i = 0 ; i< MUBets.length; i++){
+		 MUBet bet = MUBets[i];
+		
+		 
+		if(bet.getBetStatus().toString()=="U"){
+			if(bet.getBetType().toString()==type){
+					Basics.cancelBet(bet);
+			}
+		}		
+	
+	}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		done=false;
+	}
+	return done;
+
+	}
+
+
+
 public static void ecrire(String path, String text) 
 {
 	PrintWriter ecri ;

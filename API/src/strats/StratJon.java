@@ -136,7 +136,7 @@ try{
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(1000);
+			Basics.waiting(500);
 
 			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -275,8 +275,12 @@ try{
 						Basics.placeBetVector(betsToSend);
 					}
 					
-					if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>30 | Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>30){
-						Basics.cancelAll();
+					if(Basics.volumeAt(SelectionId, "B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+1], MUBets)>19 ){
+						Basics.cancelAll("B");
+					}
+					
+					if(Basics.volumeAt(SelectionId, "L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-1], MUBets)>19){
+						Basics.cancelAll("L");
 					}
 			}
 		  }else{
