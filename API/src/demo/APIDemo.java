@@ -664,7 +664,7 @@ public class APIDemo {
 		int j=0;
 		int k=0;
 		Calendar bestInPlayTime=Calendar.getInstance();
-		bestInPlayTime.add(Calendar.HOUR, 20);
+		bestInPlayTime.add(Calendar.HOUR, 1);
 		Calendar inPlayTime;
 		
 		// Get available event types.
