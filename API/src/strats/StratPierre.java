@@ -103,7 +103,7 @@ public class StratPierre {
 	
 	public static void writeRace(String path) {
 
-				Basics.ecrire(path, "Market selected : "+ APIDemo.selectedMarket.getMenuPath() + "  " + APIDemo.selectedMarket.getName() + "\r\n"+ "Starting at : " + APIDemo.selectedMarket.getMarketTime().getTime()+"\r\n");
+				Basics.ecrireSuite(path, "Market selected : "+ APIDemo.selectedMarket.getMenuPath() + "  " + APIDemo.selectedMarket.getName() + "\r\n"+ "Starting at : " + APIDemo.selectedMarket.getMarketTime().getTime()+"\r\n");
 		
 	}	
 	

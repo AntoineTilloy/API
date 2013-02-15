@@ -584,12 +584,12 @@ public static double PnL(){
 		 MUBet bet = MUBets[i];
 		
 		 
-		if(bet.getBetStatus().toString()=="U"){
+		if(bet.getBetStatus().toString()=="M"){
 			if(bet.getBetType().toString()=="B"){
 					PnL-=bet.getSize();
 			}
 		}
-		if(bet.getBetStatus().toString()=="U"){
+		if(bet.getBetStatus().toString()=="M"){
 			if(bet.getBetType().toString()=="L"){
 					PnL+=bet.getSize();
 			}
@@ -627,6 +627,27 @@ public static void ecrire(String path, String text)
 		System.out.println("Problème d'IO");
 	}
 }//ecrire
+
+public static void ecrireSuite(String path, String text) 
+{
+	PrintWriter ecri ;
+	try
+	{
+		ecri = new PrintWriter(new FileWriter(path,true));
+		ecri.print(text);
+		ecri.flush();
+		ecri.close();
+	}//try
+	catch (NullPointerException a)
+	{
+		System.out.println("Erreur : pointeur null");
+	}
+	catch (IOException a)
+	{
+		System.out.println("Problème d'IO");
+	}
+}//ecrire
+
 
 
 

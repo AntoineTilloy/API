@@ -300,11 +300,12 @@ try{
 			  		done=Basics.cancelAll();
 			  		StratAntoine.optimalUnwind();
 			  	}	
+			  	Basics.waiting(500);
 			  	double PnL=Basics.PnL();
 				System.out.println(PnL);
 				String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 				StratPierre.writeRace(path);
-				Basics.ecrire(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+				Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
 				exitStrat=true;
 				System.out.println("Exit Strat : " + exitStrat);
 		  }
