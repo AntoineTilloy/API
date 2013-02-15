@@ -575,7 +575,7 @@ public static double PnL(){
 			PnL+=(inventory[runner][0]-inventory[runner][1])/bestLay;
 		}
 		
-		if(inventory[runner][0]-inventory[runner][1]>0){
+		if(inventory[runner][0]-inventory[runner][1]<0){
 			PnL+=-(inventory[runner][0]-inventory[runner][1])/bestBack;
 		}
 	}
@@ -599,6 +599,7 @@ public static double PnL(){
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+		PnL=-1000000;
 	}
 	return PnL;
 
