@@ -54,6 +54,8 @@ import javax.activation.FileDataSource;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
+import strats.StratAntoine;
+
 
 
 public class Basics {// Ajouté par pierre
@@ -127,8 +129,11 @@ return priceLadderdouble;
 	}
 
 public static int[] getSelectID(){
-	
-	int[] selectionIDs=new int[30];
+	int numberOfRunners=0;
+	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
+		numberOfRunners++;
+	}
+	int[] selectionIDs=new int[numberOfRunners];
 	int j=0;
 	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
 		selectionIDs[j]=mr.getSelectionId();
@@ -139,8 +144,11 @@ public static int[] getSelectID(){
 
 
 public static int[] getSelectID(Market SM){
-	
-	int[] selectionIDs=new int[30];
+	int numberOfRunners=0;
+	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
+		numberOfRunners++;
+	}
+	int[] selectionIDs=new int[numberOfRunners];
 	int j=0;
 	for (Runner mr: SM.getRunners().getRunner()) {
 		selectionIDs[j]=mr.getSelectionId();
