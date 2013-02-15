@@ -556,17 +556,18 @@ public static boolean cancelAll(String type){
 
 public static double PnL(){
 	double PnL=0;
-	try {
-	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 	Double[][] inventory;
-	InflatedCompleteMarketPrices OB;
-	OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-	inventory=Basics.getInventory(MUBets);
 	int[] SelectionIDs;
 	int SelectionId;
 	double bestBack;
 	double bestLay;
-	SelectionIDs=Basics.getSelectID();
+
+	try {
+	MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
+	
+	InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	inventory=Basics.getInventory(MUBets);
+		SelectionIDs=Basics.getSelectID();
 	for(int runner=0 ; runner<SelectionIDs.length;runner++){
 		SelectionId=SelectionIDs[runner];
 		bestBack=Basics.findBest("B", OB, SelectionId);
@@ -576,7 +577,7 @@ public static double PnL(){
 		}
 		
 		if(inventory[runner][0]-inventory[runner][1]<0){
-			PnL+=-(inventory[runner][0]-inventory[runner][1])/bestBack;
+			PnL-=(inventory[runner][0]-inventory[runner][1])/bestBack;
 		}
 	}
 	
