@@ -90,14 +90,25 @@ public class StratPierre {
 				
 			}
 		
+	
+			
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
 	}
+	
+	
+	public static void writeRace(String path) {
+
+				Basics.ecrire(path, "Market selected : "+ APIDemo.selectedMarket.getMenuPath() + "  " + APIDemo.selectedMarket.getName() + "\r\n"+ "Starting at : " + APIDemo.selectedMarket.getMarketTime().getTime()+"\r\n");
+		
+	}	
+	
+	
+	
 	public static void printPriceLadder() { 
 		for(int i =0 ; i<=200 ; i++ ){
 			System.out.println(APIDemo.priceLadder[i]);
