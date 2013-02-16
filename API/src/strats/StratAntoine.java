@@ -184,14 +184,9 @@ public class StratAntoine {
 		return cost;
 	}
 	
-	public static int numberOfRunners(){
-		int i=0;
-		int[] selectionIDs=Basics.getSelectID();
-		while (selectionIDs[i]>0){
-			i=i+1;
-		}
-		return i;
-		
+	public static int numberOfRunners(){	
+		int[] selectionIDs=Basics.getSelectID();		
+		return selectionIDs.length;		
 	}
 	
 	public static Double[] transactionPrice(InflatedCompleteMarketPrices OB,Double[][] inventory,Double finalPosition){
