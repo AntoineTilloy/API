@@ -148,7 +148,7 @@ try{
 			
 			
 			///////////////////////////////////////////////////////
-			spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
 			///////////////////////////////////////////////////////////
 			
 			
@@ -794,6 +794,176 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	
 }
 
+public static void stackSmashingBasic(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+	   MUBet[] MUBets;
+	   InflatedCompleteMarketPrices OB;
+	try {
+		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} 
+
+	int SelectionId;
+	double bestBack;
+	double bestLay;
+	double addBack=3;
+	double addLay=8;
+	double canBack=2;
+	double canLay=6;
+	int marginBestBack=1;
+	int marginBestLay=1;
+	boolean forceCanBestBack=true;
+	boolean forceCanBestLay=true;
+	boolean res;
+	
+		boolean exitStrat=false;
+		boolean spreadFilled=false;
+		PlaceBets[] betsVector = new PlaceBets[100];
+		CancelBets[] cancelVector = new CancelBets[100];
+		CancelBets[] cancelToSend=new CancelBets[]{};
+		PlaceBets[] betsToSend=new PlaceBets[]{};
+		int numberOfBets;
+		int numberOfCancelBets;
+		Double[][] inventory;
+		double[][] implicitP;
+		int[] SelectionIDs;
+		
+		while(exitStrat==false){
+			
+			   
+		try{	
+					
+				
+		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+						
+			Basics.waiting(200);
+
+			SelectionIDs=Basics.getSelectID();
+			System.out.println("debut boucle");
+			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			
+			System.out.println("length :" + MUBets.length);
+
+			
+			
+			///////////////////////////////////////////////////////
+			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+			///////////////////////////////////////////////////////////
+			
+			
+			
+			inventory=Basics.getInventory(MUBets);
+			
+			if(spreadFilled==true){
+				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+				spreadFilled=false;
+				//exitStrat=true;
+			}
+			
+			implicitP=Basics.implicitPrice(OB);
+			
+			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
+				SelectionId=SelectionIDs[horseNumber];
+				bestBack=Basics.findBest("B", OB, SelectionId);
+				 bestLay=Basics.findBest("L", OB, SelectionId);
+				
+					double price=bestBack;
+											
+					MUBet bet=null;
+					
+					numberOfCancelBets=0;
+					for(int i = 0 ; i< MUBets.length; i++){
+						bet = MUBets[i];
+						
+						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
+							if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0  && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
+								System.out.println("before cancel");
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
+								System.out.println("after cancel");
+								numberOfCancelBets=numberOfCancelBets+1;
+								
+							}
+							if(inventory[horseNumber][1]-inventory[horseNumber][0]>=0  && bet.getBetType().toString()=="B" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
+								System.out.println("before cancel");
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
+								System.out.println("after cancel");
+								numberOfCancelBets=numberOfCancelBets+1;
+							}				
+						}		
+					
+					}
+					
+					System.out.println("before send cancel");
+					cancelToSend=new CancelBets[numberOfCancelBets];
+					for(int i=0;i<numberOfCancelBets;i++){
+						cancelToSend[i]=cancelVector[i];
+					}
+					if(numberOfCancelBets>0){
+						Basics.cancelBetVector(cancelToSend);
+					}
+					System.out.println("after send cancel");
+
+					numberOfBets=0;
+					System.out.println("debut placements ");
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)];
+					for(int k=2;k<=6;k++){
+						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
+							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+					}
+					
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)];
+					for(int k=2; k<= 6; k++){
+						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
+							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
+							numberOfBets=numberOfBets+1;
+						}
+						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+					
+					 }
+					System.out.println("fin placements ");
+					
+					System.out.println("debut envoi bet vector ");
+					betsToSend=new PlaceBets[numberOfBets];
+					for(int i=0;i<numberOfBets;i++){
+						betsToSend[i]=betsVector[i];
+					}
+					if(numberOfBets>0){
+						Basics.placeBetVector(betsToSend);
+					}
+					System.out.println("fin envoi bet vector ");
+
+			}
+		  }else{
+			  	boolean done=false;
+			  	while(done==false){
+			  		done=Basics.cancelAll();
+			  		StratAntoine.optimalUnwind();
+			  	}	
+			  	Basics.waiting(5000);
+			  	double PnL=Basics.PnL();
+				System.out.println(PnL);
+				String path="C:\\Users\\GREG\\workspace\\PnL.txt";
+				StratPierre.writeRace(path);
+				Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+				exitStrat=true;
+				System.out.println("Exit Strat : " + exitStrat);
+		  }
+		  } catch(Exception e){
+				e.printStackTrace();
+		
+		}
+		
+	}
+	   
+	}
 
 
 }
