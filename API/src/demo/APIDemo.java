@@ -663,6 +663,7 @@ public class APIDemo {
 		
 		int j=0;
 		int k=0;
+		selectedMarket=null;
 		Calendar bestInPlayTime=Calendar.getInstance();
 		bestInPlayTime.add(Calendar.HOUR, 3);
 		Calendar inPlayTime;
@@ -799,7 +800,7 @@ public class APIDemo {
 			}
 			
 			//Retour : marché trouvé ou non
-			if(!isMarketSelected()){
+			if(selectedMarket==null){
 				System.out.println("No Market Found");
 			}else{
 				System.out.println("Market selected : "+ selectedMarket.getMenuPath() + "  " + selectedMarket.getName());
