@@ -809,15 +809,6 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 	int SelectionId;
 	double bestBack;
 	double bestLay;
-	double addBack=3;
-	double addLay=8;
-	double canBack=2;
-	double canLay=6;
-	int marginBestBack=1;
-	int marginBestLay=1;
-	boolean forceCanBestBack=true;
-	boolean forceCanBestLay=true;
-	boolean res;
 	
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
@@ -828,7 +819,6 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int numberOfBets;
 		int numberOfCancelBets;
 		Double[][] inventory;
-		double[][] implicitP;
 		int[] SelectionIDs;
 		
 		while(exitStrat==false){
@@ -864,8 +854,6 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 				spreadFilled=false;
 				//exitStrat=true;
 			}
-			
-			implicitP=Basics.implicitPrice(OB);
 			
 			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
 				SelectionId=SelectionIDs[horseNumber];

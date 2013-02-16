@@ -157,7 +157,7 @@ public class APIDemo {
 							int delay3=5;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
 							stopTime3.add(Calendar.MINUTE, -delay3);
-							StratJon.stackSmashing(horseNumber3, nbLevels3, volume3, volumeMaxImb3, stopTime3);
+							StratJon.stackSmashingBasic(horseNumber3, nbLevels3, volume3, volumeMaxImb3, stopTime3);
 						}
 						
 						
@@ -404,7 +404,7 @@ public class APIDemo {
 						int delay=2;
 						java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 						stopTime.add(Calendar.MINUTE, -delay);
-						StratJon.stackSmashing(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
+						StratJon.stackSmashingBasic(horseNumber, nbLevels, volume, volumeMaxImb, stopTime);
 						finished = true;
 						break;
 					case 6: // Unwind
