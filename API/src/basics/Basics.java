@@ -757,7 +757,7 @@ public static void cancelBetVector(CancelBets[] bet) throws Exception {
 	CancelBetsResult betResult = ExchangeAPI.cancelBets(APIDemo.selectedExchange, APIDemo.apiContext, bet)[0];
 	
 	if (betResult.getSuccess()) {
-		Display.println("Bet "+betResult.getBetId()+" cancelled.");
+		
 	} else {
 		Display.println("Failed to cancel bet: Problem was: "+betResult.getResultCode());
 	}
