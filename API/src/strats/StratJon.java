@@ -896,7 +896,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					}
 					numberOfBets=0;
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
-					for(int k=1;k<=6;k++){
+					for(int k=firstLevelLay;k<=6;k++){
 						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
@@ -905,7 +905,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					}
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
-					for(int k=1; k<= 6; k++){
+					for(int k=firstLevelBack; k<= 6; k++){
 						if(Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
