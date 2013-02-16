@@ -886,13 +886,13 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 						Basics.cancelBetVector(cancelToSend);
 					}
 					
-					firstLevelLay=2;
-					firstLevelBack=2;
+					firstLevelLay=1;
+					firstLevelBack=1;
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]>=5){
-						firstLevelLay=1;
+						firstLevelLay=0;
 					}
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]>=5){
-						firstLevelBack=1;
+						firstLevelBack=0;
 					}
 					numberOfBets=0;
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
