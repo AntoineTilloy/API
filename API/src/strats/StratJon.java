@@ -820,6 +820,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int numberOfCancelBets;
 		Double[][] inventory;
 		int[] SelectionIDs;
+		int firstLevelLay;
+		int firstLevelBack;
 		
 		while(exitStrat==false){
 			
@@ -884,8 +886,16 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 						Basics.cancelBetVector(cancelToSend);
 					}
 					
+					firstLevelLay=2;
+					firstLevelBack=2;
+					if(inventory[horseNumber][1]-inventory[horseNumber][0]>=5){
+						firstLevelLay=1;
+					}
+					if(inventory[horseNumber][0]-inventory[horseNumber][1]>=5){
+						firstLevelBack=1;
+					}
 					numberOfBets=0;
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-2];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
 					for(int k=1;k<=6;k++){
 						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("L", price, 4+4*k-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
@@ -894,7 +904,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 					}
 					
-					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+2];
+					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
 					for(int k=1; k<= 6; k++){
 						if(Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2){
 							betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
