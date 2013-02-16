@@ -49,12 +49,11 @@ public class StratAntoine {
 		int[] selectionIDs=Basics.getSelectID();
 		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
-		while (selectionIDs[i]>0){
+		for(i=0;i<selectionIDs.length;i++){
 			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos>pos){
 				pos=currentPos;
 			}
-			i=i+1;
 		}
 		return pos;
 	}
@@ -63,12 +62,11 @@ public class StratAntoine {
 		int[] selectionIDs=Basics.getSelectID();
 		Double pos=-(inventory[i][0]-inventory[i][1]);
 		Double currentPos;
-		while (selectionIDs[i]>0){
+		for(i=0;i<selectionIDs.length;i++){
 			currentPos=-(inventory[i][0]-inventory[i][1]);
 			if (currentPos<pos){
 				pos=currentPos;
 			}
-			i=i+1;
 		}
 		return pos;
 	}
