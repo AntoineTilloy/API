@@ -745,7 +745,7 @@ public static void placeBetVector(PlaceBets[] bet) throws Exception {
 	PlaceBetsResult betResult = ExchangeAPI.placeBets(APIDemo.selectedExchange, APIDemo.apiContext, bet)[0];
 	
 	if (betResult.getSuccess()) {
-		Display.println("Bet "+betResult.getBetId()+" placed.");
+		
 	} else {
 		Display.println("Failed to place bet: Problem was: "+betResult.getResultCode());
 	}

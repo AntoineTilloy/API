@@ -835,11 +835,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			
-			System.out.println("length :" + MUBets.length);
-
-			
-			
-			///////////////////////////////////////////////////////
+		    ///////////////////////////////////////////////////////
 			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
 			///////////////////////////////////////////////////////////
 			
