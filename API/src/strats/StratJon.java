@@ -797,26 +797,12 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 }
 
 public static void stackSmashingBasic(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
-	   MUBet[] MUBets;
-	   InflatedCompleteMarketPrices OB;
-	try {
-		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-		for(int i=0;i<OB.getRunners().get(inutile).getPrices().size();i++){
-			System.out.println(OB.getRunners().get(inutile).getSelectionId());
-			System.out.println(OB.getRunners().get(inutile).getPrices().get(i));
-			System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getTotalBSPBackersStake());
-			System.out.println();
-		}
-		
-	} catch (Exception e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} 
-	
-	int SelectionId;
-	double bestBack;
-	double bestLay;
+	  
+	MUBet[] MUBets;
+	    InflatedCompleteMarketPrices OB;
+	    int SelectionId;
+		double bestBack;
+		double bestLay;
 	
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
@@ -831,6 +817,28 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int firstLevelLay;
 		int firstLevelBack;
 		double signal;
+	   
+	try {
+		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		SelectionIDs=Basics.getSelectID();
+		for(int j=0;j<OB.getRunners().size();j++){
+			if(OB.getRunners().get(j).getSelectionId()==SelectionIDs[inutile]){
+				for(int i=0;i<OB.getRunners().get(inutile).getPrices().size();i++){
+					System.out.println(OB.getRunners().get(inutile).getSelectionId());
+					System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getPrice());
+					System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getTotalBSPBackersStake());
+					System.out.println();
+				}	
+			}
+		}
+		
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} 
+	
+		
 		
 		while(exitStrat==false){
 			
@@ -842,7 +850,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 						
 			Basics.waiting(400);
 
-			
+
 			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
