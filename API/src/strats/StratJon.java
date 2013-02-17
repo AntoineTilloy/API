@@ -866,7 +866,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 			
 			inventory=Basics.getInventory(MUBets);
 			signal=0;
-			keepInventory(signal, 200, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
+			keepInventory(signal, 300, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -991,7 +991,7 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	if(inventaire>=inventoryLimit){
 		String title="Attention limite d'inventaire" + inventaire;
 		Basics.Send(title, "");
-		Basics.cancelAll();
+		//Basics.cancelAll();
 		Basics.waiting(10);
 	//	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 	//		Basics.waiting(1);	
@@ -1006,7 +1006,7 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	if(-inventaire>=inventoryLimit){
 		String title="Attention limite d'inventaire : " + inventaire;
 		Basics.Send(title, "");
-		Basics.cancelAll();
+		//Basics.cancelAll();
 		Basics.waiting(10);
 	//	while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 	//		Basics.waiting(1);	
