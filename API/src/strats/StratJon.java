@@ -817,7 +817,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int firstLevelLay;
 		int firstLevelBack;
 		double signal;
-	   
+	    int numberLevels = 6;
+		
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -880,7 +881,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					numberOfCancelBets=0;
 					for(int i = 0 ; i< MUBets.length; i++){
 						bet = MUBets[i];
-						
+						// Cancel au best si pas d'inventaire
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0   && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<1){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
@@ -891,7 +892,23 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
 						}		
+						
+						// Cancel si plus loin que best + number levels
 					
+						
+						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="L"){
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
+								numberOfCancelBets=numberOfCancelBets+1;								
+							}
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="B"){
+								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
+								numberOfCancelBets=numberOfCancelBets+1;								
+							}				
+						}
+						
+						
+						
 					}
 					
 					cancelToSend=new CancelBets[numberOfCancelBets];
@@ -912,7 +929,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					}
 					numberOfBets=0;
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
-					for(int k=firstLevelLay;k<=6;k++){
+					for(int k=firstLevelLay;k<=numberLevels;k++){
 						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<volume*(k+1)-2){
 							betsVector[numberOfBets]=Basics.generateBet("L", price, volume*(k+1)-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
@@ -921,7 +938,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					}
 					
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
-					for(int k=firstLevelBack; k<= 6; k++){
+					for(int k=firstLevelBack; k<= numberLevels; k++){
 						if(Basics.volumeAt(SelectionId, "B", price, MUBets)<volume*(k+1)-2){
 							betsVector[numberOfBets]=Basics.generateBet("B", price, volume*(k+1)-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
 							numberOfBets=numberOfBets+1;
