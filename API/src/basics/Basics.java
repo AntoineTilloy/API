@@ -765,7 +765,7 @@ public static void cancelBetVector(CancelBets[] bet) throws Exception {
 
 
 public static void Send(String title, String message) throws AddressException, MessagingException {
-		Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu",title, message);
+		Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierrebaque.baque@gmail.com",title, message);
 }
 
 public static void Send(final String username, String recipientEmail, String title, String message) throws AddressException, MessagingException {
