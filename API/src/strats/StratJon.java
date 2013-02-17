@@ -974,6 +974,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 				Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
 				exitStrat=true;
 				System.out.println("Exit Strat : " + exitStrat);
+				Basics.Send("PNL", "" + PnL);
 		  }
 		  } catch(Exception e){
 				e.printStackTrace();
