@@ -898,10 +898,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					firstLevelLay=1;
 					firstLevelBack=1;
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]>=volume*bestBack){
-						firstLevelLay=0;
+						firstLevelLay=1;
 					}
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]>=volume*bestLay){
-						firstLevelBack=0;
+						firstLevelBack=1;
 					}
 					numberOfBets=0;
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
