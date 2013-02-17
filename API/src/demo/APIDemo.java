@@ -792,7 +792,7 @@ public class APIDemo {
 							}
 					}	
 					if(marketNumber!=-1){
-										
+						
 						selectedExchange = markets[marketNumber].getExchangeId() == 1 ? Exchange.UK : Exchange.AUS;
 						selectedMarket = ExchangeAPI.getMarket(selectedExchange, apiContext, markets[marketNumber].getMarketId());
 						Basics.memorizeMkt("C:\\Users\\GREG\\workspace\\market.txt",markets[marketNumber]);	
