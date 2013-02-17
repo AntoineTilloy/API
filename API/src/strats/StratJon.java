@@ -837,7 +837,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(300);
+			Basics.waiting(400);
 
 			
 			SelectionIDs=Basics.getSelectID();
