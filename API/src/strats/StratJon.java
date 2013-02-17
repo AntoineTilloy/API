@@ -989,8 +989,9 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	double inventaire=inventory[horseNumber][1]-inventory[horseNumber][0];
 	
 	if(inventaire>=inventoryLimit){
-		String title="Attention limite d'inventaire" + inventaire;
-		Basics.Send(title, "");
+		String title="Attention limite d'inventaire";
+		String message= ""+ inventaire;
+		Basics.Send(title, message);
 		//Basics.cancelAll();
 		Basics.waiting(10);
 	//	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
@@ -1004,8 +1005,9 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	//	}
 	}
 	if(-inventaire>=inventoryLimit){
-		String title="Attention limite d'inventaire : " + inventaire;
-		Basics.Send(title, "");
+		String title="Attention limite d'inventaire : ";
+		String message= ""+ inventaire;
+		Basics.Send(title, message);
 		//Basics.cancelAll();
 		Basics.waiting(10);
 	//	while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
