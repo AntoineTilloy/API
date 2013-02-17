@@ -833,6 +833,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 						
 			Basics.waiting(200);
 
+			
 			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -844,6 +845,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 			
 			
 			inventory=Basics.getInventory(MUBets);
+			
+			//keepInventory(signal, inventoryLimit, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -945,6 +948,34 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 	}
 	   
 	}
+
+public static void keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime){
+
+		
+	if(inventory[horseNumber][1]-inventory[horseNumber][0]>=inventoryLimit){	
+	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
+		Basics.waiting(1);	
+		try {
+		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		}
+	}
+	if(inventory[horseNumber][0]-inventory[horseNumber][1]>=inventoryLimit){
+		while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
+			Basics.waiting(1);	
+			try {
+				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	}
+	
+}
 
 
 }
