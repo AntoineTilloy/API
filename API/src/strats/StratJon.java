@@ -957,10 +957,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 public static void keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime) throws MessagingException{
 
 	double inventaire=inventory[horseNumber][1]-inventory[horseNumber][0];
-	String title="Attention limite d'inventaire" + inventaire;
-	Basics.Send(title, "");
 	
 	if(inventaire>=inventoryLimit){
+		String title="Attention limite d'inventaire" + inventaire;
+		Basics.Send(title, "");
 		Basics.cancelAll();
 		while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 			Basics.waiting(1);	
@@ -973,6 +973,8 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 		}
 	}
 	if(-inventaire>=inventoryLimit){
+		String title="Attention limite d'inventaire" + inventaire;
+		Basics.Send(title, "");
 		Basics.cancelAll();
 		while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 			Basics.waiting(1);	
