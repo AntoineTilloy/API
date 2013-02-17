@@ -822,6 +822,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int[] SelectionIDs;
 		int firstLevelLay;
 		int firstLevelBack;
+		double signal;
 		
 		while(exitStrat==false){
 			
@@ -845,8 +846,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 			
 			
 			inventory=Basics.getInventory(MUBets);
-			
-			//keepInventory(signal, inventoryLimit, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
+			signal=0;
+			keepInventory(signal, 10000, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -930,8 +931,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 			  	while(done==false){
 			  		done=Basics.cancelAll();
 			  		StratAntoine.optimalUnwind();
-			  	}	
-			  	Basics.waiting(5000);
+			  	}
 			  	double PnL=Basics.PnL();
 				System.out.println(PnL);
 				String path="C:\\Users\\GREG\\workspace\\PnL.txt";
@@ -952,18 +952,20 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 public static void keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime){
 
 		
-	if(inventory[horseNumber][1]-inventory[horseNumber][0]>=inventoryLimit){	
-	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
-		Basics.waiting(1);	
-		try {
-		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+	if(inventory[horseNumber][1]-inventory[horseNumber][0]>=inventoryLimit){
+		Basics.cancelAll();
+		while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
+			Basics.waiting(1);	
+			try {
+			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 		}
 	}
 	if(inventory[horseNumber][0]-inventory[horseNumber][1]>=inventoryLimit){
+		Basics.cancelAll();
 		while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 			Basics.waiting(1);	
 			try {
