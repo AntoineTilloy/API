@@ -152,7 +152,7 @@ public class APIDemo {
 							StratPierre.printRace();
 							int horseNumber3=0;			
 							double nbLevels3=3;
-							double volume3=2;
+							double volume3=10;
 							double volumeMaxImb3=10;
 							int delay3=1;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
