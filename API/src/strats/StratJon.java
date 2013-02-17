@@ -824,10 +824,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		SelectionIDs=Basics.getSelectID();
 		for(int j=0;j<OB.getRunners().size();j++){
 			if(OB.getRunners().get(j).getSelectionId()==SelectionIDs[inutile]){
-				for(int i=0;i<OB.getRunners().get(inutile).getPrices().size();i++){
-					System.out.println(OB.getRunners().get(inutile).getSelectionId());
-					System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getPrice());
-					System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getTotalBSPBackersStake());
+				for(int i=0;i<OB.getRunners().get(j).getPrices().size();i++){
+					System.out.println(OB.getRunners().get(j).getSelectionId());
+					System.out.println(OB.getRunners().get(j).getPrices().get(i).getPrice());
+					System.out.println(OB.getRunners().get(j).getPrices().get(i).getTotalBSPBackersStake());
 					System.out.println();
 				}	
 			}
