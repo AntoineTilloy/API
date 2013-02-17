@@ -817,7 +817,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 		int firstLevelLay;
 		int firstLevelBack;
 		double signal;
-	    int numberLevels = 6;
+	    int numberLevels = 8;
 	    int numberOfRunners=StratAntoine.numberOfRunners();
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
