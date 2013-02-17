@@ -860,7 +860,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 			
 			inventory=Basics.getInventory(MUBets);
 			signal=0;
-			keepInventory(signal, 10000, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
+			keepInventory(signal, 200, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -986,29 +986,31 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 		String title="Attention limite d'inventaire" + inventaire;
 		Basics.Send(title, "");
 		Basics.cancelAll();
-		while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
-			Basics.waiting(1);	
-			try {
-			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-		}
+		Basics.waiting(10);
+	//	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
+	//		Basics.waiting(1);	
+	//		try {
+	//		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	//		} catch (Exception e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}		
+	//	}
 	}
 	if(-inventaire>=inventoryLimit){
-		String title="Attention limite d'inventaire" + inventaire;
+		String title="Attention limite d'inventaire : " + inventaire;
 		Basics.Send(title, "");
 		Basics.cancelAll();
-		while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
-			Basics.waiting(1);	
-			try {
-				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		}
+		Basics.waiting(10);
+	//	while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
+	//		Basics.waiting(1);	
+	//		try {
+	//			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+	//		} catch (Exception e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}	
+	//	}
 	}
 
 	
