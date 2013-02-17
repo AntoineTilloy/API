@@ -550,7 +550,6 @@ try{
 	}
 
    
-   
 public static void launch3(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
 	
 	boolean exitStrat=false;
