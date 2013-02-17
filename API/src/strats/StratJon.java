@@ -796,7 +796,7 @@ public static boolean fillSpread(int distToOppositeBest, int horseNumber, MUBet[
 	
 }
 
-public static void stackSmashingBasic(int inutile, double nbLevels, double volume, double volumeMaxImb, java.util.Calendar stopTime){
+public static void stackSmashingBasic(int inutile, double nbLevels, double stakeLevel, double volumeMaxImb, java.util.Calendar stopTime){
 	  
 	MUBet[] MUBets;
 	    InflatedCompleteMarketPrices OB;
@@ -818,7 +818,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		int firstLevelBack;
 		double signal;
 	    int numberLevels = 6;
-		
+	    int numberOfRunners=StratAntoine.numberOfRunners();
+	    double[] volumes= new double[numberOfRunners];
+	    double volume;
+	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -828,6 +831,9 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					System.out.println(OB.getRunners().get(j).getActualSPPrice());
 					System.out.println();
 			}
+		}
+		for(int i=0;i<numberOfRunners;i++){
+			volumes[i]=stakeLevel/Basics.findBest("B", OB, SelectionIDs[i]);
 		}
 		
 	} catch (Exception e1) {
@@ -873,7 +879,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 				SelectionId=SelectionIDs[horseNumber];
 				bestBack=Basics.findBest("B", OB, SelectionId);
 				 bestLay=Basics.findBest("L", OB, SelectionId);
-				
+				 volume=volumes[inutile];
 					double price=bestBack;
 											
 					MUBet bet=null;
@@ -897,11 +903,11 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="L"){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels+2 && bet.getBetType().toString()=="L"){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;								
 							}
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="B"){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))>=numberLevels+2  && bet.getBetType().toString()=="B"){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;								
 							}				
