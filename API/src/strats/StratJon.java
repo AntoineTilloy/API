@@ -897,11 +897,11 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 					
 						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="L"){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels + 1 && bet.getBetType().toString()=="L"){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;								
 							}
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels  && bet.getBetType().toString()=="B"){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))>=numberLevels +1  && bet.getBetType().toString()=="B"){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;								
 							}				
