@@ -803,7 +803,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double volum
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		for(int i=0;i<OB.getRunners().get(inutile).getPrices().size();i++){
+			System.out.println(OB.getRunners().get(inutile).getSelectionId());
+			System.out.println(OB.getRunners().get(inutile).getPrices().get(i));
 			System.out.println(OB.getRunners().get(inutile).getPrices().get(i).getTotalBSPBackersStake());
+			System.out.println();
 		}
 		
 	} catch (Exception e1) {
