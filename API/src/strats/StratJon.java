@@ -821,6 +821,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    int numberOfRunners=StratAntoine.numberOfRunners();
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
+	    java.util.Calendar lastEmailSent=Calendar.getInstance();
 	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -866,7 +867,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 			
 			inventory=Basics.getInventory(MUBets);
 			signal=0;
-			keepInventory(signal, 300, inventory, inutile, MUBets, OB, SelectionIDs, stopTime);
+			lastEmailSent=keepInventory(signal, 300, inventory, inutile, lastEmailSent, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -985,16 +986,19 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	   
 	}
 
-public static void keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime) throws MessagingException{
+public static java.util.Calendar keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, java.util.Calendar lastEmail, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime) throws MessagingException{
 
 	double inventaire=inventory[horseNumber][1]-inventory[horseNumber][0];
-	
+	java.util.Calendar timeLastEmail=lastEmail;
+	java.util.Calendar timeNextEmail=lastEmail;
+	timeNextEmail.add(Calendar.MINUTE, 1);
+	if(Calendar.getInstance().getTime().after(timeNextEmail.getTime())){
+	timeLastEmail=Calendar.getInstance();
 	if(inventaire>=inventoryLimit){
 		String title="Attention limite d'inventaire";
 		String message= ""+ inventaire;
 		Basics.Send(title, message);
 		//Basics.cancelAll();
-		Basics.waiting(10);
 	//	while(Basics.findBest("B", OB, SelectionIDs[horseNumber])>signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 	//		Basics.waiting(1);	
 	//		try {
@@ -1006,11 +1010,10 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	//	}
 	}
 	if(-inventaire>=inventoryLimit){
-		String title="Attention limite d'inventaire : ";
+		String title="Attention limite d'inventaire";
 		String message= ""+ inventaire;
 		Basics.Send(title, message);
 		//Basics.cancelAll();
-		Basics.waiting(10);
 	//	while(Basics.findBest("L", OB, SelectionIDs[horseNumber])<signal && Calendar.getInstance().getTime().before(stopTime.getTime())){
 	//		Basics.waiting(1);	
 	//		try {
@@ -1021,8 +1024,9 @@ public static void keepInventory(double signal, double inventoryLimit, Double[][
 	//		}	
 	//	}
 	}
-
+	}
 	
+	return timeLastEmail;
 	
 }
 

@@ -133,7 +133,7 @@ public class APIDemo {
 						searchForHorseRace();
 						break;
 					case 9://Auto Select
-						int delay=15;
+						int delay=5;
 						searchNextRace(delay);
 						//Basics.Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu", "Trading Report", "Ok ça a l'air nickel");
 						break;
@@ -141,7 +141,7 @@ public class APIDemo {
 						
 						while(true){
 							System.out.println();
-							searchNextRace(15);
+							searchNextRace(5);
 							if(!isMarketSelected()){
 								finished=true;
 								System.out.println("Ending");
