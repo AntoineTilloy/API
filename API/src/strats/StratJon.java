@@ -989,8 +989,10 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 public static java.util.Calendar keepInventory(double signal, double inventoryLimit, Double[][] inventory, int horseNumber, java.util.Calendar lastEmail, MUBet[] MUBets, InflatedCompleteMarketPrices OB, int[] SelectionIDs, java.util.Calendar stopTime) throws MessagingException{
 
 	double inventaire=inventory[horseNumber][1]-inventory[horseNumber][0];
-	java.util.Calendar timeLastEmail=lastEmail;
-	java.util.Calendar timeNextEmail=lastEmail;
+	java.util.Calendar timeLastEmail = Calendar.getInstance();
+	java.util.Calendar timeNextEmail = Calendar.getInstance();
+	timeLastEmail.setTime(lastEmail.getTime());
+	timeNextEmail.setTime(lastEmail.getTime());
 	timeNextEmail.add(Calendar.MINUTE, 1);
 	if(Calendar.getInstance().getTime().after(timeNextEmail.getTime())){
 	timeLastEmail=Calendar.getInstance();
