@@ -867,7 +867,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 			
 			inventory=Basics.getInventory(MUBets);
 			signal=0;
-			lastEmailSent=keepInventory(signal, 300, inventory, inutile, lastEmailSent, MUBets, OB, SelectionIDs, stopTime);
+			lastEmailSent=keepInventory(signal, 800, inventory, inutile, lastEmailSent, MUBets, OB, SelectionIDs, stopTime);
 			
 			if(spreadFilled==true){
 				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
