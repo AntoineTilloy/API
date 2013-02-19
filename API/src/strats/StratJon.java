@@ -975,7 +975,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 				Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
 				exitStrat=true;
 				System.out.println("Exit Strat : " + exitStrat);
-				Basics.Send("PNL", "" + PnL);
+				APIDemo.dailyPnL += PnL;
+				Basics.Send("PNL", "" + PnL + " // cumul day " + APIDemo.dailyPnL);
 		  }
 		  } catch(Exception e){
 				e.printStackTrace();

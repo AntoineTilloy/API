@@ -64,6 +64,7 @@ public class APIDemo {
 	public static Market selectedMarket;
 	public static Market selectedMarket2;
 	public static Exchange selectedExchange;
+	public static double dailyPnL=0;
 	public static double[] priceLadder;
 	
 	// Fire up the API demo
@@ -138,7 +139,7 @@ public class APIDemo {
 						//Basics.Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu", "Trading Report", "Ok ça a l'air nickel");
 						break;
 					case 10: // Strat Auto	
-						
+						dailyPnL=0;
 						while(true){
 							System.out.println();
 							searchNextRace(5);
@@ -158,6 +159,7 @@ public class APIDemo {
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
 							stopTime3.add(Calendar.MINUTE, -delay3);
 							StratJon.stackSmashingBasic(horseNumber3, nbLevels3, stakeLevel, volumeMaxImb3, stopTime3);
+							
 						}
 						
 						
