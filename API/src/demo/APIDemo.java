@@ -386,6 +386,7 @@ public class APIDemo {
 					case 4: // Strat Pierre
 
 						System.out.println(Basics.PnL());
+						Basics.Send("PNL", "" + Basics.PnL() + " // cumul day " + APIDemo.dailyPnL);
 						//StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
 						finished = true;
 						break;
