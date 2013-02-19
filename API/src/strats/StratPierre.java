@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import basics.Basics;
 
 import demo.APIDemo;
@@ -99,6 +102,22 @@ public class StratPierre {
 		}
 		
 	}
+	
+	
+	public static void test() {
+		APIDemo.dailyPnL+=10000.0;
+		try {
+			Basics.Send("PNL", "" + Basics.PnL() + " // cumul day " + APIDemo.dailyPnL);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 	public static void writeRace(String path) {
