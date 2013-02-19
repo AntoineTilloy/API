@@ -382,15 +382,7 @@ public class APIDemo {
 						finished = true;
 						break;
 					case 4: // Strat Pierre
-						StratAntoine.numberOfRunners();
-						StratPierre.printRace();
-						int horseNumber2=Display.getIntAnswer("Numéro du cheval :");			
-						double nbLevels2=3;
-						double volume2=2;
-						double volumeMaxImb2=10;
-						int delay2=5;
-						java.util.Calendar stopTime2=APIDemo.selectedMarket.getMarketTime();
-						stopTime2.add(Calendar.MINUTE, -delay2);
+
 						System.out.println(Basics.PnL());
 						//StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
 						finished = true;
