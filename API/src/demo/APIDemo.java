@@ -391,7 +391,8 @@ public class APIDemo {
 						int delay2=5;
 						java.util.Calendar stopTime2=APIDemo.selectedMarket.getMarketTime();
 						stopTime2.add(Calendar.MINUTE, -delay2);
-						StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
+						System.out.println(Basics.PnL());
+						//StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
 						finished = true;
 						break;
 					case 5: // Strat Jon						
