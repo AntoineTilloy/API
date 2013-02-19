@@ -582,7 +582,7 @@ public static double PnL(){
 			bestBack=Basics.findBest("B", OB, SelectionId);
 			bestLay=Basics.findBest("L", OB, SelectionId);
 			if((inventory[runner][0]-inventory[runner][1])>0.0){
-				PnL+=(inventory[runner][0]-inventory[runner][1])/bestLay;
+				PnL-=(inventory[runner][0]-inventory[runner][1])/bestLay;
 			}
 			
 			if((inventory[runner][0]-inventory[runner][1])<0.0){
