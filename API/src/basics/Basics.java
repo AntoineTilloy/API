@@ -427,9 +427,63 @@ public static int[] getSelectID(Market SM){
 		return volume;
 	}
 	
-	//public static int SelectionIdOfPosInMarket(int pos){
+	
+	public static double[] volumeOBAt (int SelectionId,double Price,InflatedCompleteMarketPrices OB) {
+		double[] volumeOBAt= new double[2];
+					
+	
+			//System.out.println("yotype");	
+				for (InflatedCompleteRunner r: OB.getRunners()) {
+				//	System.out.println("yoId");
+			
+					if (SelectionId == r.getSelectionId()){
+
+						for ( InflatedCompletePrice p: r.getPrices()) {
+							if( Price == p.getPrice()){
+								volumeOBAt[0]=p.getBackAmountAvailable();
+								volumeOBAt[1]=p.getLayAmountAvailable();
+							}		
+						}
+					}
+				}
+		return volumeOBAt;
+	}
+	
+
+	public static double[] volumeOBtot(InflatedCompleteMarketPrices OB, int SelectionId ){
+
+		//Attention, renvoie le best placé sur l'OB de ce type: best(B)>best(L) !!!
 		
-	//}
+		double[] volumeOBtot= new double[2];
+		volumeOBtot[0]=0.0;
+		volumeOBtot[1]=0.0;
+
+		
+			
+		//System.out.println("yotype");	
+			for (InflatedCompleteRunner r: OB.getRunners()) {
+			//	System.out.println("yoId");
+		
+				if (SelectionId == r.getSelectionId()){
+
+					for ( InflatedCompletePrice p: r.getPrices()) {
+						volumeOBtot[0]+=p.getBackAmountAvailable();
+						volumeOBtot[1]+=p.getLayAmountAvailable();
+						}
+
+					}
+					
+
+				}
+				
+			return volumeOBtot;		 
+		
+	}
+
+	
+	
+	
+	
     
 public static double[][] implicitPrice(InflatedCompleteMarketPrices OB){
 
