@@ -66,6 +66,7 @@ public class APIDemo {
 	public static Exchange selectedExchange;
 	public static double dailyPnL=0;
 	public static double[] priceLadder;
+	public static int nbBetsSent=0;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
