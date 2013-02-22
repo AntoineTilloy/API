@@ -450,14 +450,15 @@ public static int[] getSelectID(Market SM){
 	}
 	
 
-	public static double[] volumeOBtot(InflatedCompleteMarketPrices OB, int SelectionId ){
+	public static double[] volumeOBtot(InflatedCompleteMarketPrices OB, int SelectionId,int nbLev ){
 
 		//Attention, renvoie le best placé sur l'OB de ce type: best(B)>best(L) !!!
 		
 		double[] volumeOBtot= new double[2];
 		volumeOBtot[0]=0.0;
 		volumeOBtot[1]=0.0;
-
+		double bestLay=Basics.findBest("L", OB, SelectionId);
+		double bestBack=Basics.findBest("B", OB, SelectionId);
 		
 			
 		//System.out.println("yotype");	
@@ -467,8 +468,9 @@ public static int[] getSelectID(Market SM){
 				if (SelectionId == r.getSelectionId()){
 
 					for ( InflatedCompletePrice p: r.getPrices()) {
-						volumeOBtot[0]+=p.getBackAmountAvailable();
-						volumeOBtot[1]+=p.getLayAmountAvailable();
+						if(p.getPrice()<APIDemo.priceLadder[findPriceLadder(bestBack+nbLev)] && p.getPrice()>APIDemo.priceLadder[findPriceLadder(bestLay-nbLev)])
+							volumeOBtot[0]+=p.getBackAmountAvailable();
+							volumeOBtot[1]+=p.getLayAmountAvailable();
 						}
 
 					}
