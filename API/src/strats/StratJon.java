@@ -823,6 +823,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    double volume;
 	    java.util.Calendar lastEmailSent=Calendar.getInstance();
 	    
+	    int nbBoucles=0;
+	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 		OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -892,7 +894,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0   && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<1){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
-								numberOfCancelBets=numberOfCancelBets+1;								
+								numberOfCancelBets=numberOfCancelBets+1;	
 							}
 							if(inventory[horseNumber][1]-inventory[horseNumber][0]>=0  && bet.getBetType().toString()=="B" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<1){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
@@ -917,7 +919,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						
 						
 					}
-					
+					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfCancelBets;
 					cancelToSend=new CancelBets[numberOfCancelBets];
 					for(int i=0;i<numberOfCancelBets;i++){
 						cancelToSend[i]=cancelVector[i];
@@ -953,6 +955,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 					
 					 }
+					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBets;
 					betsToSend=new PlaceBets[numberOfBets];
 					for(int i=0;i<numberOfBets;i++){
 						betsToSend[i]=betsVector[i];
@@ -960,6 +963,9 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 					if(numberOfBets>0){
 						Basics.placeBetVector(betsToSend);
 					}
+					nbBoucles=nbBoucles+1;
+					if(nbBoucles==10){ nbBoucles=0;}
+					if(nbBoucles==0){System.out.print(" "+APIDemo.nbBetsSent);}
 				
 			}
 		  }else{

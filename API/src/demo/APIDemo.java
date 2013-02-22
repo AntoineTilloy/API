@@ -66,6 +66,7 @@ public class APIDemo {
 	public static Exchange selectedExchange;
 	public static double dailyPnL=0;
 	public static double[] priceLadder;
+	public static int nbBetsSent=0;
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
@@ -84,7 +85,7 @@ public class APIDemo {
 		try
 		{
 			GlobalAPI.login(apiContext, "gregstubbe01", "sowhat01+");
-			System.out.println("connexion à gregstubbe 01");
+			System.out.println("connexion ï¿½ gregstubbe 01");
 			//	GlobalAPI.login(apiContext, username, password);
 		}
 		catch (Exception e)
@@ -136,7 +137,7 @@ public class APIDemo {
 					case 9://Auto Select
 						int delay=5;
 						searchNextRace(delay);
-						//Basics.Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu", "Trading Report", "Ok ça a l'air nickel");
+						//Basics.Send("centaurecapital", "jonathan.donier@gmail.com antoine.tilloy@gmail.com pierre.baque@polytechnique.edu", "Trading Report", "Ok ï¿½a a l'air nickel");
 						break;
 					case 10: // Strat Auto	
 						dailyPnL=0;
@@ -153,7 +154,7 @@ public class APIDemo {
 							StratPierre.printRace();
 							int horseNumber3=0;			
 							double nbLevels3=3;
-							double stakeLevel=12;
+							double stakeLevel=20;
 							double volumeMaxImb3=10;
 							int delay3=1;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
@@ -391,7 +392,7 @@ public class APIDemo {
 					case 5: // Strat Jon						
 						StratAntoine.numberOfRunners();
 						StratPierre.printRace();
-						int horseNumber=Display.getIntAnswer("Numéro du cheval :");			
+						int horseNumber=Display.getIntAnswer("Numï¿½ro du cheval :");			
 						double nbLevels=3;
 						double volume=2;
 						double volumeMaxImb=10;
@@ -793,7 +794,7 @@ public class APIDemo {
 					}
 			}
 			
-			//Retour : marché trouvé ou non
+			//Retour : marchï¿½ trouvï¿½ ou non
 			if(selectedMarket==null){
 				System.out.println("No Market Found");
 			}else{
