@@ -803,7 +803,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    int SelectionId;
 		double bestBack;
 		double bestLay;
-	
+
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
 		PlaceBets[] betsVector = new PlaceBets[100];

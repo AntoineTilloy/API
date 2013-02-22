@@ -681,7 +681,20 @@ public static double PnL(){
 
 	}
 
-
+public static double lastTraded(InflatedCompleteMarketPrices OB, int SelectionId){
+	double lastPrice=-1;
+	
+	int i=0;
+	while(OB.getRunners().get(i).getSelectionId()!=SelectionId){
+		i=i+1;
+	}
+	
+	if(OB.getRunners().get(i).getSelectionId()==SelectionId){
+		lastPrice=OB.getRunners().get(i).getLastPriceMatched();
+	}
+	
+	return lastPrice;
+}
 
 
 
