@@ -808,11 +808,14 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
-		PlaceBets[] betsVector = new PlaceBets[100];
+		PlaceBets[] betsVectorLay = new PlaceBets[100];
+		PlaceBets[] betsVectorBack = new PlaceBets[100];
 		CancelBets[] cancelVector = new CancelBets[100];
 		CancelBets[] cancelToSend=new CancelBets[]{};
-		PlaceBets[] betsToSend=new PlaceBets[]{};
-		int numberOfBets;
+		PlaceBets[] betsToSendLay=new PlaceBets[]{};
+		PlaceBets[] betsToSendBack=new PlaceBets[]{};
+		int numberOfBetsLay;
+		int numberOfBetsBack;
 		int numberOfCancelBets;
 		Double[][] inventory;
 		int[] SelectionIDs;
@@ -827,6 +830,9 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 		int tauxRefresh=400;
 	    double volumeP=0;
 	    int nbBoucles=0;
+	    int firstInvBack=0;
+	    int firstInvLay=0;
+	    java.util.Calendar timeExec=java.util.Calendar.getInstance();
 	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -886,10 +892,11 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						
 			
 			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
-				SelectionId=SelectionIDs[horseNumber];
-				bestBack=Basics.findBest("B", OB, SelectionId);
-				 bestLay=Basics.findBest("L", OB, SelectionId);
-				 volume=volumes[inutile];
+				
+					SelectionId=SelectionIDs[horseNumber];
+					bestBack=Basics.findBest("B", OB, SelectionId);
+					bestLay=Basics.findBest("L", OB, SelectionId);
+					volume=volumes[inutile];
 					double price=bestBack;
 											
 					MUBet bet=null;
@@ -899,19 +906,19 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						bet = MUBets[i];
 						// Cancel au best si pas d'inventaire
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
-							if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0   && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
+							//if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0   && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;	
 							}
-							if(inventory[horseNumber][1]-inventory[horseNumber][0]>=0  && bet.getBetType().toString()=="B" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
+							//if(inventory[horseNumber][1]-inventory[horseNumber][0]>=0  && bet.getBetType().toString()=="B" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
 						}		
 						
-						// Cancel si plus loin que best + number levels
-					
-						
+						// Cancel si plus loin que best + number levels						
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))>=numberLevels+2 && bet.getBetType().toString()=="L"){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
@@ -922,9 +929,6 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 								numberOfCancelBets=numberOfCancelBets+1;								
 							}				
 						}
-						
-						
-						
 					}
 					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfCancelBets;
 					cancelToSend=new CancelBets[numberOfCancelBets];
@@ -935,17 +939,50 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						Basics.cancelBetVector(cancelToSend);
 					}
 					
+					
+					//Débouclage si inventaire
+					if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
+						timeExec=java.util.Calendar.getInstance();
+						timeExec.add(Calendar.SECOND, 5);
+						firstInvBack=1;
+						firstInvLay=0;
+					}
+					if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack && firstInvLay==0){
+						timeExec=java.util.Calendar.getInstance();
+						timeExec.add(Calendar.SECOND, 5);
+						firstInvLay=1;
+						firstInvBack=0;
+					}
+					if(Math.abs(inventory[horseNumber][0]-inventory[horseNumber][1])<=3*bestBack){firstInvBack=0;firstInvLay=0;}
+					
+					numberOfBetsLay=0;
+					numberOfBetsBack=0;
+					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>50 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+						firstInvBack=0;
+						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack){
+							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", bestBack, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestBack, SelectionId);
+							numberOfBetsLay=numberOfBetsLay+1;
+						}
+					}
+					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-50 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+						firstInvLay=0;
+						if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack){
+							betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", bestLay, (inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay, SelectionId);
+							numberOfBetsBack=numberOfBetsBack+1;
+						}
+					}
+					
+					
 					firstLevelLay=2;
 					firstLevelBack=2;
 		
-					numberOfBets=0;
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
 					for(int k=firstLevelLay;k<=numberLevels;k++){	
 						if(k-firstLevelLay<4){volumeP=3*volume;}
 						else{volumeP=6*volume;}						
 						if(Basics.volumeAt(SelectionId, "L", price, MUBets)<volumeP-2){
-							betsVector[numberOfBets]=Basics.generateBet("L", price, volumeP-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
-							numberOfBets=numberOfBets+1;
+							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", price, volumeP-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
+							numberOfBetsLay=numberOfBetsLay+1;
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 					}
@@ -955,19 +992,27 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						if(k-firstLevelLay<4){volumeP=3*volume;}
 						else{volumeP=6*volume;}	
 						if(Basics.volumeAt(SelectionId, "B", price, MUBets)<volumeP-2){
-							betsVector[numberOfBets]=Basics.generateBet("B", price, volumeP-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
-							numberOfBets=numberOfBets+1;
+							betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", price, volumeP-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
+							numberOfBetsBack=numberOfBetsBack+1;
 						}
 						price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 					
 					 }
-					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBets;
-					betsToSend=new PlaceBets[numberOfBets];
-					for(int i=0;i<numberOfBets;i++){
-						betsToSend[i]=betsVector[i];
+					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsBack;
+					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsLay;
+					betsToSendLay=new PlaceBets[numberOfBetsLay];
+					for(int i=0;i<numberOfBetsLay;i++){
+						betsToSendLay[i]=betsVectorLay[i];
 					}
-					if(numberOfBets>0){
-						Basics.placeBetVector(betsToSend);
+					if(numberOfBetsLay>0){
+						Basics.placeBetVector(betsToSendLay);
+					}
+					betsToSendBack=new PlaceBets[numberOfBetsBack];
+					for(int i=0;i<numberOfBetsBack;i++){
+						betsToSendBack[i]=betsVectorBack[i];
+					}
+					if(numberOfBetsBack>0){
+						Basics.placeBetVector(betsToSendBack);
 					}
 					nbBoucles=nbBoucles+1;
 					if(nbBoucles==10){ nbBoucles=0;}
