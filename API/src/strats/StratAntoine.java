@@ -308,4 +308,38 @@ public class StratAntoine {
 		
 		
 	}
+	public static Double BestStackAsymmetry(InflatedCompleteMarketPrices OB, int runnerId){
+		Double stackA=0.0;
+		
+		Double bestLay=Basics.findBest("L", OB, runnerId);
+		Double bestBack=Basics.findBest("B", OB, runnerId);
+		
+		Double layVolume=getVolume(OB,runnerId,bestLay,"L");
+		Double backVolume=getVolume(OB,runnerId,bestBack,"B");
+		
+		stackA=100*(bestBack*layVolume-bestLay*backVolume)/(bestBack*layVolume+bestLay*backVolume);
+		return stackA;
+	}
+	
+	public static Double StackAsymmetry(InflatedCompleteMarketPrices OB, int runnerId,int level){
+		Double stackA=0.0;
+		
+		Double bestLay=Basics.findBest("L", OB, runnerId);
+		Double bestBack=Basics.findBest("B", OB, runnerId);
+		Double layVolume=0.0;
+		Double backVolume=0.0;
+		Double layPrice;
+		Double backPrice;
+		
+		for (int i=0;i<level;i=i+1){
+			layPrice=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-i];
+			backPrice=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+i];
+			layVolume=layVolume+getVolume(OB,runnerId,layPrice,"L");
+			backVolume=backVolume+getVolume(OB,runnerId,backPrice,"B");
+		}
+		stackA=100*(bestBack*layVolume-bestLay*backVolume)/(bestBack*layVolume+bestLay*backVolume);
+		
+		return stackA;
+	}
+
 }
