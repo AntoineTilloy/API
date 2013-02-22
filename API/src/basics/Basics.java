@@ -694,7 +694,6 @@ public static double lastTraded(InflatedCompleteMarketPrices OB, int SelectionId
 	
 	if(OB.getRunners().get(i).getSelectionId()==SelectionId){
 		lastPrice=OB.getRunners().get(i).getLastPriceMatched();
-		System.out.println(lastPrice);
 	}
 	
 	return lastPrice;
@@ -704,8 +703,9 @@ public static void Twap(double kernel, int tauxRefresh, InflatedCompleteMarketPr
 	
 	double lastPrice=lastTraded(OB, SelectionId);
 	double tR=tauxRefresh;
+	if(twap==0){twap=lastPrice;}
 	if(lastPrice>0){
-		twap=(1-Math.pow(kernel, (tR/1000)))*lastPrice+twap*Math.pow(kernel, (tauxRefresh/1000));
+		twap=(1-Math.pow(kernel, (tR/1000)))*lastPrice+twap*Math.pow(kernel, (tR/1000));
 	}
 }
 
