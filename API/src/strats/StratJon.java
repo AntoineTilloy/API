@@ -882,7 +882,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 			}
 			
 			
-			Basics.Twap(0.95, tauxRefresh, OB, SelectionIDs[inutile]);
+			Basics.Twap(0.99, tauxRefresh, OB, SelectionIDs[inutile]);
 			nbBoucles=nbBoucles+1;
 			if(nbBoucles==10){ nbBoucles=0;}
 			if(nbBoucles==0){
