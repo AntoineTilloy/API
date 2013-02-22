@@ -703,7 +703,7 @@ public static void Twap(double kernel, int tauxRefresh, InflatedCompleteMarketPr
 	
 	double lastPrice=lastTraded(OB, SelectionId);
 	if(lastPrice>0){
-		twap=(1-Math.pow(kernel, (tauxRefresh/1000)))*lastTraded(OB, SelectionId)+twap*Math.pow(kernel, (tauxRefresh/1000));
+		twap=(1-Math.pow(kernel, (tauxRefresh/1000)))*lastPrice+twap*Math.pow(kernel, (tauxRefresh/1000));
 	}
 }
 
