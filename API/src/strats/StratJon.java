@@ -118,6 +118,7 @@ try{
 	boolean forceCanBestBack=true;
 	boolean forceCanBestLay=true;
 	boolean res;
+	int tauxRefresh=500;
 	
 		boolean exitStrat=false;
 		boolean spreadFilled=false;
@@ -139,7 +140,7 @@ try{
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(500);
+			Basics.waiting(tauxRefresh);
 
 			SelectionIDs=Basics.getSelectID();
 			System.out.println("debut boucle");
@@ -166,6 +167,7 @@ try{
 			}
 			
 			implicitP=Basics.implicitPrice(OB);
+
 			
 			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
 				SelectionId=SelectionIDs[horseNumber];
@@ -822,6 +824,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
 	    java.util.Calendar lastEmailSent=Calendar.getInstance();
+		int tauxRefresh=400;
 	    
 	    int nbBoucles=0;
 	    
@@ -854,7 +857,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 				
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
-			Basics.waiting(400);
+			Basics.waiting(tauxRefresh);
 
 
 			SelectionIDs=Basics.getSelectID();
@@ -878,7 +881,18 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 				//exitStrat=true;
 			}
 			
-			for(int horseNumber = inutile; horseNumber < inutile+1; horseNumber ++){
+			
+			Basics.Twap(0.95, tauxRefresh, OB, SelectionIDs[inutile]);
+			nbBoucles=nbBoucles+1;
+			if(nbBoucles==10){ nbBoucles=0;}
+			if(nbBoucles==0){
+				System.out.println("Twap="+Basics.twap);
+				System.out.println("StackAsymetryBest="+StratAntoine.BestStackAsymmetry(OB,SelectionIDs[inutile]));
+				System.out.println("StackAsymetryLevel3="+StratAntoine.StackAsymmetry(OB,SelectionIDs[inutile],3));
+			}
+			
+			
+			for(int horseNumber = inutile; horseNumber < inutile-1; horseNumber ++){
 				SelectionId=SelectionIDs[horseNumber];
 				bestBack=Basics.findBest("B", OB, SelectionId);
 				 bestLay=Basics.findBest("L", OB, SelectionId);
