@@ -694,6 +694,7 @@ public static double lastTraded(InflatedCompleteMarketPrices OB, int SelectionId
 	
 	if(OB.getRunners().get(i).getSelectionId()==SelectionId){
 		lastPrice=OB.getRunners().get(i).getLastPriceMatched();
+		System.out.println(lastPrice);
 	}
 	
 	return lastPrice;
