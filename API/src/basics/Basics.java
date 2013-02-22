@@ -60,7 +60,8 @@ import strats.StratAntoine;
 
 public class Basics {// Ajouté par pierre
 	private static int numberofRunners = 0;
-
+	private static double twap=0;
+	
   public static void waiting (int n){
         
         long t0, t1;
@@ -698,6 +699,13 @@ public static double lastTraded(InflatedCompleteMarketPrices OB, int SelectionId
 	return lastPrice;
 }
 
+public static void Twap(double kernel, double tauxRefresh, InflatedCompleteMarketPrices OB, int SelectionId){
+	
+	double lastPrice=lastTraded(OB, SelectionId);
+	if(lastPrice>0){
+		twap=(1-kernel)*lastTraded(OB, SelectionId)+kernel*twap;
+	}
+}
 
 
 public static void ecrire(String path, String text) 
