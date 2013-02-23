@@ -907,12 +907,12 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						// Cancel au best si pas d'inventaire
 						if(bet.getBetStatus().toString()=="U" & bet.getSelectionId()==SelectionId ){
 							//if(inventory[horseNumber][1]-inventory[horseNumber][0]<=0   && bet.getBetType().toString()=="L" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<2){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestLay))<1){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);	
 								numberOfCancelBets=numberOfCancelBets+1;	
 							}
 							//if(inventory[horseNumber][1]-inventory[horseNumber][0]>=0  && bet.getBetType().toString()=="B" && Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
-							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<2){
+							if(Math.abs(Basics.findPriceLadder(bet.getPrice())- Basics.findPriceLadder(bestBack))<1){
 								cancelVector[numberOfCancelBets]=Basics.generateCancelBet(bet);					
 								numberOfCancelBets=numberOfCancelBets+1;
 							}				
