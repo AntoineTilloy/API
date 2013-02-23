@@ -827,7 +827,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
 	    java.util.Calendar lastEmailSent=Calendar.getInstance();
-		int tauxRefresh=600;
+		int tauxRefresh=300;
 	    double volumeP=0;
 	    int nbBoucles=0;
 	    int firstInvBack=0;
