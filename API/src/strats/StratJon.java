@@ -973,8 +973,8 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 					}
 					
 					
-					firstLevelLay=2;
-					firstLevelBack=2;
+					firstLevelLay=3;
+					firstLevelBack=3;
 		
 					price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
 					for(int k=firstLevelLay;k<=numberLevels;k++){	
