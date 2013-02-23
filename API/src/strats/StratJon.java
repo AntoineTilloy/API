@@ -957,14 +957,14 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 					
 					numberOfBetsLay=0;
 					numberOfBetsBack=0;
-					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>50 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
 						firstInvBack=0;
 						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack){
 							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", bestBack, Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestBack, SelectionId);
 							numberOfBetsLay=numberOfBetsLay+1;
 						}
 					}
-					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-50 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+					if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
 						firstInvLay=0;
 						if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack){
 							betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", bestLay, Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay, SelectionId);
