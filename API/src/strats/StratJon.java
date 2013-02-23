@@ -827,7 +827,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
 	    java.util.Calendar lastEmailSent=Calendar.getInstance();
-		int tauxRefresh=400;
+		int tauxRefresh=600;
 	    double volumeP=0;
 	    int nbBoucles=0;
 	    int firstInvBack=0;
@@ -930,7 +930,6 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 							}				
 						}
 					}
-					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfCancelBets;
 					cancelToSend=new CancelBets[numberOfCancelBets];
 					for(int i=0;i<numberOfCancelBets;i++){
 						cancelToSend[i]=cancelVector[i];
