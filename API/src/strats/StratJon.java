@@ -1050,9 +1050,10 @@ public static void stackSmashingMO(int inutile, double nbLevels, double stakeLev
 	    int SelectionId;
 		double bestBack;
 		double bestLay;
+		double exBestBack=1000;
+		double exBestLay=0;
 
 		boolean exitStrat=false;
-		boolean spreadFilled=false;
 		PlaceBets[] betsVectorLay = new PlaceBets[100];
 		PlaceBets[] betsVectorBack = new PlaceBets[100];
 		CancelBets[] cancelVector = new CancelBets[100];
@@ -1064,16 +1065,12 @@ public static void stackSmashingMO(int inutile, double nbLevels, double stakeLev
 		int numberOfCancelBets;
 		Double[][] inventory;
 		int[] SelectionIDs;
-		int firstLevelLay;
-		int firstLevelBack;
 		double signal;
-	    int numberLevels = 8;
 	    int numberOfRunners=StratAntoine.numberOfRunners();
 	    double[] volumes= new double[numberOfRunners];
 	    double volume;
 	    java.util.Calendar lastEmailSent=Calendar.getInstance();
 		int tauxRefresh=300;
-	    double volumeP=0;
 	    int nbBoucles=0;
 	    int firstInvBack=0;
 	    int firstInvLay=0;
@@ -1115,24 +1112,12 @@ public static void stackSmashingMO(int inutile, double nbLevels, double stakeLev
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			
-		    ///////////////////////////////////////////////////////
-			//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
-			///////////////////////////////////////////////////////////
-			
-			
+		  			
 			
 			inventory=Basics.getInventory(MUBets);
 			signal=0;
 			lastEmailSent=keepInventory(signal, 800, inventory, inutile, lastEmailSent, MUBets, OB, SelectionIDs, stopTime);
-			
-			if(spreadFilled==true){
-				OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-				MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
-				spreadFilled=false;
-				//exitStrat=true;
-			}
-			
-			
+							
 			Basics.Twap(0.99, tauxRefresh, OB, SelectionIDs[inutile]);
 						
 			
@@ -1142,7 +1127,6 @@ public static void stackSmashingMO(int inutile, double nbLevels, double stakeLev
 					bestBack=Basics.findBest("B", OB, SelectionId);
 					bestLay=Basics.findBest("L", OB, SelectionId);
 					volume=volumes[inutile];
-					double price=bestBack;
 											
 					MUBet bet=null;
 					
@@ -1196,15 +1180,17 @@ public static void stackSmashingMO(int inutile, double nbLevels, double stakeLev
 						}
 					}
 					
-					
-							if(Basics.volumeAt(SelectionId, "L", price, MUBets)<volumeP-2){
-							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", price, volumeP-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
-							numberOfBetsLay=numberOfBetsLay+1;
-						}
-						if(Basics.volumeAt(SelectionId, "B", price, MUBets)<volumeP-2){
-							betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", price, volumeP-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
-							numberOfBetsBack=numberOfBetsBack+1;
-						}
+					//MO si défonçage
+					if(bestLay<exBestLay-2){
+						betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)+1], volume, SelectionId);
+						numberOfBetsLay=numberOfBetsLay+1;
+					}
+					if(bestBack>exBestBack+2){
+						betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)-1], volume, SelectionId);
+						numberOfBetsBack=numberOfBetsBack+1;
+					}
+					exBestBack=bestBack;
+					exBestLay=bestLay;
 					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsBack;
 					APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsLay;
 					betsToSendLay=new PlaceBets[numberOfBetsLay];
