@@ -152,14 +152,15 @@ public class APIDemo {
 							System.out.println();
 							StratAntoine.numberOfRunners();
 							StratPierre.printRace();
-							int horseNumber3=0;			
+							int horseNumber3=0;	
+							int horseNumber4=1;				
 							double nbLevels3=3;
 							double stakeLevel=30;
 							double volumeMaxImb3=10;
 							int delay3=1;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
 							stopTime3.add(Calendar.MINUTE, -delay3);
-							StratJon.stackSmashingBasic(horseNumber3, nbLevels3, stakeLevel, volumeMaxImb3, stopTime3);
+							StratJon.stackSmashingDouble(horseNumber3, horseNumber4, nbLevels3, stakeLevel, volumeMaxImb3, stopTime3);
 							
 						}
 						
