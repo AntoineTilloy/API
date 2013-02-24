@@ -1274,6 +1274,7 @@ public static void stackSmashingDouble(int inutile, int inutile2, double nbLevel
 	    int firstInvBack=0;
 	    int firstInvLay=0;
 	    java.util.Calendar timeExec=java.util.Calendar.getInstance();
+	    java.util.Calendar timeExec2=java.util.Calendar.getInstance();
 	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -1361,14 +1362,14 @@ public static void stackSmashingDouble(int inutile, int inutile2, double nbLevel
 				
 				//Débouclage si inventaire
 				if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
-					timeExec=java.util.Calendar.getInstance();
-					timeExec.add(Calendar.SECOND, 5);
+					timeExec2=java.util.Calendar.getInstance();
+					timeExec2.add(Calendar.SECOND, 30);
 					firstInvBack=1;
 					firstInvLay=0;
 				}
 				if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack && firstInvLay==0){
-					timeExec=java.util.Calendar.getInstance();
-					timeExec.add(Calendar.SECOND, 5);
+					timeExec2=java.util.Calendar.getInstance();
+					timeExec2.add(Calendar.SECOND, 30);
 					firstInvLay=1;
 					firstInvBack=0;
 				}
@@ -1376,14 +1377,14 @@ public static void stackSmashingDouble(int inutile, int inutile2, double nbLevel
 				
 				numberOfBetsLay=0;
 				numberOfBetsBack=0;
-				if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+				if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>30 && java.util.Calendar.getInstance().getTime().after(timeExec2.getTime())){
 					firstInvBack=0;
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack){
 						betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", bestBack, Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestBack, SelectionId);
 						numberOfBetsLay=numberOfBetsLay+1;
 					}
 				}
-				if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+				if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-30 && java.util.Calendar.getInstance().getTime().after(timeExec2.getTime())){
 					firstInvLay=0;
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack){
 						betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", bestLay, Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay, SelectionId);
