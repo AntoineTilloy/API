@@ -492,7 +492,7 @@ public static int[] getSelectID(Market SM){
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
 		String path="C:\\Users\\GREG\\workspace\\Data.txt";
 		ecrireSuite(path,String.valueOf(remainingTime)+",");	
-		for(int runner = 0; runner<3;runner ++){
+		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
 			ecrireSuite(path,String.valueOf(bestBack)+","+String.valueOf(bestLay)+",");
@@ -502,7 +502,7 @@ public static int[] getSelectID(Market SM){
 			for(int j=0;j<5;j++){
 				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",");	
 				}
-			ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0]));	
+			ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[1]));	
 			}
 		ecrireSuite(path,"\r\n");	
 		}
