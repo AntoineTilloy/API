@@ -491,7 +491,8 @@ public static int[] getSelectID(Market SM){
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
 		String path="C:\\Users\\GREG\\workspace\\Data.txt";
-		ecrireSuite(path,String.valueOf(remainingTime)+",");	
+		ecrireSuite(path,String.valueOf(remainingTime)+",");
+		ecrireSuite(path,"\r\n");
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
@@ -502,9 +503,8 @@ public static int[] getSelectID(Market SM){
 			for(int j=0;j<5;j++){
 				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",");	
 				}
-			ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[1]));	
-			}
-		ecrireSuite(path,"\r\n");	
+			//ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[1]));	
+			}	
 		}
 		
 
