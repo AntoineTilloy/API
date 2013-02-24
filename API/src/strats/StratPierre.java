@@ -91,8 +91,7 @@ public class StratPierre {
 										}
 				else{
 					exitStrat=true;
-					String path="C:\\Users\\GREG\\workspace\\Data.txt";
-					Basics.ecrireSuite(path,"\r\n"+"\r\n");
+					Basics.ecrireSuite("C:\\Users\\GREG\\workspace\\Data.txt","\r\n"+"\r\n");
 					
 				}
 			} catch(Exception e){

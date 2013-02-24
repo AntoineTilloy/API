@@ -491,8 +491,8 @@ public static int[] getSelectID(Market SM){
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
 		String path="C:\\Users\\GREG\\workspace\\Data.txt";
-		ecrireSuite(path,String.valueOf(remainingTime)+",");
 		ecrireSuite(path,"\r\n");
+		ecrireSuite(path,String.valueOf(remainingTime)+",");
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
