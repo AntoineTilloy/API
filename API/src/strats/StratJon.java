@@ -827,7 +827,7 @@ public class StratJon {
 		double[] volumes= new double[numberOfRunners];
 		double volume;
 		java.util.Calendar lastEmailSent=Calendar.getInstance();
-		int tauxRefresh=300;
+		int tauxRefresh=150;
 		double volumeP=0;
 		int nbBoucles=0;
 		int firstInvBack=0;
