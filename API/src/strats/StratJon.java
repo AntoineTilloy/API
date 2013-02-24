@@ -942,13 +942,13 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 					//Débouclage si inventaire
 					if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
 						timeExec=java.util.Calendar.getInstance();
-						timeExec.add(Calendar.SECOND, 5);
+						timeExec.add(Calendar.SECOND, 30);
 						firstInvBack=1;
 						firstInvLay=0;
 					}
 					if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack && firstInvLay==0){
 						timeExec=java.util.Calendar.getInstance();
-						timeExec.add(Calendar.SECOND, 5);
+						timeExec.add(Calendar.SECOND, 30);
 						firstInvLay=1;
 						firstInvBack=0;
 					}
