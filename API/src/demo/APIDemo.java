@@ -160,7 +160,7 @@ public class APIDemo {
 							int delay3=1;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
 							stopTime3.add(Calendar.MINUTE, -delay3);
-							StratJon.stackSmashingDouble(horseNumber3, horseNumber4, nbLevels3, stakeLevel, volumeMaxImb3, stopTime3);
+							StratJon.stackSmashingBasic(horseNumber3, nbLevels3, stakeLevel, volumeMaxImb3, stopTime3);
 							
 						}
 						
