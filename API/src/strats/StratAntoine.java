@@ -344,9 +344,9 @@ public class StratAntoine {
 	
 	public static Double Signal(InflatedCompleteMarketPrices OB, int runnerId){
 		Double signal=0.0;
-		Double a1=1.0;
-		Double a2=1.0;
-		signal=a1*StackAsymmetry(OB,runnerId,4)+a2*BestStackAsymmetry(OB,runnerId);
+		Double a1=0.7;
+		Double a2=1.0-a1;
+		signal=a1*StackAsymmetry(OB,runnerId,3)+a2*BestStackAsymmetry(OB,runnerId);
 		return signal;
 	}
 }

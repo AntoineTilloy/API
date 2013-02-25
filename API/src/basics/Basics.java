@@ -24,6 +24,7 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import demo.APIDemo;
@@ -146,7 +147,7 @@ public static int[] getSelectID(){
 
 public static int[] getSelectID(Market SM){
 	int numberOfRunners=0;
-	for (Runner mr: APIDemo.selectedMarket.getRunners().getRunner()) {
+	for (Runner mr: SM.getRunners().getRunner()) {
 		numberOfRunners++;
 	}
 	int[] selectionIDs=new int[numberOfRunners];
@@ -483,6 +484,31 @@ public static int[] getSelectID(Market SM){
 		
 	}
 
+	public static void printData(InflatedCompleteMarketPrices OB){
+		int[] selectionIDs=getSelectID();
+		double bestBack;
+		double bestLay;
+		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
+		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
+		String path="C:\\Users\\GREG\\workspace\\Data.txt";
+		ecrireSuite(path,"\r\n");
+		ecrireSuite(path,String.valueOf(remainingTime)+",");
+		for(int runner = 0; runner<3;runner++){
+			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
+			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
+			ecrireSuite(path,String.valueOf(bestBack)+","+String.valueOf(bestLay)+",");
+			for(int j=0;j<5;j++){
+				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",");	
+			}
+			for(int j=0;j<5;j++){
+				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",");	
+				}
+			//ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[1]));	
+			}	
+		}
+		
+
+
 	
 	
 	
@@ -702,8 +728,10 @@ public static double lastTraded(InflatedCompleteMarketPrices OB, int SelectionId
 public static void Twap(double kernel, int tauxRefresh, InflatedCompleteMarketPrices OB, int SelectionId){
 	
 	double lastPrice=lastTraded(OB, SelectionId);
+	double tR=tauxRefresh;
+	if(twap==0){twap=lastPrice;}
 	if(lastPrice>0){
-		twap=(1-Math.pow(kernel, (tauxRefresh/1000)))*lastPrice+twap*Math.pow(kernel, (tauxRefresh/1000));
+		twap=(1-Math.pow(kernel, (tR/1000)))*lastPrice+twap*Math.pow(kernel, (tR/1000));
 	}
 }
 

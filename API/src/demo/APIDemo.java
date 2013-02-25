@@ -152,9 +152,10 @@ public class APIDemo {
 							System.out.println();
 							StratAntoine.numberOfRunners();
 							StratPierre.printRace();
-							int horseNumber3=0;			
+							int horseNumber3=0;	
+							int horseNumber4=1;				
 							double nbLevels3=3;
-							double stakeLevel=20;
+							double stakeLevel=30;
 							double volumeMaxImb3=10;
 							int delay3=1;
 							java.util.Calendar stopTime3=APIDemo.selectedMarket.getMarketTime();
@@ -385,7 +386,9 @@ public class APIDemo {
 						finished = true;
 						break;
 					case 4: // Strat Pierre
-						StratPierre.test();
+						java.util.Calendar stopTime4=APIDemo.selectedMarket.getMarketTime();
+						stopTime4.add(Calendar.MINUTE, -5);
+						StratPierre.printDataTest(1, 1.0, 1.0, 1.0, stopTime4);
 						//StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
 						finished = true;
 						break;

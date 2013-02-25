@@ -3,6 +3,7 @@ import generated.exchange.BFExchangeServiceStub;
 import generated.exchange.BFExchangeServiceStub.BetCategoryTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetPersistenceTypeEnum;
 import generated.exchange.BFExchangeServiceStub.BetTypeEnum;
+import generated.exchange.BFExchangeServiceStub.CancelBets;
 import generated.exchange.BFExchangeServiceStub.MUBet;
 import generated.exchange.BFExchangeServiceStub.Market;
 import generated.exchange.BFExchangeServiceStub.PlaceBets;
@@ -28,6 +29,82 @@ import demo.util.InflatedCompleteMarketPrices.InflatedCompleteRunner;
 
 public class StratPierre {
 
+	public static void printDataTest(int inutile, double nbLevels, double stakeLevel, double volumeMaxImb, java.util.Calendar stopTime){
+
+		MUBet[] MUBets;
+		InflatedCompleteMarketPrices OB;
+		int SelectionId;
+		double bestBack;
+		double bestLay;
+
+		boolean exitStrat=false;
+		boolean spreadFilled=false;
+		PlaceBets[] betsVectorLay = new PlaceBets[100];
+		PlaceBets[] betsVectorBack = new PlaceBets[100];
+		CancelBets[] cancelVector = new CancelBets[100];
+		CancelBets[] cancelToSend=new CancelBets[]{};
+		PlaceBets[] betsToSendLay=new PlaceBets[]{};
+		PlaceBets[] betsToSendBack=new PlaceBets[]{};
+		int numberOfBetsLay;
+		int numberOfBetsBack;
+		int numberOfCancelBets;
+		Double[][] inventory;
+		int[] SelectionIDs;
+		int firstLevelLay;
+		int firstLevelBack;
+		double signal;
+		int numberLevels = 8;
+		int numberOfRunners=StratAntoine.numberOfRunners();
+		double[] volumes= new double[numberOfRunners];
+		double volume;
+		java.util.Calendar lastEmailSent=Calendar.getInstance();
+		int tauxRefresh=150;
+		double volumeP=0;
+		int nbBoucles=0;
+		int firstInvBack=0;
+		int firstInvLay=0;
+		java.util.Calendar timeExec=java.util.Calendar.getInstance();
+
+
+
+		while(exitStrat==false){
+
+
+			try{	
+
+
+				if(Calendar.getInstance().getTime().before(stopTime.getTime())){
+
+					Basics.waiting(tauxRefresh);
+
+
+					SelectionIDs=Basics.getSelectID();
+					MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+					OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
+					Basics.printData(OB);
+					///////////////////////////////////////////////////////
+					//spreadFilled=fillSpread(1, inutile, MUBets, OB, SelectionIDs);
+					///////////////////////////////////////////////////////////
+
+
+
+										}
+				else{
+					exitStrat=true;
+					Basics.ecrireSuite("C:\\Users\\GREG\\workspace\\Data.txt","\r\n"+"\r\n");
+					
+				}
+			} catch(Exception e){
+				e.printStackTrace();
+
+			}
+
+		}
+
+	}
+
+	
+	
 	
 	public static void launch() {
 		MUBet[] bets;
