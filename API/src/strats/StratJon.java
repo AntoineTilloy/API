@@ -1026,6 +1026,7 @@ public class StratJon {
 				Basics.printData(OB);
 				}else{
 					boolean done=false;
+					Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(-1));
 					while(done==false){
 						done=Basics.cancelAll();
 						StratAntoine.optimalUnwind();
