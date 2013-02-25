@@ -855,7 +855,8 @@ public class StratJon {
 		
 		nbBouclesTot=1;
 		Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
-		
+		Basics.launchJava();	
+
 
 		while(exitStrat==false){
 
