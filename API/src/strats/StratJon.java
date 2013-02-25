@@ -833,7 +833,7 @@ public class StratJon {
 		int firstInvBack=0;
 		int firstInvLay=0;
 		java.util.Calendar timeExec=java.util.Calendar.getInstance();
-
+		int nbBouclesTot;
 		try {
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -852,8 +852,10 @@ public class StratJon {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-
-
+		
+		nbBouclesTot=1;
+		Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
+		
 
 		while(exitStrat==false){
 
@@ -1018,6 +1020,8 @@ public class StratJon {
 						if(nbBoucles==0){System.out.print(" "+APIDemo.nbBetsSent);}
 
 					}
+				nbBouclesTot++;
+				Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
 				Basics.printData(OB);
 				}else{
 					boolean done=false;

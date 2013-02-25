@@ -77,6 +77,8 @@ public class APIDemo {
 		Level lev = Level.toLevel("OFF");
 		rootLog.setLevel(lev);
 		
+		Basics.launchJava();
+		
 		//On se connecte direct au compte
 		//String username = args.length < 1 ? Display.getStringAnswer("Betfair username:") : args[0];
 		//String password = args.length < 2 ? Display.getStringAnswer("Betfair password:") : args[1];
