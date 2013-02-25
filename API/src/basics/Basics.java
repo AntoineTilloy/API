@@ -957,9 +957,6 @@ public class Basics {// Ajouté par pierre
 	
 	public static void launchJava() {
 		Process p;
-		String[] cmdArray = new String[2];
-		cmdArray[0] = "cmd.exe /c start dir";
-		cmdArray[1] = "echo HelloWorld";
 		String newDir="C:\\";
 		try {
 			p = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c","start","java","-jar","controle.jar"}, null, new File(newDir));
