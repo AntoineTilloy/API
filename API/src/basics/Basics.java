@@ -959,7 +959,7 @@ public class Basics {// Ajouté par pierre
 		Process p;
 		String newDir="C:\\Users\\GREG\\workspace";
 		try {
-			p = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c","start","java","-jar","controle.jar"}, null, new File(newDir));
+			p = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c","start","controle.bat"}, null, new File(newDir));
 			int exitCode = p.waitFor();
 			System.out.println("Process p returned: " + exitCode);
 		
