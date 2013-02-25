@@ -141,7 +141,7 @@ try{
 		  if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 						
 			Basics.waiting(tauxRefresh);
-
+			
 			SelectionIDs=Basics.getSelectID();
 			System.out.println("debut boucle");
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -827,6 +827,7 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 		int tauxRefresh=400;
 	    
 	    int nbBoucles=0;
+	    int nbBouclesTot=0;
 	    
 	try {
 		MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
@@ -859,7 +860,9 @@ public static void stackSmashingBasic(int inutile, double nbLevels, double stake
 						
 			Basics.waiting(tauxRefresh);
 
-
+			//nbBouclesTot++;
+			//Basics.ecrire("C:\\Users\\GREG\\workspace\\runTest.txt", Integer.toString(nbBouclesTot));
+			
 			SelectionIDs=Basics.getSelectID();
 			MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 			OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
