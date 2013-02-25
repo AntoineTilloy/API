@@ -39,14 +39,14 @@ public class StratJon {
 				if(Calendar.getInstance().getTime().before(stopTime.getTime())){
 
 
-					//Récupérer les Matched et Unmatched
+					//Rï¿½cupï¿½rer les Matched et Unmatched
 					Basics.waiting(3000);
 					MUBet[] MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId()); //Rendre publiques ces variables dans APIDemo
 
-					//calculer l'inventaire, éventuellement l'inventaire en comptant les Unmatched
+					//calculer l'inventaire, ï¿½ventuellement l'inventaire en comptant les Unmatched
 					Double[][] inventaire=Basics.getInventory(MUBets);
 
-					//récupérer l'OB
+					//rï¿½cupï¿½rer l'OB
 					InflatedCompleteMarketPrices OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
 					int SelectionID=OB.getRunners().get(horseNumber).getSelectionId();	
@@ -55,7 +55,7 @@ public class StratJon {
 					double bestBack=Basics.findBest("B", OB, SelectionID);
 					double bestLay=Basics.findBest("L", OB, SelectionID);
 
-					//LO au best : MM avec déséquilibre d'inventaire   1=Back, 2=Lay
+					//LO au best : MM avec dï¿½sï¿½quilibre d'inventaire   1=Back, 2=Lay
 					/*if (inventaire[1]<inventaire[2]+volumeMaxImb){
 		Basics.placeBetlevel("B", bestBack, 0, volume, SelectionID);	
 	}
@@ -82,7 +82,7 @@ public class StratJon {
 
 				}
 				else{
-					//débouclageOptimal(); // A construire
+					//dï¿½bouclageOptimal(); // A construire
 					exitStrat=true;
 					System.out.println("Exit Strat : " + exitStrat);
 				}
@@ -310,7 +310,7 @@ public class StratJon {
 					System.out.println(PnL);
 					String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 					StratPierre.writeRace(path);
-					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" ï¿½" + "\r\n");
 					exitStrat=true;
 					System.out.println("Exit Strat : " + exitStrat);
 				}
@@ -374,7 +374,7 @@ public class StratJon {
 					MUBets = ExchangeAPI.getMUBets(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 					OB = ExchangeAPI.getCompleteMarketPrices(APIDemo.selectedExchange, APIDemo.apiContext, APIDemo.selectedMarket.getMarketId());
 
-					////////// Pour stop lorsque trop échecs API
+					////////// Pour stop lorsque trop ï¿½checs API
 					/*
 			System.out.println("in play delay: " + OB.getInPlayDelay());
 			if(OB.getInPlayDelay()==lastdelay){
@@ -761,7 +761,7 @@ public class StratJon {
 		int numLay=Basics.findPriceLadder(bestLay);
 		int spreadSize=numBack-numLay;
 
-		//distToOppositeBest définit le niveau d'en face sur lequel on place le volume à greener (0 : on le met sur le best, 1 : juste devant le best, etc)
+		//distToOppositeBest dï¿½finit le niveau d'en face sur lequel on place le volume ï¿½ greener (0 : on le met sur le best, 1 : juste devant le best, etc)
 		if(spreadSize>distToOppositeBest+1 && Math.abs(inventaire)/bestLay>5){
 
 			PlaceBets[] betVector = new PlaceBets[spreadSize-distToOppositeBest];
@@ -827,7 +827,7 @@ public class StratJon {
 		double[] volumes= new double[numberOfRunners];
 		double volume;
 		java.util.Calendar lastEmailSent=Calendar.getInstance();
-		int tauxRefresh=150;
+		int tauxRefresh=50;
 		double volumeP=0;
 		int nbBoucles=0;
 		int firstInvBack=0;
@@ -939,7 +939,7 @@ public class StratJon {
 						}
 
 
-						//Débouclage si inventaire
+						//Dï¿½bouclage si inventaire
 						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
 							timeExec=java.util.Calendar.getInstance();
 							timeExec.add(Calendar.SECOND, 30);
@@ -1029,7 +1029,7 @@ public class StratJon {
 					System.out.println(PnL);
 					String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 					StratPierre.writeRace(path);
-					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" ï¿½" + "\r\n");
 					exitStrat=true;
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
@@ -1150,7 +1150,7 @@ public class StratJon {
 						}
 
 
-						//Débouclage si inventaire
+						//Dï¿½bouclage si inventaire
 						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
 							timeExec=java.util.Calendar.getInstance();
 							timeExec.add(Calendar.SECOND, 5);
@@ -1182,7 +1182,7 @@ public class StratJon {
 							}
 						}
 
-						//MO si défonçage
+						//MO si dï¿½fonï¿½age
 						if(bestLay<exBestLay-2){
 							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)+1], volume, SelectionId);
 							numberOfBetsLay=numberOfBetsLay+1;
@@ -1224,7 +1224,7 @@ public class StratJon {
 					System.out.println(PnL);
 					String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 					StratPierre.writeRace(path);
-					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" ï¿½" + "\r\n");
 					exitStrat=true;
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
@@ -1362,7 +1362,7 @@ public class StratJon {
 						}
 
 
-						//Débouclage si inventaire
+						//Dï¿½bouclage si inventaire
 						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
 							timeExec2=java.util.Calendar.getInstance();
 							timeExec2.add(Calendar.SECOND, 30);
@@ -1394,7 +1394,7 @@ public class StratJon {
 							}
 						}
 
-						//MO si défonçage
+						//MO si dï¿½fonï¿½age
 						if(bestLay<exBestLay-2){
 							betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)+1], volume, SelectionId);
 							numberOfBetsLay=numberOfBetsLay+1;
@@ -1476,7 +1476,7 @@ public class StratJon {
 						}
 
 
-						//Débouclage si inventaire
+						//Dï¿½bouclage si inventaire
 						if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack && firstInvBack==0){
 							timeExec=java.util.Calendar.getInstance();
 							timeExec.add(Calendar.SECOND, 30);
@@ -1565,7 +1565,7 @@ public class StratJon {
 					System.out.println(PnL);
 					String path="C:\\Users\\GREG\\workspace\\PnL.txt";
 					StratPierre.writeRace(path);
-					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" €" + "\r\n");
+					Basics.ecrireSuite(path, "PnL is: " + String.valueOf(PnL)+" ï¿½" + "\r\n");
 					exitStrat=true;
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
