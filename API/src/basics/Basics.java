@@ -490,12 +490,14 @@ public static int[] getSelectID(Market SM){
 		double bestLay;
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
-		String path="C:\\Users\\GREG\\workspace\\Data.txt";
+		String day=String.valueOf(Calendar.getInstance().DATE)+String.valueOf(Calendar.getInstance().MONTH)+String.valueOf(Calendar.getInstance().YEAR);
+		String path="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
 		ecrireSuite(path,"\r\n");
 		ecrireSuite(path,String.valueOf(remainingTime)+",");
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
+			ecrireSuite(path," ,");
 			ecrireSuite(path,String.valueOf(bestBack)+","+String.valueOf(bestLay)+",");
 			for(int j=0;j<5;j++){
 				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",");	
@@ -503,7 +505,7 @@ public static int[] getSelectID(Market SM){
 			for(int j=0;j<5;j++){
 				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",");	
 				}
-			//ecrireSuite(path,String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[0])+","+String.valueOf(volumeOBtot(OB,selectionIDs[runner],6)[1]));	
+				
 			}	
 		}
 		
