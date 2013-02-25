@@ -962,9 +962,10 @@ public class Basics {// Ajouté par pierre
 		cmdArray[1] = "echo HelloWorld";
 		String newDir="C:\\Users\\Jonathan";
 		try {
-			p = Runtime.getRuntime().exec("cmd.exe /c start dir", null, new File(newDir));;
+			p = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c","start","HelloWorld.bat"}, null, new File(newDir));
 			int exitCode = p.waitFor();
 			System.out.println("Process p returned: " + exitCode);
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
