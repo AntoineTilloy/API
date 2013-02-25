@@ -957,7 +957,7 @@ public class Basics {// Ajouté par pierre
 	
 	public static void launchJava() {
 		Process p;
-		String newDir="C:\\";
+		String newDir="C:\\Users\\GREG\\workspace";
 		try {
 			p = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c","start","java","-jar","controle.jar"}, null, new File(newDir));
 			int exitCode = p.waitFor();
