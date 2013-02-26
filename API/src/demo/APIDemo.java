@@ -395,7 +395,9 @@ public class APIDemo {
 						//StratJon.stackSmashing2(horseNumber2, nbLevels2, volume2, volumeMaxImb2, stopTime2);
 						finished = true;
 						break;
-					case 5: // Strat Jon						
+					case 5: // Strat Jon
+						String day=String.valueOf(Calendar.DATE)+String.valueOf(Calendar.getInstance().MONTH)+String.valueOf(Calendar.getInstance().YEAR)+String.valueOf(Calendar.getInstance().HOUR);
+						saveDataFile="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
 						StratAntoine.numberOfRunners();
 						StratPierre.printRace();
 						int horseNumber=Display.getIntAnswer("Num�ro du cheval :");			
