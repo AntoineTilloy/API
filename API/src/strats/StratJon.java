@@ -975,8 +975,8 @@ public class StratJon {
 						}
 
 
-						firstLevelLay=3;
-						firstLevelBack=3;
+						firstLevelLay=2;
+						firstLevelBack=2;
 
 						price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
 						for(int k=firstLevelLay;k<=numberLevels;k++){	
