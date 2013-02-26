@@ -112,7 +112,7 @@ public class StratAntoine {
 		
 		if (posToExecute>0.0001){
 			String type="L";//je veux regarder ce qu'il y a au lay pour backer
-			//System.out.println("on regarde du coté du BACK");
+			//System.out.println("on regarde du cotï¿½ du BACK");
 			Double quote=Basics.findBest("L", OB, runnerId);//donc je regarde le meilleur prix des layeurs presents
 			//System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -143,7 +143,7 @@ public class StratAntoine {
 		}
 		if (posToExecute<-0.0001){
 			String type="B";// je veux regarder ce qu'il y a au back pour layer
-			//System.out.println("on regarde du coté du LAY");
+			//System.out.println("on regarde du cotï¿½ du LAY");
 			Double quote=Basics.findBest("B", OB, runnerId);//donc je regarde le meilleur prix des backeurs
 			//System.out.println("quote "+quote);
 			int quoteIndex=Basics.findPriceLadder(quote);
@@ -177,7 +177,7 @@ public class StratAntoine {
 			cost=0.0;
 		}
 		
-		//System.out.println("Fin du calcul du transaction price pour un sous marché");
+		//System.out.println("Fin du calcul du transaction price pour un sous marchï¿½");
 		
 		return cost;
 	}
@@ -231,7 +231,7 @@ public class StratAntoine {
 				potentialFinalProfit[i]=potentialFinalProfit[i]-costVector[j];
 				if ((costVector[j]>0.1)&&(costVector[j]<1.99)){
 					potentialFinalProfit[i]=potentialFinalProfit[i]-1000000; //Si on doit deboucler avec moins de 2 (mais plus de 0.1) alors je 
-					//penalise fortement cette possibilité (en gros elle est impossible).
+					//penalise fortement cette possibilitï¿½ (en gros elle est impossible).
 				}
 			}
 		}
@@ -344,7 +344,7 @@ public class StratAntoine {
 	
 	public static Double Signal(InflatedCompleteMarketPrices OB, int runnerId){
 		Double signal=0.0;
-		Double a1=0.7;
+		Double a1=0.9;
 		Double a2=1.0-a1;
 		signal=a1*StackAsymmetry(OB,runnerId,3)+a2*BestStackAsymmetry(OB,runnerId);
 		return signal;
