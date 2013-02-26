@@ -67,6 +67,7 @@ public class APIDemo {
 	public static double dailyPnL=0;
 	public static double[] priceLadder;
 	public static int nbBetsSent=0;
+	public static String saveDataFile="C:\\Users\\GREG\\workspace\\Data.txt";
 	
 	// Fire up the API demo
 	public static void main(String[] args)  throws Exception {
@@ -141,6 +142,8 @@ public class APIDemo {
 						break;
 					case 10: // Strat Auto	
 						dailyPnL=0;
+						String day=String.valueOf(Calendar.DATE)+String.valueOf(Calendar.getInstance().MONTH)+String.valueOf(Calendar.getInstance().YEAR)+String.valueOf(Calendar.getInstance().HOUR);
+						saveDataFile="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
 						while(true){
 							System.out.println();
 							searchNextRace(5);

@@ -1040,7 +1040,7 @@ public class StratJon {
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
 					Basics.Send("PNL", "" + PnL + " // cumul day " + APIDemo.dailyPnL);
-					Basics.ecrireSuite("C:\\Users\\GREG\\workspace\\Data.txt","\r\n"+"\r\n");
+					Basics.ecrireSuite(APIDemo.saveDataFile,"\r\n"+"\r\n");
 				}
 			} catch(Exception e){
 				e.printStackTrace();
