@@ -492,24 +492,24 @@ public class Basics {// Ajouté par pierre
 		double bestLay;
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
-		String day=String.valueOf(Calendar.getInstance().DATE)+String.valueOf(Calendar.getInstance().MONTH)+String.valueOf(Calendar.getInstance().YEAR);
-		String path="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
-		ecrireSuite(path,"\r\n");
-		ecrireSuite(path,String.valueOf(remainingTime)+",");
+		String path=APIDemo.saveDataFile;
+		String write="\r\n";
+		write=write+String.valueOf(remainingTime)+",";
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
-			ecrireSuite(path," ,");
-			ecrireSuite(path,String.valueOf(bestBack)+","+String.valueOf(bestLay)+",");
+			write=write+" ,";
+			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+",";
 			for(int j=0;j<5;j++){
-				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",");	
+				write=write+String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",";	
 			}
 			for(int j=0;j<5;j++){
-				ecrireSuite(path,String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",");	
+				write=write+String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestBack)+j],OB)[1])+",";	
+				}
+				
 			}
-
-		}	
-	}
+		ecrireSuite(path,write);
+		}
 
 
 

@@ -959,14 +959,14 @@ public class StratJon {
 
 						numberOfBetsLay=0;
 						numberOfBetsBack=0;
-						if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+						if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])>10 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
 							firstInvBack=0;
 							if(inventory[horseNumber][1]-inventory[horseNumber][0]>3*bestBack){
 								betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+2], Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestBack, SelectionId);
 								numberOfBetsLay=numberOfBetsLay+1;
 							}
 						}
-						if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-30 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
+						if(StratAntoine.Signal(OB, SelectionIDs[horseNumber])<-10 && java.util.Calendar.getInstance().getTime().after(timeExec.getTime())){
 							firstInvLay=0;
 							if(inventory[horseNumber][0]-inventory[horseNumber][1]>3*bestBack){
 								betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-2], Math.abs(inventory[horseNumber][1]-inventory[horseNumber][0])/bestLay, SelectionId);
@@ -975,8 +975,8 @@ public class StratJon {
 						}
 
 
-						firstLevelLay=3;
-						firstLevelBack=3;
+						firstLevelLay=2;
+						firstLevelBack=2;
 
 						price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
 						for(int k=firstLevelLay;k<=numberLevels;k++){	
@@ -1026,6 +1026,7 @@ public class StratJon {
 				Basics.printData(OB);
 				}else{
 					boolean done=false;
+					Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(-1));
 					while(done==false){
 						done=Basics.cancelAll();
 						StratAntoine.optimalUnwind();
@@ -1039,7 +1040,7 @@ public class StratJon {
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
 					Basics.Send("PNL", "" + PnL + " // cumul day " + APIDemo.dailyPnL);
-					Basics.ecrireSuite("C:\\Users\\GREG\\workspace\\Data.txt","\r\n"+"\r\n");
+					Basics.ecrireSuite(APIDemo.saveDataFile,"\r\n"+"\r\n");
 				}
 			} catch(Exception e){
 				e.printStackTrace();
