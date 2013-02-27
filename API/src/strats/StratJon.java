@@ -263,16 +263,16 @@ public class StratJon {
 							price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 						}
 
-						price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+marginBestBack];
-						for(int k=0; k<= 4; k++){
-							if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2 ){
-								betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
-								numberOfBets=numberOfBets+1;
-								//System.out.println("volume back place "+ (4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets)));
-							}
-							price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+					//	price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+marginBestBack];
+					//	for(int k=0; k<= 4; k++){
+					//		if(price>=implicitP[horseNumber][1] - (implicitP[horseNumber][1]-implicitP[horseNumber][0])/addBack & Basics.volumeAt(SelectionId, "B", price, MUBets)<4+4*k-2 ){
+					//			betsVector[numberOfBets]=Basics.generateBet("B", price, 4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
+					//			numberOfBets=numberOfBets+1;
+					//			//System.out.println("volume back place "+ (4+4*k-Basics.volumeAt(SelectionId, "B", price, MUBets)));
+					//		}
+					//		price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 
-						}
+					//	}
 						if(inventory[horseNumber][0]-inventory[horseNumber][1]<=0.5*bestBack*10 & inventory[horseNumber][0]-inventory[horseNumber][1]>0){
 							if(Basics.volumeAt(SelectionId, "B", bestBack, MUBets)*bestBack<inventory[horseNumber][0]-inventory[horseNumber][1] && (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets)>=2){
 								betsVector[numberOfBets]=Basics.generateBet("B", bestBack, (inventory[horseNumber][0]-inventory[horseNumber][1])/bestBack-Basics.volumeAt(SelectionId, "B", bestBack, MUBets), SelectionId);
