@@ -989,17 +989,17 @@ public class StratJon {
 							price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
 						}
 
-						price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
-						for(int k=firstLevelBack; k<= numberLevels; k++){
-							if(k-firstLevelLay<4){volumeP=3*volume;}
-							else{volumeP=6*volume;}	
-							if(Basics.volumeAt(SelectionId, "B", price, MUBets)<volumeP-2){
-								betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", price, volumeP-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
-								numberOfBetsBack=numberOfBetsBack+1;
-							}
-							price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
+						//price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
+						//for(int k=firstLevelBack; k<= numberLevels; k++){
+						//	if(k-firstLevelLay<4){volumeP=3*volume;}
+						//	else{volumeP=6*volume;}	
+						//	if(Basics.volumeAt(SelectionId, "B", price, MUBets)<volumeP-2){
+						//		betsVectorBack[numberOfBetsBack]=Basics.generateBet("B", price, volumeP-Basics.volumeAt(SelectionId, "B", price, MUBets), SelectionId);
+						//		numberOfBetsBack=numberOfBetsBack+1;
+						//	}
+						//	price=APIDemo.priceLadder[Basics.findPriceLadder(price)+1];
 
-						}
+						//}
 						APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsBack;
 						APIDemo.nbBetsSent=APIDemo.nbBetsSent+numberOfBetsLay;
 						betsToSendLay=new PlaceBets[numberOfBetsLay];
