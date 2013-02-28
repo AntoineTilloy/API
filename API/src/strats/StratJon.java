@@ -827,7 +827,7 @@ public class StratJon {
 		double[] volumes= new double[numberOfRunners];
 		double volume;
 		java.util.Calendar lastEmailSent=Calendar.getInstance();
-		int tauxRefresh=50;
+		int tauxRefresh=100;
 		double volumeP=0;
 		int nbBoucles=0;
 		int firstInvBack=0;
@@ -854,8 +854,8 @@ public class StratJon {
 		} 
 		
 		nbBouclesTot=1;
-		Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
-		Basics.launchJava();	
+		//Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
+		//Basics.launchJava();	
 
 
 		while(exitStrat==false){
@@ -1022,7 +1022,7 @@ public class StratJon {
 
 					}
 				nbBouclesTot++;
-				Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
+				//Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
 				Basics.printData(OB);
 				}else{
 					boolean done=false;
