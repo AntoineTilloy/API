@@ -978,16 +978,16 @@ public class StratJon {
 						firstLevelLay=2;
 						firstLevelBack=2;
 
-						price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
-						for(int k=firstLevelLay;k<=numberLevels;k++){	
-							if(k-firstLevelLay<4){volumeP=3*volume;}
-							else{volumeP=6*volume;}						
-							if(Basics.volumeAt(SelectionId, "L", price, MUBets)<volumeP-2){
-								betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", price, volumeP-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
-								numberOfBetsLay=numberOfBetsLay+1;
-							}
-							price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
-						}
+						//price=APIDemo.priceLadder[Basics.findPriceLadder(bestLay)-firstLevelLay];
+						//for(int k=firstLevelLay;k<=numberLevels;k++){	
+						//	if(k-firstLevelLay<4){volumeP=3*volume;}
+						//	else{volumeP=6*volume;}						
+						//	if(Basics.volumeAt(SelectionId, "L", price, MUBets)<volumeP-2){
+						//		betsVectorLay[numberOfBetsLay]=Basics.generateBet("L", price, volumeP-Basics.volumeAt(SelectionId, "L", price, MUBets), SelectionId);
+						//		numberOfBetsLay=numberOfBetsLay+1;
+						//	}
+						//	price=APIDemo.priceLadder[Basics.findPriceLadder(price)-1];
+						//}
 
 						//price=APIDemo.priceLadder[Basics.findPriceLadder(bestBack)+firstLevelBack];
 						//for(int k=firstLevelBack; k<= numberLevels; k++){
