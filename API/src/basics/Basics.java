@@ -490,6 +490,9 @@ public class Basics {// Ajouté par pierre
 		int[] selectionIDs=getSelectID();
 		double bestBack;
 		double bestLay;
+		double lastTraded=0;
+		double volTraded=0;
+		int numRunner;
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
 		String path=APIDemo.saveDataFile;
@@ -498,7 +501,14 @@ public class Basics {// Ajouté par pierre
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
-			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+",";
+			for(int numRun=0;numRun<OB.getRunners().size();numRun++){
+				if(OB.getRunners().get(numRun).getSelectionId()==selectionIDs[runner]){
+					numRunner=numRun;
+					lastTraded=OB.getRunners().get(numRunner).getLastPriceMatched();
+					volTraded=OB.getRunners().get(numRunner).getTotalAmountMatched();
+				}
+			}
+			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+","+lastTraded+","+volTraded+",";
 			for(int j=0;j<5;j++){
 				write=write+String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",";	
 			}
