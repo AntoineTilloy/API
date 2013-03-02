@@ -492,6 +492,9 @@ public class Basics {// Ajouté par pierre
 		double bestLay;
 		double lastTraded=0;
 		double volTraded=0;
+		double actualSP=0;
+		double nearSP=0;
+		double farSP=0;
 		int numRunner;
 		java.util.Calendar stopTime=APIDemo.selectedMarket.getMarketTime();
 		double remainingTime=stopTime.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
@@ -506,9 +509,12 @@ public class Basics {// Ajouté par pierre
 					numRunner=numRun;
 					lastTraded=OB.getRunners().get(numRunner).getLastPriceMatched();
 					volTraded=OB.getRunners().get(numRunner).getTotalAmountMatched();
+					actualSP=OB.getRunners().get(numRunner).getActualSPPrice();
+					farSP=OB.getRunners().get(numRunner).getFarSPPrice();
+					nearSP=OB.getRunners().get(numRunner).getNearSPPrice();
 				}
 			}
-			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+","+lastTraded+","+volTraded+",";
+			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+","+lastTraded+","+volTraded+","+actualSP+","+nearSP+","+farSP+",";
 			for(int j=0;j<5;j++){
 				write=write+String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",";	
 			}
