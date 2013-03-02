@@ -857,6 +857,7 @@ public class StratJon {
 		//Basics.ecrire("C:\\Users\\GREG\\workspace\\controle.txt", Integer.toString(nbBouclesTot));	
 		//Basics.launchJava();	
 
+		Basics.ecrireSuite(APIDemo.saveDataFile,"\r\n"+"\r\n");
 
 		while(exitStrat==false){
 
@@ -1040,7 +1041,6 @@ public class StratJon {
 					System.out.println("Exit Strat : " + exitStrat);
 					APIDemo.dailyPnL += PnL;
 					Basics.Send("PNL", "" + PnL + " // cumul day " + APIDemo.dailyPnL);
-					Basics.ecrireSuite(APIDemo.saveDataFile,"\r\n"+"\r\n");
 				}
 			} catch(Exception e){
 				e.printStackTrace();

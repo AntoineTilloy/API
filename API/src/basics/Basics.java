@@ -498,7 +498,6 @@ public class Basics {// Ajouté par pierre
 		for(int runner = 0; runner<3;runner++){
 			bestBack=Basics.findBest("B", OB, selectionIDs[runner]);
 			bestLay=Basics.findBest("L", OB, selectionIDs[runner]);
-			write=write+" ,";
 			write=write+String.valueOf(bestBack)+","+String.valueOf(bestLay)+",";
 			for(int j=0;j<5;j++){
 				write=write+String.valueOf(volumeOBAt(selectionIDs[runner],APIDemo.priceLadder[findPriceLadder(bestLay)-j],OB)[0])+",";	

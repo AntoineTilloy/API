@@ -142,7 +142,7 @@ public class APIDemo {
 						break;
 					case 10: // Strat Auto	
 						dailyPnL=0;
-						String day=String.valueOf(Calendar.DATE)+String.valueOf(Calendar.getInstance().MONTH)+String.valueOf(Calendar.getInstance().YEAR)+String.valueOf(Calendar.getInstance().HOUR);
+						String day=Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"_"+Calendar.getInstance().get(Calendar.MONTH)+"_"+Calendar.getInstance().get(Calendar.YEAR);
 						saveDataFile="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
 						while(true){
 							System.out.println();
