@@ -146,7 +146,7 @@ public class APIDemo {
 						saveDataFile="C:\\Users\\GREG\\workspace\\Data"+day+".txt";
 						while(true){
 							System.out.println();
-							searchNextRace(5);
+							searchNextRace(20);
 							if(!isMarketSelected()){
 								finished=true;
 								System.out.println("Ending");
